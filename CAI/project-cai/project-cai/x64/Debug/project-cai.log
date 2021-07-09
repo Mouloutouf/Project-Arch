@@ -1,0 +1,29 @@
+﻿  Background.cpp
+  BackgroundLayer.cpp
+  Behaviour.cpp
+  Bullet.cpp
+  Content.cpp
+  Controller.cpp
+  Enemy.cpp
+  EnemyData.cpp
+  Entity.cpp
+  Game.cpp
+  GameEngine.cpp
+  GameObject.cpp
+  GameWindow.cpp
+D:\Documents\__PROG\_C++\CAI\project-cai\project-cai\GameWindow.cpp(17,45): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
+D:\Documents\__PROG\_C++\CAI\project-cai\project-cai\GameWindow.cpp(17,38): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
+  main.cpp
+  Shoot.cpp
+  ShootController.cpp
+  ShootData.cpp
+  ShootPattern.cpp
+  SpaceShip.cpp
+  SpaceShipData.cpp
+  Génération de code en cours...
+  Compilation en cours...
+  Spawner.cpp
+D:\Documents\__PROG\_C++\CAI\project-cai\project-cai\Spawner.cpp(48,39): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  SpriteRenderer.cpp
+  Génération de code en cours...
+  project-cai.vcxproj -> D:\Documents\__PROG\_C++\CAI\project-cai\x64\Debug\project-cai.exe

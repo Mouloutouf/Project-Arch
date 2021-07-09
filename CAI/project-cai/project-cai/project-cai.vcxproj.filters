@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core">
+      <UniqueIdentifier>{342fdcbc-e1b8-43f0-ac0a-144d11d098e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\GameObjects">
+      <UniqueIdentifier>{ee4f80aa-ff94-4389-a648-df1fc70f6319}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Behaviours">
+      <UniqueIdentifier>{b26b05e0-178c-4a78-8749-64ccdab4577d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core">
+      <UniqueIdentifier>{3ba6c626-1639-4f22-86f0-6a4468c84849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GameObjects">
+      <UniqueIdentifier>{45c64ad0-f6ce-41ff-ac04-c5a0c5eb7fa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Behaviours">
+      <UniqueIdentifier>{05938775-dab8-4d91-aef2-3301113b9ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Data">
+      <UniqueIdentifier>{c27c4443-9342-4340-9512-fa3c59d572cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Data">
+      <UniqueIdentifier>{0a5d9bc5-6ff0-4b11-9db9-8b7c3fb7a491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Game">
+      <UniqueIdentifier>{efda314c-e8d1-4a01-8d3a-a3be470f85c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core\Base">
+      <UniqueIdentifier>{b78982d7-41af-4371-b669-34e95c9f2d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core\Game">
+      <UniqueIdentifier>{25b4df5f-80b1-4fbf-a115-c855a18b9596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Base">
+      <UniqueIdentifier>{1853c90c-8d6c-4fe1-90b7-91b4653553ed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Fichiers sources\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Fichiers sources\Core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Fichiers sources\Core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWindow.cpp">
+      <Filter>Fichiers sources\Core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Behaviour.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Content.cpp">
+      <Filter>Fichiers sources\Core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayElement.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Element.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameElement.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Controller.h">
+      <Filter>Fichiers d%27en-tête\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Fichiers d%27en-tête\Core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.h">
+      <Filter>Fichiers d%27en-tête\Core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWindow.h">
+      <Filter>Fichiers d%27en-tête\Core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Behaviour.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Content.h">
+      <Filter>Fichiers d%27en-tête\Core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Element.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameElement.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayElement.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
