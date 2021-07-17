@@ -54,9 +54,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
-      <Filter>Fichiers sources\Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Fichiers sources\Core\Game</Filter>
     </ClCompile>
@@ -66,35 +63,23 @@
     <ClCompile Include="GameWindow.cpp">
       <Filter>Fichiers sources\Core\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Fichiers sources\Core\Base</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Behaviour.cpp">
-      <Filter>Fichiers sources\Core\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Content.cpp">
       <Filter>Fichiers sources\Core\Game</Filter>
     </ClCompile>
-    <ClCompile Include="DisplayElement.cpp">
-      <Filter>Fichiers sources\Core</Filter>
+    <ClCompile Include="Component.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Element.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="GameElement.cpp">
-      <Filter>Fichiers sources\Core</Filter>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Controller.h">
-      <Filter>Fichiers d%27en-tête\Behaviours</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Fichiers d%27en-tête\Core\Game</Filter>
     </ClInclude>
@@ -104,13 +89,7 @@
     <ClInclude Include="GameWindow.h">
       <Filter>Fichiers d%27en-tête\Core\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Behaviour.h">
       <Filter>Fichiers d%27en-tête\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
@@ -119,14 +98,11 @@
     <ClInclude Include="Content.h">
       <Filter>Fichiers d%27en-tête\Core\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Element.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
+    <ClInclude Include="Component.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="GameElement.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="DisplayElement.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
+    <ClInclude Include="Collider.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

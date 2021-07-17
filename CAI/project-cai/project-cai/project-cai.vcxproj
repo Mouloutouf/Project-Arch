@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -151,14 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Behaviour.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Content.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DisplayElement.cpp" />
-    <ClCompile Include="Element.cpp" />
-    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameElement.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWindow.cpp" />
@@ -166,17 +162,13 @@
     <ClCompile Include="SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Content.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="DisplayElement.h" />
-    <ClInclude Include="Element.h" />
-    <ClInclude Include="GameElement.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWindow.h" />
-    <ClInclude Include="Entity.h" />
     <ClInclude Include="SpriteRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

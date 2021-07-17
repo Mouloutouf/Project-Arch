@@ -9,20 +9,20 @@ using namespace sf;
 
 int main()
 {
-	GameEngine * gameEngine = new GameEngine();
+	GameEngine gameEngine = GameEngine();
 
-	GameWindow * gameWindow = gameEngine->GetWindow();
+	GameWindow * gameWindow = gameEngine.GetWindow();
 	RenderWindow * window = gameWindow->window;
 	window->setFramerateLimit(60);
 
-	Clock myClock;
+	Clock clock;
 
-	gameEngine->Start();
+	gameEngine.Start();
 
 	while (window->isOpen())
 	{
-		Time elapsed = myClock.getElapsedTime();
-		myClock.restart();
+		Time elapsed = clock.getElapsedTime();
+		clock.restart();
 		float elapsedTime = (float)elapsed.asMicroseconds() / (float)1000000;
 
 		Event event;
@@ -34,7 +34,7 @@ int main()
 			}
 		}
 
-		gameEngine->Run(elapsedTime);
+		gameEngine.Run(elapsedTime);
 	}
 
 	return 0;

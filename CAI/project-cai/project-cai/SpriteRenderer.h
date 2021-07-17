@@ -7,31 +7,37 @@
 #include <iostream>
 #include <SFML\Graphics.hpp>
 
+#include "Component.h"
+
 using namespace std;
 using namespace sf;
 
-class SpriteRenderer
+class SpriteRenderer : public Component
 {
 public:
 
-	SpriteRenderer(string imagePath);
+	SpriteRenderer();
+	SpriteRenderer(GameObject* _gameObject, string _name = nullptr, string _spritePath = nullptr);
 	~SpriteRenderer();
 
-	void Render(RenderWindow * window);
+	void Draw(RenderWindow * _window);
 
-	void SetPosition(float x, float y);
-	void SetPosition(Vector2f pos);
+	void SetPosition(float _x, float _y);
+	void SetPosition(Vector2f _pos);
 
 	Vector2f GetSpriteSize();
 
-	void SetScale(float scale);
+	void SetScale(float _scale);
+	void SetScale(Vector2f _scale);
 
-	void SetRotation(float angle);
+	void SetRotation(float _angle);
 
 protected:
 
-	Sprite * sprite;
-	Texture * texture;
+	string spritePath;
+
+	Sprite sprite;
+	Texture texture;
 
 	Vector2f position;
 };

@@ -1,57 +1,67 @@
 #include "SpriteRenderer.h"
 
-SpriteRenderer::SpriteRenderer(string imagePath)
+SpriteRenderer::SpriteRenderer()
 {
-	texture = new Texture();
-	sprite = new Sprite();
+	Component();
+}
+SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _name = nullptr, string _spritePath = nullptr)
+: spritePath(_spritePath)
+{
+	Component(_gameObject, _name);
 
-	texture->loadFromFile(imagePath);
-	
-	sprite->setTexture(*texture);
-	FloatRect rect;
-	IntRect pixelRect;
+	texture = Texture();
+	sprite = Sprite();
+
+	if (!_spritePath.empty())
+	{
+		texture.loadFromFile(_spritePath);
+
+		sprite.setTexture(texture);
+		/*FloatRect rect;
+		IntRect pixelRect;*/
+	}
 
 	SetPosition(position);
 }
 
 SpriteRenderer::~SpriteRenderer()
 {
-	delete sprite;
-
-	delete texture;
 }
 
-void SpriteRenderer::Render(RenderWindow * window)
+void SpriteRenderer::Draw(RenderWindow * _window)
 {
-	window->draw(*sprite);
+	_window->draw(sprite);
 }
 
-void SpriteRenderer::SetPosition(float x, float y)
+void SpriteRenderer::SetPosition(float _x, float _y)
 {
-	position.x = x;
-	position.y = y;
+	position.x = _x;
+	position.y = _y;
 
-	sprite->setPosition(position);
+	sprite.setPosition(position);
 }
-
-void SpriteRenderer::SetPosition(Vector2f pos)
+void SpriteRenderer::SetPosition(Vector2f _position)
 {
-	position = pos;
+	position = _position;
 
-	sprite->setPosition(position);
+	sprite.setPosition(position);
 }
 
 Vector2f SpriteRenderer::GetSpriteSize()
 {
-	return (Vector2f)texture->getSize();
+	return (Vector2f)texture.getSize();
 }
 
-void SpriteRenderer::SetScale(float scale)
+void SpriteRenderer::SetScale(float _scale)
 {
-	sprite->setScale(sprite->getScale().x * scale, sprite->getScale().y * scale);
+	sprite.setScale(sprite.getScale().x * _scale, sprite.getScale().y * _scale);
+}
+void SpriteRenderer::SetScale(Vector2f _scale)
+{
+	sprite.setScale(sprite.getScale().x * _scale.x, sprite.getScale().y * _scale.y);
 }
 
-void SpriteRenderer::SetRotation(float angle)
+void SpriteRenderer::SetRotation(float _angle)
 {
-	sprite->setRotation(angle);
+	sprite.setRotation(_angle);
 }

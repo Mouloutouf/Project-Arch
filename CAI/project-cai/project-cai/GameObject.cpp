@@ -1,52 +1,121 @@
 #include "GameObject.h"
+#include <typeinfo>
+
+Transform2D::Transform2D()
+{
+}
+Transform2D::Transform2D(GameObject* _gameObject)
+: gameObject(_gameObject)
+{
+}
+
+Transform2D::~Transform2D()
+{
+}
 
 GameObject::GameObject()
 {
+	transform = Transform2D { this };
+	transform.scale = Vector2f(1, 1);
 }
-
-GameObject::GameObject(SpriteRenderer * newSpriteRenderer, float scale)
+GameObject::GameObject(Transform2D _transform, GameObject* _parent = nullptr, string _name = "New Game Object", int _layer = 0, int _tags[] = {}, ...)
+: transform(_transform), parent(_parent), name(_name), layer(_layer)
 {
-	spriteRenderer = newSpriteRenderer;
-	spriteRenderer->SetScale(scale);
-}
+	for (int i = 0; i < sizeof(_tags); i++)
+	{
+		tags.push_back(_tags[i]);
+	}
 
-GameObject::GameObject(SpriteRenderer * newSpriteRenderer, float scale, vector<Behaviour*> attachedBehaviours)
-: GameObject::GameObject(newSpriteRenderer, scale)
-{
-	behaviours = attachedBehaviours;
+	// Initialize Components if any
 }
 
 GameObject::~GameObject()
 {
-	delete spriteRenderer;
-
-	for (Behaviour * behaviour : behaviours)
+	for (auto ch : children)
 	{
-		delete behaviour;
+		delete ch;
 	}
 }
 
-void GameObject::Start()
+template<class T>
+Component* GameObject::GetComponent()
 {
-	spriteRenderer->SetPosition(position);
-
-	for (Behaviour * behaviour : behaviours)
+	for (auto c : components)
 	{
-		behaviour->Start();
+		if (typeid(c) == typeid(T))
+		{
+			return &(T)c;
+		}
+	}
+	return nullptr;
+}
+template<class T>
+Component* GameObject::GetComponent(string _name)
+{
+	if (!_name.empty())
+	{
+		for (auto c : components)
+		{
+			if (_name == c.name)
+			{
+				return &(T)c;
+			}
+		}
+	}
+	return nullptr;
+}
+
+template<class T>
+vector<Component*> GameObject::GetComponents()
+{
+	vector<Component*> _components;
+	for (auto c : components)
+	{
+		if (typeid(c) == typeid(T))
+		{
+			_components.push_back(&(T)c);
+		}
+	}
+	return _components;
+}
+
+vector<Component>* GameObject::GetAllComponents()
+{
+	return &components;
+}
+
+void GameObject::AddComponent(Component _component)
+{
+	components.push_back(_component);
+}
+
+void GameObject::RemoveComponent(Component* _component)
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (&components[i] == _component)
+		{
+			components.erase(components.begin() + i);
+		}
 	}
 }
 
-void GameObject::Update(float elapsedTime)
+GameObject* GameObject::GetChild(int _index)
 {
-	spriteRenderer->SetPosition(position);
+	if (_index > children.size() - 1 || _index < 0) return nullptr;
 
-	for (Behaviour * behaviour : behaviours)
-	{
-		behaviour->Update(elapsedTime);
-	}
+	return children[_index];
 }
-
-void GameObject::Render(RenderWindow * window)
+GameObject* GameObject::GetChild(string _name)
 {
-	spriteRenderer->Render(window);
+	if (!_name.empty())
+	{
+		for (auto ch : children)
+		{
+			if (_name == ch->name)
+			{
+				return ch;
+			}
+		}
+	}
 }

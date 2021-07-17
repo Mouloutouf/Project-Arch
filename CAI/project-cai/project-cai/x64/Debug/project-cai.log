@@ -1,19 +1,2 @@
-﻿  Behaviour.cpp
-  Content.cpp
-  Controller.cpp
-  DisplayElement.cpp
-  Element.cpp
-  Entity.cpp
-  Game.cpp
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Game.cpp(12,20): warning C4150: suppression de pointeur vers type incomplet 'GameObject' ; aucun destructeur appelé
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Game.h(15): message : voir la déclaration de 'GameObject'
-  GameElement.cpp
-  GameEngine.cpp
-  GameObject.cpp
-  GameWindow.cpp
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameWindow.cpp(17,45): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameWindow.cpp(17,38): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
-  main.cpp
-  SpriteRenderer.cpp
-  Génération de code en cours...
+﻿  GameEngine.cpp
   project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe

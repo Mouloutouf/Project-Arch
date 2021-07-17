@@ -2,7 +2,7 @@
 
 GameEngine::GameEngine()
 {
-	gameWindow = new GameWindow("Best Shooter Game Ever");
+	gameWindow = new GameWindow("The Arch Project Debug");
 
 	game = new Game(*(gameWindow->GetWindowDimensions()));
 	gameObjects = game->gameObjects;

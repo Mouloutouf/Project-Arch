@@ -10,31 +10,63 @@
 using namespace std;
 using namespace sf;
 
-#include "SpriteRenderer.h"
-#include "Behaviour.h"
+#include "Component.h"
 
-class SpriteRenderer;
-class Behaviour;
+struct Transform2D
+{
+	Transform2D();
+	Transform2D(GameObject* _gameObject);
+	~Transform2D();
+
+	GameObject* gameObject;
+
+	Vector2f position;
+	float rotation;
+	Vector2f scale;
+
+	Vector2f localPosition;
+	float localRotation;
+	Vector2f localScale;
+
+	Vector2f GetLocalPosition();
+};
 
 class GameObject
 {
 public:
 
+	/// Constructors
 	GameObject();
-	GameObject(SpriteRenderer * newSpriteRenderer, float scale);
-	GameObject(SpriteRenderer * newSpriteRenderer, float scale, vector<Behaviour *> attachedBehaviours);
+	GameObject(Transform2D _transform, GameObject* _parent = nullptr, string _name = "New Game Object", int _layer = 0, int _tags[] = {}, ...);
 	virtual ~GameObject();
 
-	virtual void Start();
+	/// Methods
+	template <typename T> Component* GetComponent();
+	template <typename T> Component* GetComponent(string _name);
+	template <typename T> vector<Component*> GetComponents();
 
-	virtual void Update(float elapsedTime);
-	virtual void Render(RenderWindow * window);
+	vector<Component>* GetAllComponents();
 
-	SpriteRenderer * spriteRenderer;
+	void AddComponent(Component _component);
+	void RemoveComponent(Component* _component);
 
-	Vector2f position;
+	GameObject* GetChild(int _index);
+	GameObject* GetChild(string _name);
 
-	vector<Behaviour *> behaviours;
+	/// Variables
+	Transform2D transform;
+
+	GameObject* parent;
+	vector<GameObject*> children;
+
+	string name;
+
+	int layer;
+	vector<int> tags;
+
+protected:
+
+	vector<Component> components;
 };
 
 #endif // !GAME_OBJECT_H
