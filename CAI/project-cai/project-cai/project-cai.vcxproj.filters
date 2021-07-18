@@ -54,9 +54,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Fichiers sources\Core\Game</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngine.cpp">
       <Filter>Fichiers sources\Core\Game</Filter>
     </ClCompile>
@@ -69,20 +66,17 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Content.cpp">
-      <Filter>Fichiers sources\Core\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Fichiers d%27en-tête\Core\Game</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngine.h">
       <Filter>Fichiers d%27en-tête\Core\Game</Filter>
     </ClInclude>
@@ -95,13 +89,13 @@
     <ClInclude Include="GameObject.h">
       <Filter>Fichiers d%27en-tête\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Content.h">
-      <Filter>Fichiers d%27en-tête\Core\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Fichiers d%27en-tête\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
       <Filter>Fichiers d%27en-tête\Core\Base</Filter>
     </ClInclude>
   </ItemGroup>

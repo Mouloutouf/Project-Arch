@@ -2,12 +2,11 @@
 
 SpriteRenderer::SpriteRenderer()
 {
-	Component();
 }
-SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _name = nullptr, string _spritePath = nullptr)
+SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _spritePath)
 : spritePath(_spritePath)
 {
-	Component(_gameObject, _name);
+	Component(_gameObject);
 
 	texture = Texture();
 	sprite = Sprite();
@@ -19,13 +18,18 @@ SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _name = nullptr, 
 		sprite.setTexture(texture);
 		/*FloatRect rect;
 		IntRect pixelRect;*/
-	}
 
-	SetPosition(position);
+		centerPosition = Vector2f(texture.getSize() / 2u);
+	}
 }
 
 SpriteRenderer::~SpriteRenderer()
 {
+}
+
+void SpriteRenderer::Update(float _elapsedTime)
+{
+	SetPosition(gameObject->transform.position());
 }
 
 void SpriteRenderer::Draw(RenderWindow * _window)
@@ -33,23 +37,14 @@ void SpriteRenderer::Draw(RenderWindow * _window)
 	_window->draw(sprite);
 }
 
-void SpriteRenderer::SetPosition(float _x, float _y)
-{
-	position.x = _x;
-	position.y = _y;
-
-	sprite.setPosition(position);
-}
 void SpriteRenderer::SetPosition(Vector2f _position)
 {
-	position = _position;
-
-	sprite.setPosition(position);
+	sprite.setPosition(_position - centerPosition);
 }
 
-Vector2f SpriteRenderer::GetSpriteSize()
+Vector2f SpriteRenderer::GetSize()
 {
-	return (Vector2f)texture.getSize();
+	return Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y);
 }
 
 void SpriteRenderer::SetScale(float _scale)

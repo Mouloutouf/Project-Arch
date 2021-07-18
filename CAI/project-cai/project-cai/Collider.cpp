@@ -3,8 +3,8 @@
 Bounds::Bounds()
 {
 }
-Bounds::Bounds(Vector2f _size)
-: size(_size)
+Bounds::Bounds(Transform2D* _transform, Vector2f _size, Vector2f _offset)
+: transform(_transform), localSize(_size), localPosition(_offset)
 {
 }
 
@@ -14,24 +14,27 @@ Bounds::~Bounds()
 
 Collider::Collider()
 {
-	// Automatic Size Collider if Game Object has a Sprite Renderer
+	// Size the collider automatically if the Game Object has a Sprite Renderer
 	auto renderer = gameObject->GetComponent<SpriteRenderer>();
 	if (renderer != nullptr)
 	{
-		Vector2f dimensions = renderer->GetSpriteSize();
-		bounds = Bounds(dimensions);
+		Vector2f dimensions = renderer->GetSize();
+		bounds = Bounds(&gameObject->transform, dimensions);
 	}
 
 	// Otherwise, create a basic bounding box
-	bounds = Bounds(Vector2f(1, 1));
+	bounds = Bounds(&gameObject->transform, Vector2f(1, 1));
 }
-Collider::Collider(Vector2f _size)
+Collider::Collider(GameObject* _gameObject, Vector2f _size)
 {
-	bounds = Bounds(_size);
+	Component(_gameObject);
+
+	bounds = Bounds(&gameObject->transform, _size);
 }
-Collider::Collider(Bounds _bounds)
+Collider::Collider(GameObject* _gameObject, Bounds _bounds)
 : bounds(_bounds)
 {
+	Component(_gameObject);
 }
 
 Collider::~Collider()

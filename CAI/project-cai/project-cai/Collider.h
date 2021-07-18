@@ -1,29 +1,37 @@
 #pragma once
 
+#ifndef COLLIDER_H
+#define COLLIDER_H
+
 #include <string>
 #include <iostream>
 #include <SFML\Graphics.hpp>
 
-#include "Component.h"
-
 using namespace std;
 using namespace sf;
 
-class SpriteRenderer;
+#include "GameEngine.h"
 
 struct Bounds
 {
 	Bounds();
-	Bounds(Vector2f _size);
+	Bounds(Transform2D* _transform, Vector2f _size = Vector2f(1, 1), Vector2f _offset = Vector2f(0, 0));
 	~Bounds();
 
-	Vector2f center;
-	Vector2f size;
+	Vector2f localSize; // e.g. base or initial size, with no scale applied
+	Vector2f size() { return Vector2f(localSize.x * transform->scale().x, localSize.y * transform->scale().y); }
 
-	Vector2f extents = size / Vector2f(2, 2);
+	Vector2f extents() { return localSize / 2.0f; }
 
-	Vector2f min = Vector2f(center.x - extents.x, center.y - extents.y);
-	Vector2f max = Vector2f(center.x + extents.x, center.y + extents.y);
+	Vector2f localPosition; // e.g. offset
+	Vector2f center() { return transform->position() + localPosition; }
+
+	Vector2f min() { return Vector2f(center().x - extents().x, center().y - extents().y); }
+	Vector2f max() { return Vector2f(center().x + extents().x, center().y + extents().y); }
+
+private:
+
+	Transform2D* transform;
 };
 
 class Collider : public Component
@@ -31,13 +39,15 @@ class Collider : public Component
 public:
 
 	Collider();
-	Collider(Vector2f _size);
-	Collider(Bounds _bounds);
+	Collider(GameObject* _gameObject, Vector2f _size);
+	Collider(GameObject* _gameObject, Bounds _bounds);
 	~Collider();
 
 	Bounds bounds;
 
 protected:
 
-	int& layer = gameObject->layer;
+	Layer& layer = gameObject->layer;
 };
+
+#endif // !COLLIDER_H

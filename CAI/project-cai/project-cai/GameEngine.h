@@ -10,14 +10,16 @@
 using namespace std;
 using namespace sf;
 
-#include "GameObject.h"
-
 #include "GameWindow.h"
-#include "Game.h"
 
-class GameWindow;
-class Game;
-class GameObject;
+/// Core
+#include "Scene.h"
+#include "GameObject.h"
+#include "Component.h"
+
+/// Components
+#include "SpriteRenderer.h"
+#include "Collider.h"
 
 class GameEngine
 {
@@ -26,22 +28,19 @@ public:
 	GameEngine();
 	~GameEngine();
 
-	void Start();
+	void Init();
+	void UserInit();
 
-	void Run(float elapsedTime);
-	void Update(float elapsedTime);
+	void Run(float _elapsedTime);
 
-	GameWindow * GetWindow();
+	GameWindow* GetGameWindow();
 
 protected:
 
-	GameWindow * gameWindow;
+	GameWindow gameWindow;
 
-	Game * game;
-	vector<GameObject *> gameObjects;
-
-	Spawner * enemySpawner;
-	Background * background;
+	Scene* currentScene;
+	vector<Scene> scenes;
 };
 
 #endif // !GAME_ENGINE_H

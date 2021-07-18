@@ -4,27 +4,20 @@
 Transform2D::Transform2D()
 {
 }
-Transform2D::Transform2D(GameObject* _gameObject)
-: gameObject(_gameObject)
-{
-}
 
 Transform2D::~Transform2D()
 {
 }
 
-GameObject::GameObject()
-{
-	transform = Transform2D { this };
-	transform.scale = Vector2f(1, 1);
-}
-GameObject::GameObject(Transform2D _transform, GameObject* _parent = nullptr, string _name = "New Game Object", int _layer = 0, int _tags[] = {}, ...)
+GameObject::GameObject(Transform2D _transform, GameObject* _parent, string _name, Layer _layer, Tag _tags[], ...)
 : transform(_transform), parent(_parent), name(_name), layer(_layer)
 {
 	for (int i = 0; i < sizeof(_tags); i++)
 	{
 		tags.push_back(_tags[i]);
 	}
+
+	transform.gameObject = this;
 
 	// Initialize Components if any
 }
@@ -38,9 +31,9 @@ GameObject::~GameObject()
 }
 
 template<class T>
-Component* GameObject::GetComponent()
+T* GameObject::GetComponent()
 {
-	for (auto c : components)
+	for (auto &c : components)
 	{
 		if (typeid(c) == typeid(T))
 		{
@@ -50,11 +43,11 @@ Component* GameObject::GetComponent()
 	return nullptr;
 }
 template<class T>
-Component* GameObject::GetComponent(string _name)
+T* GameObject::GetComponent(string _name)
 {
 	if (!_name.empty())
 	{
-		for (auto c : components)
+		for (auto &c : components)
 		{
 			if (_name == c.name)
 			{
@@ -66,10 +59,10 @@ Component* GameObject::GetComponent(string _name)
 }
 
 template<class T>
-vector<Component*> GameObject::GetComponents()
+vector<T*> GameObject::GetComponents()
 {
-	vector<Component*> _components;
-	for (auto c : components)
+	vector<T*> _components;
+	for (auto &c : components)
 	{
 		if (typeid(c) == typeid(T))
 		{
@@ -79,7 +72,7 @@ vector<Component*> GameObject::GetComponents()
 	return _components;
 }
 
-vector<Component>* GameObject::GetAllComponents()
+vector<Component>* GameObject::GetComponentsList()
 {
 	return &components;
 }
@@ -117,5 +110,21 @@ GameObject* GameObject::GetChild(string _name)
 				return ch;
 			}
 		}
+	}
+}
+
+void GameObject::Update(float _elapsedTime)
+{
+	for (auto& c : components)
+	{
+		c.Update(_elapsedTime);
+	}
+}
+
+void GameObject::Draw(RenderWindow* _window)
+{
+	for (auto& c : components)
+	{
+		c.Draw(_window);
 	}
 }

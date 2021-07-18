@@ -2,46 +2,38 @@
 
 GameEngine::GameEngine()
 {
-	gameWindow = new GameWindow("The Arch Project Debug");
-
-	game = new Game(*(gameWindow->GetWindowDimensions()));
-	gameObjects = game->gameObjects;
+	gameWindow = GameWindow("The Arch Project Debug");
 }
 
 GameEngine::~GameEngine()
 {
-	delete gameWindow;
-
-	delete game;
 }
 
-void GameEngine::Start()
+void GameEngine::Init()
 {
-	for (GameObject * gameObject : gameObjects)
-	{
-		gameObject->Start();
-	}
+	UserInit();
 }
 
-void GameEngine::Update(float elapsedTime)
+void GameEngine::UserInit()
 {
-	for (GameObject * gameObject : gameObjects)
-	{
-		gameObject->Update(elapsedTime);
-		gameObject->Render(gameWindow->window);
-	}
+	Scene gameScene = Scene(&gameWindow, "Game Scene");
+	scenes.push_back(gameScene);
+
+	currentScene = &gameScene;
+
+	currentScene->Init();
 }
 
-void GameEngine::Run(float elapsedTime)
+void GameEngine::Run(float _elapsedTime)
 {
-	gameWindow->window->clear();
+	gameWindow.window->clear();
 
-	Update(elapsedTime);
+	currentScene->Update(_elapsedTime);
 
-	gameWindow->window->display();
+	gameWindow.window->display();
 }
 
-GameWindow * GameEngine::GetWindow()
+GameWindow* GameEngine::GetGameWindow()
 {
-	return gameWindow;
+	return &gameWindow;
 }

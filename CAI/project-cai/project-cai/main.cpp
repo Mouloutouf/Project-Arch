@@ -11,13 +11,13 @@ int main()
 {
 	GameEngine gameEngine = GameEngine();
 
-	GameWindow * gameWindow = gameEngine.GetWindow();
-	RenderWindow * window = gameWindow->window;
+	GameWindow* gameWindow = gameEngine.GetGameWindow();
+	RenderWindow* window = gameWindow->window;
 	window->setFramerateLimit(60);
 
 	Clock clock;
 
-	gameEngine.Start();
+	gameEngine.Init();
 
 	while (window->isOpen())
 	{

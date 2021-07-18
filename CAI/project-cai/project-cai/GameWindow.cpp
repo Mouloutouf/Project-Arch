@@ -1,10 +1,10 @@
 #include "GameWindow.h"
 
-GameWindow::GameWindow(string gameName, float width, float height)
+GameWindow::GameWindow(string _projectName, float _width, float _height)
 {
-	windowWidth = width;
-	windowHeight = height;
-	InitializeWindow(windowWidth, windowHeight, gameName);
+	width = _width;
+	height = _height;
+	InitializeWindow(width, height, _projectName);
 }
 
 GameWindow::~GameWindow()
@@ -12,12 +12,12 @@ GameWindow::~GameWindow()
 	delete window;
 }
 
-void GameWindow::InitializeWindow(float width, float height, string title)
+void GameWindow::InitializeWindow(float _width, float _height, string _title)
 {
-	window = new RenderWindow(VideoMode(width, height), title);
+	window = new RenderWindow(VideoMode(_width, _height), _title);
 }
 
-Vector2f * GameWindow::GetWindowDimensions()
+Vector2f GameWindow::GetWindowDimensions()
 {
-	return new Vector2f(windowWidth, windowHeight);
+	return Vector2f(width, height);
 }

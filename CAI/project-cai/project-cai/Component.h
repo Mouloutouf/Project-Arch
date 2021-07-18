@@ -10,18 +10,20 @@
 using namespace std;
 using namespace sf;
 
-#include "GameObject.h"
+#include "GameEngine.h"
 
 class Component
 {
 public:
 
-	Component();
-	Component(GameObject* _gameObject, string _name = nullptr);
+	Component(); Component(GameObject* _gameObject);
 	~Component();
 
+	virtual void Update(float _elapsedTime);
+	virtual void Draw(RenderWindow* _window);
+
 	GameObject* gameObject;
-	string name;
+	//string name;
 };
 
 #endif // !COMPONENT_H

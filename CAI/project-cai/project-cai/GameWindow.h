@@ -14,19 +14,19 @@ class GameWindow
 {
 public:
 
-	GameWindow(string gameName, float width = 1920, float height = 1080);
+	GameWindow(string _projectName = "New Awesome Project", float _width = 1920, float _height = 1080);
 	~GameWindow();
 
-	RenderWindow * window;
+	RenderWindow* window;
 
-	Vector2f * GetWindowDimensions();
+	Vector2f GetWindowDimensions();
 
 protected:
 
-	void InitializeWindow(float width, float height, string title);
+	void InitializeWindow(float _width, float _height, string _title);
 
-	float windowWidth;
-	float windowHeight;
+	float width;
+	float height;
 };
 
 #endif // !GAME_WINDOW_H

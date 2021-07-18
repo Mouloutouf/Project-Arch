@@ -3,11 +3,19 @@
 Component::Component()
 {
 }
-Component::Component(GameObject* _gameObject, string _name = nullptr)
-: gameObject(_gameObject), name(_name)
+Component::Component(GameObject* _gameObject)
+: gameObject(_gameObject)
 {
 }
 
 Component::~Component()
+{
+}
+
+void Component::Update(float _elapsedTime)
+{
+}
+
+void Component::Draw(RenderWindow* _window)
 {
 }

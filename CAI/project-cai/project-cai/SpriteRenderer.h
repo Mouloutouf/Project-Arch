@@ -7,25 +7,24 @@
 #include <iostream>
 #include <SFML\Graphics.hpp>
 
-#include "Component.h"
-
 using namespace std;
 using namespace sf;
+
+#include "GameEngine.h"
 
 class SpriteRenderer : public Component
 {
 public:
 
-	SpriteRenderer();
-	SpriteRenderer(GameObject* _gameObject, string _name = nullptr, string _spritePath = nullptr);
+	SpriteRenderer(); SpriteRenderer(GameObject* _gameObject, string _spritePath = nullptr);
 	~SpriteRenderer();
 
-	void Draw(RenderWindow * _window);
+	void Update(float _elapsedTime) override;
+	void Draw(RenderWindow* _window) override;
 
-	void SetPosition(float _x, float _y);
+	Vector2f GetSize();
+
 	void SetPosition(Vector2f _pos);
-
-	Vector2f GetSpriteSize();
 
 	void SetScale(float _scale);
 	void SetScale(Vector2f _scale);
@@ -39,7 +38,7 @@ protected:
 	Sprite sprite;
 	Texture texture;
 
-	Vector2f position;
+	Vector2f centerPosition;
 };
 
 #endif // !SPRITE_RENDERER_H
