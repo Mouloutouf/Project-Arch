@@ -10,7 +10,11 @@
 using namespace std;
 using namespace sf;
 
-#include "GameEngine.h"
+#include "Component.h"
+#include "Scene.h"
+
+enum class Tag;
+enum class Layer;
 
 struct Transform2D
 {
@@ -46,7 +50,7 @@ public:
 
 	/// Constructors
 	GameObject(Transform2D _transform = Transform2D(), GameObject* _parent = nullptr, string _name = "New Game Object", 
-		Layer _layer = (Layer)Default, Tag _tags[] = { (Tag*)Default }, 
+		Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default }, 
 		...);
 	~GameObject();
 

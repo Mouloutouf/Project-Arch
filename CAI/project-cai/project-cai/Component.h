@@ -10,7 +10,10 @@
 using namespace std;
 using namespace sf;
 
-#include "GameEngine.h"
+#include "GameObject.h"
+
+class GameObject;
+struct Transform2D;
 
 class Component
 {

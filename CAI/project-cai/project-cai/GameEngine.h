@@ -11,15 +11,10 @@ using namespace std;
 using namespace sf;
 
 #include "GameWindow.h"
-
-/// Core
 #include "Scene.h"
-#include "GameObject.h"
-#include "Component.h"
 
-/// Components
-#include "SpriteRenderer.h"
-#include "Collider.h"
+class GameWindow;
+class Scene;
 
 class GameEngine
 {

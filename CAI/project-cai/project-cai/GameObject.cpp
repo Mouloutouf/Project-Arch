@@ -9,14 +9,9 @@ Transform2D::~Transform2D()
 {
 }
 
-GameObject::GameObject(Transform2D _transform, GameObject* _parent, string _name, Layer _layer, Tag _tags[], ...)
-: transform(_transform), parent(_parent), name(_name), layer(_layer)
+GameObject::GameObject(Transform2D _transform, GameObject* _parent, string _name, Layer _layer, vector<Tag> _tags, ...)
+: transform(_transform), parent(_parent), name(_name), layer(_layer), tags(_tags)
 {
-	for (int i = 0; i < sizeof(_tags); i++)
-	{
-		tags.push_back(_tags[i]);
-	}
-
 	transform.gameObject = this;
 
 	// Initialize Components if any

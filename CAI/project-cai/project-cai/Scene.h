@@ -10,11 +10,18 @@
 using namespace std;
 using namespace sf;
 
-#include "GameEngine.h"
+#include "GameWindow.h"
+#include "GameObject.h"
+#include "SpriteRenderer.h"
 
-enum Tag { Default };
+class GameWindow;
+class GameObject;
+struct Transform2D;
+class SpriteRenderer;
 
-enum Layer { Default };
+enum class Tag { Default };
+
+enum class Layer { Default };
 
 class Scene
 {
@@ -24,7 +31,8 @@ public:
 
 	GameObject* FindGameObject(string _name);
 
-	GameObject* CreateGameObject(string _name = "New Game Object", Transform2D _transform = Transform2D(), GameObject* _parent = nullptr, int _layer = 0, int _tags[] = {});
+	GameObject* CreateGameObject(string _name = "New Game Object", Transform2D _transform = Transform2D(), 
+		GameObject* _parent = nullptr, Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default });
 	void DestroyGameObject(GameObject* _gameObject);
 
 	void Init();
