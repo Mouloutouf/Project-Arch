@@ -17,6 +17,7 @@ GameObject* Scene::FindGameObject(string _name)
             return &go;
         }
     }
+    return nullptr;
 }
 
 GameObject* Scene::CreateGameObject(string _name, Transform2D _transform, GameObject* _parent, Layer _layer, vector<Tag> _tags)
@@ -24,7 +25,7 @@ GameObject* Scene::CreateGameObject(string _name, Transform2D _transform, GameOb
     GameObject newGameObject = GameObject(_transform, _parent, _name, _layer, _tags);
     gameObjects.push_back(newGameObject);
 
-    return &newGameObject;
+    return &gameObjects.back();
 }
 
 void Scene::DestroyGameObject(GameObject* _gameObject)

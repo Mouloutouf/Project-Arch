@@ -9,6 +9,27 @@ Transform2D::~Transform2D()
 {
 }
 
+Vector2f Transform2D::position()
+{
+	Vector2f parentPosition;
+	if (gameObject->parent != nullptr) parentPosition = gameObject->parent->transform.position();
+	return localPosition + parentPosition;
+}
+
+float Transform2D::rotation()
+{
+	float parentRotation;
+	if (gameObject->parent != nullptr) parentRotation = gameObject->parent->transform.rotation();
+	return localRotation + parentRotation;
+}
+
+Vector2f Transform2D::scale()
+{
+	Vector2f parentScale;
+	if (gameObject->parent != nullptr) parentScale = gameObject->parent->transform.scale();
+	return localScale + parentScale;
+}
+
 GameObject::GameObject(Transform2D _transform, GameObject* _parent, string _name, Layer _layer, vector<Tag> _tags, ...)
 : transform(_transform), parent(_parent), name(_name), layer(_layer), tags(_tags)
 {
@@ -106,6 +127,7 @@ GameObject* GameObject::GetChild(string _name)
 			}
 		}
 	}
+	return nullptr;
 }
 
 void GameObject::Update(float _elapsedTime)

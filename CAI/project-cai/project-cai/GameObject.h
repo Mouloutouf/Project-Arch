@@ -11,10 +11,10 @@ using namespace std;
 using namespace sf;
 
 #include "Component.h"
-#include "Scene.h"
 
-enum class Tag;
-enum class Layer;
+enum class Tag { Default };
+
+enum class Layer { Default };
 
 struct Transform2D
 {
@@ -23,21 +23,9 @@ struct Transform2D
 
 	GameObject* gameObject;
 
-	Vector2f position() {
-		Vector2f parentPosition;
-		if (gameObject->parent != nullptr) parentPosition = gameObject->parent->transform.position();
-		return localPosition + parentPosition;
-	}
-	float rotation() {
-		float parentRotation;
-		if (gameObject->parent != nullptr) parentRotation = gameObject->parent->transform.rotation();
-		return localRotation + parentRotation;
-	}
-	Vector2f scale() {
-		Vector2f parentScale;
-		if (gameObject->parent != nullptr) parentScale = gameObject->parent->transform.scale();
-		return localScale + parentScale;
-	}
+	Vector2f position();
+	float rotation();
+	Vector2f scale();
 
 	Vector2f localPosition;
 	float localRotation;

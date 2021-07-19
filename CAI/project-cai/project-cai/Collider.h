@@ -10,16 +10,10 @@
 using namespace std;
 using namespace sf;
 
-#include "Component.h"
 #include "GameObject.h"
-#include "SpriteRenderer.h"
-#include "Scene.h"
+#include "Component.h"
 
-//class Component;
-//class GameObject;
-//struct Transform2D;
-//class SpriteRenderer;
-//enum class Layer;
+#include "SpriteRenderer.h"
 
 struct Bounds
 {

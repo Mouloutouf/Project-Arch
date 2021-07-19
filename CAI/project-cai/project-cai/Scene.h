@@ -11,17 +11,11 @@ using namespace std;
 using namespace sf;
 
 #include "GameWindow.h"
+
 #include "GameObject.h"
+
 #include "SpriteRenderer.h"
-
-class GameWindow;
-class GameObject;
-struct Transform2D;
-class SpriteRenderer;
-
-enum class Tag { Default };
-
-enum class Layer { Default };
+#include "Collider.h"
 
 class Scene
 {

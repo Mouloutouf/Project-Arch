@@ -13,9 +13,6 @@ using namespace sf;
 #include "GameWindow.h"
 #include "Scene.h"
 
-class GameWindow;
-class Scene;
-
 class GameEngine
 {
 public:

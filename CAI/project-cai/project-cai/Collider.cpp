@@ -26,15 +26,13 @@ Collider::Collider()
 	bounds = Bounds(&gameObject->transform, Vector2f(1, 1));
 }
 Collider::Collider(GameObject* _gameObject, Vector2f _size)
+: Component(_gameObject)
 {
-	Component(_gameObject);
-
 	bounds = Bounds(&gameObject->transform, _size);
 }
 Collider::Collider(GameObject* _gameObject, Bounds _bounds)
-: bounds(_bounds)
+: Component(_gameObject), bounds(_bounds)
 {
-	Component(_gameObject);
 }
 
 Collider::~Collider()

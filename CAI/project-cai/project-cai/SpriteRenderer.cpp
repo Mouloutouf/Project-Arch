@@ -4,10 +4,8 @@ SpriteRenderer::SpriteRenderer()
 {
 }
 SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _spritePath)
-: spritePath(_spritePath)
+: Component(_gameObject), spritePath(_spritePath)
 {
-	Component(_gameObject);
-
 	texture = Texture();
 	sprite = Sprite();
 

@@ -10,12 +10,8 @@
 using namespace std;
 using namespace sf;
 
-#include "Component.h"
 #include "GameObject.h"
-
-class Component;
-class GameObject;
-struct Transform2D;
+#include "Component.h"
 
 class SpriteRenderer : public Component
 {
