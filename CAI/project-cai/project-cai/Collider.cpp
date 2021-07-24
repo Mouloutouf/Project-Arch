@@ -15,6 +15,7 @@ Bounds::~Bounds()
 Collider::Collider()
 {
 	// Size the collider automatically if the Game Object has a Sprite Renderer
+	auto g = gameObject->GetComponents<SpriteRenderer>();
 	auto renderer = gameObject->GetComponent<SpriteRenderer>();
 	if (renderer != nullptr)
 	{

@@ -42,11 +42,11 @@ void Scene::Init()
 
 void Scene::UserInit()
 {
-    GameObject* basicSprite = CreateGameObject("Basic Sprite");
+    GameObject* basicSpriteObject = CreateGameObject("Basic Sprite");
 
-    basicSprite->AddComponent(SpriteRenderer(basicSprite, "D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Assets\1m66 gros pec.jpg"));
+    basicSpriteObject->AddComponent(new SpriteRenderer(basicSpriteObject, "Assets/1m66 gros pec.jpg"));
 
-    basicSprite->transform.localPosition = Vector2f(184, 257);
+    basicSpriteObject->transform.localPosition = Vector2f(184, 257);
 }
 
 void Scene::Update(float _elapsedTime)

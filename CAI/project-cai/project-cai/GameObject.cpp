@@ -1,5 +1,4 @@
 #include "GameObject.h"
-#include <typeinfo>
 
 Transform2D::Transform2D()
 {
@@ -18,7 +17,7 @@ Vector2f Transform2D::position()
 
 float Transform2D::rotation()
 {
-	float parentRotation;
+	float parentRotation = 0.0f;
 	if (gameObject->parent != nullptr) parentRotation = gameObject->parent->transform.rotation();
 	return localRotation + parentRotation;
 }
@@ -44,56 +43,46 @@ GameObject::~GameObject()
 	{
 		delete ch;
 	}
+
+	for (auto c : components)
+	{
+		delete c;
+	}
 }
 
-template<class T>
-T* GameObject::GetComponent()
-{
-	for (auto &c : components)
-	{
-		if (typeid(c) == typeid(T))
-		{
-			return &(T)c;
-		}
-	}
-	return nullptr;
-}
-template<class T>
-T* GameObject::GetComponent(string _name)
-{
-	if (!_name.empty())
-	{
-		for (auto &c : components)
-		{
-			if (_name == c.name)
-			{
-				return &(T)c;
-			}
-		}
-	}
-	return nullptr;
-}
+//template<typename T>
+//T* GameObject::GetComponent()
+//{
+//	for (auto c : components)
+//	{
+//		if (typeid(*c) == typeid(T))
+//		{
+//			return dynamic_cast<T*>(c);
+//		}
+//	}
+//	return nullptr;
+//}
+//
+//template<typename T>
+//vector<T*> GameObject::GetComponents()
+//{
+//	vector<T*> _components;
+//	for (auto c : components)
+//	{
+//		if (typeid(*c) == typeid(T))
+//		{
+//			_components.push_back(dynamic_cast<T*>(c));
+//		}
+//	}
+//	return _components;
+//}
 
-template<class T>
-vector<T*> GameObject::GetComponents()
-{
-	vector<T*> _components;
-	for (auto &c : components)
-	{
-		if (typeid(c) == typeid(T))
-		{
-			_components.push_back(&(T)c);
-		}
-	}
-	return _components;
-}
-
-vector<Component>* GameObject::GetComponentsList()
+vector<Component*>* GameObject::GetComponentsList()
 {
 	return &components;
 }
 
-void GameObject::AddComponent(Component _component)
+void GameObject::AddComponent(Component* _component)
 {
 	components.push_back(_component);
 }
@@ -102,7 +91,7 @@ void GameObject::RemoveComponent(Component* _component)
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		if (&components[i] == _component)
+		if (components[i] == _component)
 		{
 			components.erase(components.begin() + i);
 		}
@@ -132,16 +121,16 @@ GameObject* GameObject::GetChild(string _name)
 
 void GameObject::Update(float _elapsedTime)
 {
-	for (auto& c : components)
+	for (auto c : components)
 	{
-		c.Update(_elapsedTime);
+		c->Update(_elapsedTime);
 	}
 }
 
 void GameObject::Draw(RenderWindow* _window)
 {
-	for (auto& c : components)
+	for (auto c : components)
 	{
-		c.Draw(_window);
+		c->Draw(_window);
 	}
 }

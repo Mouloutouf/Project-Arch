@@ -1,2 +1,12 @@
-﻿Collider.obj : error LNK2019: symbole externe non résolu "public: class SpriteRenderer * __cdecl GameObject::GetComponent<class SpriteRenderer>(void)" (??$GetComponent@VSpriteRenderer@@@GameObject@@QEAAPEAVSpriteRenderer@@XZ) référencé dans la fonction "public: __cdecl Collider::Collider(void)" (??0Collider@@QEAA@XZ)
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe : fatal error LNK1120: 1 externes non résolus
+﻿  Collider.cpp
+  Component.cpp
+  GameEngine.cpp
+  GameObject.cpp
+  GameWindow.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameWindow.cpp(17,46): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameWindow.cpp(17,38): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
+  main.cpp
+  Scene.cpp
+  SpriteRenderer.cpp
+  Génération de code en cours...
+  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe
