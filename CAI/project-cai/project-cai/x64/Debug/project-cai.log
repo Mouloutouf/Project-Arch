@@ -1,12 +1,1 @@
-﻿  Collider.cpp
-  Component.cpp
-  GameEngine.cpp
-  GameObject.cpp
-  GameWindow.cpp
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameWindow.cpp(17,46): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameWindow.cpp(17,38): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
-  main.cpp
-  Scene.cpp
-  SpriteRenderer.cpp
-  Génération de code en cours...
-  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe
+﻿  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe

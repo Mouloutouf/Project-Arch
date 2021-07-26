@@ -33,11 +33,37 @@ void Scene::DestroyGameObject(GameObject* _gameObject)
     delete _gameObject;
 }
 
+GameObject* Scene::FindWithTag(Tag _tag)
+{
+    for (auto& go : gameObjects)
+    {
+        for (int i = 0; i < go.tags.size(); i++)
+        {
+            if (go.tags[i] == _tag)
+            {
+                return &go;
+            }
+        }
+    }
+}
+
 void Scene::Init()
 {
     // Base Initialization
 
+    currentDisplay = Display(1920, 1080);
+
+    GameObject* cameraObject = CreateGameObject("Main Camera");
+    cameraObject->tags.push_back(Tag::Main_Camera);
+    /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
+    cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution));
+
     UserInit();
+
+    //GameObject* cameraObject = FindWithTag(Tag::Main_Camera);
+    mainCamera = cameraObject->GetComponent<Camera>();
+
+    currentDisplay.Setup(FindAllComponentsOfType<SpriteRenderer>(), mainCamera);
 }
 
 void Scene::UserInit()
@@ -45,8 +71,7 @@ void Scene::UserInit()
     GameObject* basicSpriteObject = CreateGameObject("Basic Sprite");
 
     basicSpriteObject->AddComponent(new SpriteRenderer(basicSpriteObject, "Assets/1m66 gros pec.jpg"));
-
-    basicSpriteObject->transform.localPosition = Vector2f(184, 257);
+    basicSpriteObject->transform.localPosition = Vector2f(2, 1);
 }
 
 void Scene::Update(float _elapsedTime)
@@ -54,7 +79,12 @@ void Scene::Update(float _elapsedTime)
     for (auto& go : gameObjects)
     {
         go.Update(_elapsedTime);
-
-        go.Draw(gameWindow->window);
     }
+}
+
+void Scene::Render(RenderWindow* _window)
+{
+    if (mainCamera == nullptr) return;
+
+    currentDisplay.Render();
 }

@@ -15,7 +15,3 @@ Component::~Component()
 void Component::Update(float _elapsedTime)
 {
 }
-
-void Component::Draw(RenderWindow* _window)
-{
-}

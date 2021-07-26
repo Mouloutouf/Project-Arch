@@ -20,10 +20,8 @@ public:
 	~Component();
 
 	virtual void Update(float _elapsedTime);
-	virtual void Draw(RenderWindow* _window);
 
 	GameObject* gameObject;
-	//string name;
 };
 
 #endif // !COMPONENT_H

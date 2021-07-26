@@ -32,8 +32,6 @@ struct Bounds
 	Vector2f min() { return Vector2f(center().x - extents().x, center().y - extents().y); }
 	Vector2f max() { return Vector2f(center().x + extents().x, center().y + extents().y); }
 
-private:
-
 	Transform2D* transform;
 };
 

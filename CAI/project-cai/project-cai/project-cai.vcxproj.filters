@@ -75,6 +75,12 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Display.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -96,6 +102,12 @@
       <Filter>Fichiers d%27en-tête\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Fichiers d%27en-tête\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
       <Filter>Fichiers d%27en-tête\Core\Base</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,7 +13,7 @@ using namespace sf;
 
 #include "Component.h"
 
-enum class Tag { Default };
+enum class Tag { Default, Main_Camera };
 
 enum class Layer { Default };
 
@@ -76,7 +76,6 @@ public:
 	GameObject* GetChild(int _index); GameObject* GetChild(string _name);
 
 	void Update(float _elapsedTime);
-	void Draw(RenderWindow* _window);
 
 	/// Variables
 	Transform2D transform;

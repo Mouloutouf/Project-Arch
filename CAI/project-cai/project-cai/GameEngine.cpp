@@ -12,6 +12,11 @@ GameEngine::~GameEngine()
 void GameEngine::Init()
 {
 	UserInit();
+
+	if (currentScene != nullptr)
+	{
+		currentScene->Init();
+	}
 }
 
 void GameEngine::UserInit()
@@ -20,8 +25,6 @@ void GameEngine::UserInit()
 	scenes.push_back(gameScene);
 
 	currentScene = &gameScene;
-
-	currentScene->Init();
 }
 
 void GameEngine::Run(float _elapsedTime)
@@ -29,6 +32,7 @@ void GameEngine::Run(float _elapsedTime)
 	gameWindow.window->clear();
 
 	currentScene->Update(_elapsedTime);
+	currentScene->Render(gameWindow.window);
 
 	gameWindow.window->display();
 }

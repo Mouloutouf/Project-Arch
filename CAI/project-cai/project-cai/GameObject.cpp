@@ -50,33 +50,6 @@ GameObject::~GameObject()
 	}
 }
 
-//template<typename T>
-//T* GameObject::GetComponent()
-//{
-//	for (auto c : components)
-//	{
-//		if (typeid(*c) == typeid(T))
-//		{
-//			return dynamic_cast<T*>(c);
-//		}
-//	}
-//	return nullptr;
-//}
-//
-//template<typename T>
-//vector<T*> GameObject::GetComponents()
-//{
-//	vector<T*> _components;
-//	for (auto c : components)
-//	{
-//		if (typeid(*c) == typeid(T))
-//		{
-//			_components.push_back(dynamic_cast<T*>(c));
-//		}
-//	}
-//	return _components;
-//}
-
 vector<Component*>* GameObject::GetComponentsList()
 {
 	return &components;
@@ -124,13 +97,5 @@ void GameObject::Update(float _elapsedTime)
 	for (auto c : components)
 	{
 		c->Update(_elapsedTime);
-	}
-}
-
-void GameObject::Draw(RenderWindow* _window)
-{
-	for (auto c : components)
-	{
-		c->Draw(_window);
 	}
 }

@@ -13,9 +13,13 @@ using namespace sf;
 #include "GameWindow.h"
 
 #include "GameObject.h"
+#include "Component.h"
+
+#include "Display.h"
 
 #include "SpriteRenderer.h"
 #include "Collider.h"
+#include "Camera.h"
 
 class Scene
 {
@@ -29,10 +33,27 @@ public:
 		GameObject* _parent = nullptr, Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default });
 	void DestroyGameObject(GameObject* _gameObject);
 
+	GameObject* FindWithTag(Tag _tag);
+
+	template <typename T = Component> vector<T*> FindAllComponentsOfType()
+	{
+		vector<T*> cList;
+		for (auto go : gameObjects)
+		{
+			T* _c = go.GetComponent<T>();
+			if (_c != nullptr)
+			{
+				cList.push_back(_c);
+			}
+		}
+		return cList;
+	}
+
 	void Init();
 	void UserInit();
 
 	void Update(float _elapsedTime);
+	void Render(RenderWindow* _window);
 
 	string name;
 
@@ -41,6 +62,9 @@ public:
 protected:
 
 	GameWindow* gameWindow;
+
+	Display currentDisplay;
+	Camera* mainCamera;
 };
 
 #endif // !SCENE_H
