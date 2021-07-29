@@ -50,7 +50,7 @@ public:
 	}
 
 	void Init();
-	void UserInit();
+	inline void UserInit();
 
 	void Update(float _elapsedTime);
 	void Render(RenderWindow* _window);

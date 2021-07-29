@@ -51,27 +51,33 @@ void Scene::Init()
 {
     // Base Initialization
 
+    
+
+    UserInit();
+
+    
+}
+
+inline void Scene::UserInit()
+{
     currentDisplay = Display(1920, 1080);
 
     GameObject* cameraObject = CreateGameObject("Main Camera");
     cameraObject->tags.push_back(Tag::Main_Camera);
     /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
-    cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution));
-
-    UserInit();
+    cameraObject->AddComponent(new Camera(cameraObject, &currentDisplay, currentDisplay.resolution, 3));
 
     //GameObject* cameraObject = FindWithTag(Tag::Main_Camera);
     mainCamera = cameraObject->GetComponent<Camera>();
 
-    currentDisplay.Setup(FindAllComponentsOfType<SpriteRenderer>(), mainCamera);
-}
-
-void Scene::UserInit()
-{
     GameObject* basicSpriteObject = CreateGameObject("Basic Sprite");
 
     basicSpriteObject->AddComponent(new SpriteRenderer(basicSpriteObject, "Assets/1m66 gros pec.jpg"));
     basicSpriteObject->transform.localPosition = Vector2f(2, 1);
+
+    GameObject* blank = CreateGameObject("Yes");
+
+    currentDisplay.Setup(FindAllComponentsOfType<SpriteRenderer>(), mainCamera);
 }
 
 void Scene::Update(float _elapsedTime)

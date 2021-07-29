@@ -24,7 +24,7 @@ void GameEngine::UserInit()
 	Scene gameScene = Scene(&gameWindow, "Game Scene");
 	scenes.push_back(gameScene);
 
-	currentScene = &gameScene;
+	currentScene = &scenes.back();
 }
 
 void GameEngine::Run(float _elapsedTime)

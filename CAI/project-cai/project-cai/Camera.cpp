@@ -4,8 +4,8 @@
 Camera::Camera()
 {
 }
-Camera::Camera(Display* _display, Vector2i _resolution)
-: display(_display), displayResolution(_resolution)
+Camera::Camera(GameObject* _gameObject, Display* _display, Vector2i _resolution, float _size)
+: Component(_gameObject), display(_display), displayResolution(_resolution), size(_size)
 {
 }
 

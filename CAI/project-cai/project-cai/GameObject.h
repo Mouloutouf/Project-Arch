@@ -80,7 +80,7 @@ public:
 	/// Variables
 	Transform2D transform;
 
-	GameObject* parent;
+	GameObject* parent = nullptr;
 	vector<GameObject*> children;
 
 	string name;

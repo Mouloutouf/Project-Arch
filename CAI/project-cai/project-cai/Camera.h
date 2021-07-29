@@ -20,7 +20,7 @@ class Camera : public Component
 public:
 
 	Camera();
-	Camera(Display* _display, Vector2i _resolution);
+	Camera(GameObject* _gameObject, Display* _display, Vector2i _resolution, float _size);
 	~Camera();
 
 	float size;
