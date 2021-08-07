@@ -20,16 +20,23 @@ class Camera : public Component
 public:
 
 	Camera();
-	Camera(GameObject* _gameObject, Display* _display, Vector2i _resolution, float _size);
+	Camera(GameObject* _gameObject, Display* _display, Vector2f _resolution, float _size);
+	Camera(const Camera& that);
 	~Camera();
+
+	Camera* Clone() override;
+
+	void Update(float _elapsedTime) override;
+
+	void Input();
 
 	float size;
 	Display* display;
 
-	int ppu() { return (int)((float)displayResolution.y / (size * 2)); }
+	int ppu() { return (int)(displayResolution.y / (size * 2)); }
 private:
 
-	Vector2i displayResolution;
+	Vector2f displayResolution;
 };
 
 #endif // !CAMERA_H

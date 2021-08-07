@@ -13,6 +13,9 @@ int main()
 
 	GameWindow* gameWindow = gameEngine.GetGameWindow();
 	RenderWindow* window = gameWindow->window;
+
+	//RenderWindow* window = new RenderWindow(VideoMode(200, 200), "SFML Works!");
+
 	window->setFramerateLimit(60);
 
 	Clock clock;

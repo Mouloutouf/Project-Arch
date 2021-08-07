@@ -18,7 +18,6 @@ class GameEngine
 public:
 
 	GameEngine();
-	~GameEngine();
 
 	void Init();
 	void UserInit();

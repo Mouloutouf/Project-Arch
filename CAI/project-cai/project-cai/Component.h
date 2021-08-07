@@ -16,8 +16,12 @@ class Component
 {
 public:
 
-	Component(); Component(GameObject* _gameObject);
+	Component();
+	Component(GameObject* _gameObject);
+	Component(const Component& that);
 	~Component();
+
+	virtual Component* Clone();
 
 	virtual void Update(float _elapsedTime);
 

@@ -15,18 +15,16 @@ class GameWindow
 public:
 
 	GameWindow(string _projectName = "New Awesome Project", float _width = 1920, float _height = 1080);
+	GameWindow(const GameWindow& that);
+	GameWindow& operator=(const GameWindow& that);
 	~GameWindow();
 
 	RenderWindow* window;
 
-	Vector2f GetWindowDimensions();
-
-protected:
-
-	void InitializeWindow(float _width, float _height, string _title);
-
 	float width;
 	float height;
+
+	string name;
 };
 
 #endif // !GAME_WINDOW_H

@@ -41,8 +41,10 @@ public:
 
 	Collider();
 	Collider(GameObject* _gameObject, Vector2f _size);
-	Collider(GameObject* _gameObject, Bounds _bounds);
+	Collider(const Collider& that);
 	~Collider();
+
+	Collider* Clone() override;
 
 	Bounds bounds;
 

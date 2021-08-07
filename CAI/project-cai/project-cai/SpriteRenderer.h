@@ -17,13 +17,17 @@ class SpriteRenderer : public Component
 {
 public:
 
-	SpriteRenderer(); SpriteRenderer(GameObject* _gameObject, string _spritePath = nullptr);
+	SpriteRenderer();
+	SpriteRenderer(GameObject* _gameObject, string _spritePath = nullptr, int _ppu = 1);
+	SpriteRenderer(const SpriteRenderer& that);
 	~SpriteRenderer();
+
+	SpriteRenderer* Clone() override;
 
 	Vector2f GetSize();
 	Sprite* GetSprite();
 
-	int ppu;
+	int pixelsPerUnit = 1;
 
 protected:
 

@@ -5,10 +5,6 @@ GameEngine::GameEngine()
 	gameWindow = GameWindow("The Arch Project Debug");
 }
 
-GameEngine::~GameEngine()
-{
-}
-
 void GameEngine::Init()
 {
 	UserInit();

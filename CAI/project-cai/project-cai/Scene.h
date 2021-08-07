@@ -25,20 +25,20 @@ class Scene
 {
 public:
 
-	Scene(); Scene(GameWindow* _gameWindow, string _name = "New Scene");
+	Scene();
+	Scene(GameWindow* _gameWindow, string _name = "New Scene");
 
-	GameObject* FindGameObject(string _name);
+	GameObject* FindGameObjectWithName(string _name);
+	GameObject* FindGameObjectWithTag(Tag _tag);
 
 	GameObject* CreateGameObject(string _name = "New Game Object", Transform2D _transform = Transform2D(), 
 		GameObject* _parent = nullptr, Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default });
 	void DestroyGameObject(GameObject* _gameObject);
 
-	GameObject* FindWithTag(Tag _tag);
-
 	template <typename T = Component> vector<T*> FindAllComponentsOfType()
 	{
 		vector<T*> cList;
-		for (auto go : gameObjects)
+		for (auto& go : gameObjects)
 		{
 			T* _c = go.GetComponent<T>();
 			if (_c != nullptr)
@@ -55,16 +55,19 @@ public:
 	void Update(float _elapsedTime);
 	void Render(RenderWindow* _window);
 
+	void DrawGrid();
+
 	string name;
 
 	vector<GameObject> gameObjects;
+
+	Camera* GetMainCamera() { return FindGameObjectWithTag(Tag::Main_Camera)->GetComponent<Camera>(); }
 
 protected:
 
 	GameWindow* gameWindow;
 
 	Display currentDisplay;
-	Camera* mainCamera;
 };
 
 #endif // !SCENE_H

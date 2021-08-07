@@ -4,7 +4,7 @@ Bounds::Bounds()
 {
 }
 Bounds::Bounds(Transform2D* _transform, Vector2f _size, Vector2f _offset)
-: transform(_transform), localSize(_size), localPosition(_offset)
+	: transform(_transform), localSize(_size), localPosition(_offset)
 {
 }
 
@@ -26,15 +26,20 @@ Collider::Collider()
 	bounds = Bounds(&gameObject->transform, Vector2f(1, 1));
 }
 Collider::Collider(GameObject* _gameObject, Vector2f _size)
-: Component(_gameObject)
+	: Component(_gameObject)
 {
 	bounds = Bounds(&gameObject->transform, _size);
 }
-Collider::Collider(GameObject* _gameObject, Bounds _bounds)
-: Component(_gameObject), bounds(_bounds)
+Collider::Collider(const Collider& that)
+	: Component(that), bounds(that.bounds)
 {
 }
 
 Collider::~Collider()
 {
+}
+
+Collider* Collider::Clone()
+{
+	return new Collider(*this);
 }

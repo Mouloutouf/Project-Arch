@@ -20,6 +20,8 @@ enum class Layer { Default };
 struct Transform2D
 {
 	Transform2D();
+	Transform2D(GameObject* _gameObject, Vector2f _pos = Vector2f(0, 0), float _rot = 0.0f, Vector2f _scale = Vector2f(1, 1));
+	Transform2D(const Transform2D& that);
 	~Transform2D();
 
 	GameObject* gameObject;
@@ -28,8 +30,8 @@ struct Transform2D
 	float rotation();
 	Vector2f scale();
 
-	Vector2f localPosition;
-	float localRotation;
+	Vector2f localPosition = Vector2f(0, 0);
+	float localRotation = 0.0f;
 	Vector2f localScale = Vector2f(1, 1);
 };
 
@@ -41,13 +43,21 @@ public:
 	GameObject(Transform2D _transform = Transform2D(), GameObject* _parent = nullptr, string _name = "New Game Object", 
 		Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default }, 
 		...);
+	GameObject(const GameObject& that);
+	template <typename T = Component> void CopyComponent(T* _component)
+	{
+		components.push_back(new T(*_component));
+		components.back()->gameObject = this;
+	}
+	GameObject& operator=(const GameObject& that);
 	~GameObject();
 
 	/// Methods
 	template <typename T = Component> T* GetComponent()
 	{
-		for (auto c : components)
+		for (auto& c : components)
 		{
+			T* def = nullptr;
 			if (typeid(*c) == typeid(T))
 			{
 				return dynamic_cast<T*>(c);
@@ -58,7 +68,7 @@ public:
 	template <typename T = Component> vector<T*> GetComponents()
 	{
 		vector<T*> _components;
-		for (auto c : components)
+		for (auto& c : components)
 		{
 			if (typeid(*c) == typeid(T))
 			{
