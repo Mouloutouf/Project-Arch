@@ -19,7 +19,7 @@ class RenderedObject
 {
 public:
 
-	RenderedObject(); // Ctor
+	RenderedObject();
 	//RenderedObject(Sprite* _sprite, Vector2f _sPos, Vector2f _cPos, int _cppu, Vector2i _wPos, Vector2f _sScale, int _sppu);
 	RenderedObject(SpriteRenderer* _sr, Camera* _cam, Vector2f _origin);
 	~RenderedObject();
@@ -35,12 +35,6 @@ public:
 	Vector2f cachedDisplayPos; // -> World position, center of the sprite is (0, 0)
 	Vector2f cachedDrawPos; // -> Draw Position, top-left corner of the sprite is (0, 0), same position as above but with offset from the center to match the origin
 	Vector2f cachedDisplayScale;
-
-	//Vector2f rwPos; // Relative World Position -> position in units relative to camera
-	//Vector2i rdPos; // Relative Display Position -> conversion to pixel position based of the camera pixels per unit
-	//Vector2i dPos; // Display Position -> center the position to the origin of the display
-
-	//Vector2f dScale; // Display Scale -> size of the rendered object
 };
 
 struct Display
@@ -51,17 +45,24 @@ struct Display
 	~Display();
 
 	Vector2f resolution;
-	Vector2f origin() { return resolution / 2.0f; }
+	Vector2f displayOrigin() { return resolution / 2.0f; }
 
-	void Setup(vector<SpriteRenderer*> _spriteObjects, Camera* _cameraObject);
-	void AddObjectToRender(SpriteRenderer* _spriteObject);
-	void RemoveObjectToRender(SpriteRenderer* _spriteObject);
+	void Setup(vector<SpriteRenderer*> _srs, Camera* _camera);
+	void AddObjectToRender(SpriteRenderer* _sr);
+	void RemoveObjectToRender(SpriteRenderer* _sr);
 
 	void Render();
 	void Draw(Sprite* _sprite);
 	void DebugDraw(RenderedObject* _rd);
 
+	void DrawBackground();
 	void DrawGrid();
+
+	int powerOf(float _value, int _base) {
+		int r = 0;
+		while (_value >= _base) { _value /= _base; ++r; }
+		return r;
+	}
 
 private:
 
@@ -72,7 +73,21 @@ private:
 
 	vector<RenderedObject> renderedObjects;
 
-	int ContainsSpriteObject(SpriteRenderer* _spriteObject);
+	int ContainsObjectToRender(SpriteRenderer* _sr);
+
+	Vector2f worldOrigin() {
+		Vector2f origin = -(cameraObject->gameObject->transform.position());
+		origin *= (float)cameraObject->ppu();
+		origin = Vector2f(displayOrigin().x + origin.x, displayOrigin().y - origin.y);
+		return origin;
+	}
+
+	Color backgroundColor = Color(43, 46, 59);
+	Color detailColor = Color(67, 82, 104);
+	Color greenColor = Color(131, 255, 70);
+
+	Color redColor = Color(255, 55, 55);
+	Color blueColor = Color(44, 135, 255);
 };
 
 #endif // !DISPLAY_H

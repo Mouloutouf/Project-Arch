@@ -30,4 +30,10 @@ void Camera::Input()
 {
 }
 
+void Camera::setSize(float _value) {
+	if (_value <= 0.0f) _value = 0.001f;
+	size = _value;
+}
+float Camera::getSize() { return size; }
+
 #pragma endregion

@@ -65,7 +65,7 @@ GameObject& GameObject::operator=(const GameObject& that)
 			delete c;
 		components.clear();
 
-		for (int i = 0; i < newComponents.size(); i++)
+		for (int i = 0; i < newComponents.size(); ++i)
 		{
 			components.push_back(newComponents[i]->Clone());
 			components.back()->gameObject = this;
@@ -94,46 +94,33 @@ GameObject::~GameObject()
 		delete c;
 }
 
-vector<Component*>* GameObject::GetComponentsList()
-{
-	return &components;
-}
+vector<Component*>* GameObject::GetComponentsList() { return &components; }
 
-void GameObject::AddComponent(Component* _component)
-{
-	components.push_back(_component);
-}
+void GameObject::AddComponent(Component* _component) { components.push_back(_component); }
 
 void GameObject::RemoveComponent(Component* _component)
 {
-	for (int i = 0; i < components.size(); i++)
+	for (int i = 0; i < components.size(); ++i)
 	{
 		if (components[i] == _component)
-		{
 			components.erase(components.begin() + i);
-		}
 	}
 }
 
 GameObject* GameObject::GetChild(int _index)
 {
 	if (_index > children.size() - 1 || _index < 0) return nullptr;
-
 	return children[_index];
 }
 GameObject* GameObject::GetChild(string _name)
 {
-	if (!_name.empty())
-	{
+	if (!_name.empty()) {
 		for (auto& ch : children)
 		{
 			if (_name == ch->name)
-			{
 				return ch;
-			}
 		}
-	}
-	return nullptr;
+	} return nullptr;
 }
 
 void GameObject::Update(float _elapsedTime)

@@ -8,36 +8,13 @@ Scene::Scene(GameWindow* _gameWindow, string _name)
 {
 }
 
-GameObject* Scene::FindGameObjectWithName(string _name)
-{
-    for (auto& go : gameObjects)
-    {
-        if (go.name == _name)
-        {
-            return &go;
-        }
-    }
-    return nullptr;
-}
-
-GameObject* Scene::FindGameObjectWithTag(Tag _tag)
-{
-    for (auto& go : gameObjects)
-    {
-        for (int i = 0; i < go.tags.size(); i++)
-        {
-            if (go.tags[i] == _tag)
-            {
-                return &go;
-            }
-        }
-    }
-}
-
+#pragma region Core Methods
 GameObject* Scene::CreateGameObject(string _name, Transform2D _transform, GameObject* _parent, Layer _layer, vector<Tag> _tags)
 {
     GameObject newGameObject = GameObject(_transform, _parent, _name, _layer, _tags);
     gameObjects.push_back(newGameObject);
+
+    mainCamera = GetMainCamera(); // I don't like this, should find another solution
 
     return &gameObjects.back();
 }
@@ -46,16 +23,16 @@ void Scene::DestroyGameObject(GameObject* _gameObject)
 {
     delete _gameObject;
 }
+#pragma endregion
 
+#pragma region Initialization
 void Scene::Init()
 {
-    // Base Initialization
-
     currentDisplay = Display(1920, 1080, gameWindow);
 
     UserInit();
 
-    currentDisplay.Setup(FindAllComponentsOfType<SpriteRenderer>(), GetMainCamera());
+    currentDisplay.Setup(FindAllComponentsOfType<SpriteRenderer>(), mainCamera);
 }
 
 inline void Scene::UserInit()
@@ -63,43 +40,71 @@ inline void Scene::UserInit()
     GameObject* cameraObject = CreateGameObject("Main Camera");
     cameraObject->tags.push_back(Tag::Main_Camera);
     /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
-    cameraObject->AddComponent(new Camera(cameraObject, &currentDisplay, currentDisplay.resolution, 3));
+    cameraObject->AddComponent(new Camera(cameraObject, &currentDisplay, currentDisplay.resolution, 1));
+    cameraObject->transform.localPosition = Vector2f(1, 0);
 
-    GameObject* basicSpriteObject = CreateGameObject("Basic Sprite");
-
-    basicSpriteObject->AddComponent(new SpriteRenderer(basicSpriteObject, "Assets/1m66 gros pec.jpg", 300));
-    basicSpriteObject->transform.localPosition = Vector2f(2, 1);
+    CreateSpriteObject("Fire Orb", "Assets/Fire Orb.png", 24, Vector2f(-2.5, 0.5));
+    CreateSpriteObject("Robot", "Assets/Kastelan Robot.png", 24, Vector2f(3, 1));
+    CreateSpriteObject("Dummy", "Assets/Dummy Sized.png", 24, Vector2f(-1.5, -0.5));
 
     GameObject* blank = CreateGameObject("Yes");
 }
+#pragma endregion
 
+#pragma region Core Loop
 void Scene::Update(float _elapsedTime)
 {
     for (auto& go : gameObjects)
-    {
         go.Update(_elapsedTime);
-    }
 
     /// DEBUG
-
-    /*GameObject* so = FindGameObjectWithName("Basic Sprite");
-    so->transform.localScale += Vector2f(_elapsedTime, _elapsedTime) * .5f;*/
-
-    Camera* cam = GetMainCamera();
-    if (cam != nullptr)
+    ///
+    if (mainCamera != nullptr)
     {
-        cam->size += _elapsedTime;
+        //if (mainCamera->getSize() > 5) signSize = -1;
+        if (mainCamera->getSize() < 0.05) signSize = +1;
+        mainCamera->setSize(mainCamera->getSize() + _elapsedTime * signSize);
+
+        /*if (mainCamera->gameObject->transform.position().x > 4) signPos = -1;
+        if (mainCamera->gameObject->transform.position().x < -4) signPos = +1;
+        mainCamera->gameObject->transform.localPosition.x += _elapsedTime * signPos * 2;*/
     }
+    ///
 }
 
 void Scene::Render(RenderWindow* _window)
 {
-    Camera* cam = GetMainCamera();
-    if (cam == nullptr) return;
-
+    if (mainCamera == nullptr) return;
     currentDisplay.Render();
 }
+#pragma endregion
 
-void Scene::DrawGrid()
+#pragma region Utility Methods
+GameObject* Scene::FindGameObjectWithName(string _name)
 {
+    for (auto& go : gameObjects) {
+        if (go.name == _name) {
+            return &go;
+        }
+    } return nullptr;
 }
+
+GameObject* Scene::FindGameObjectWithTag(Tag _tag)
+{
+    for (auto& go : gameObjects) {
+        for (int i = 0; i < go.tags.size(); ++i) {
+            if (go.tags[i] == _tag)
+                return &go;
+        }
+    }
+}
+#pragma endregion
+
+#pragma region Shortcut Methods
+void Scene::CreateSpriteObject(string _name, string _sprite, int _ppu, Vector2f _position)
+{
+    GameObject* sp = CreateGameObject(_name);
+    sp->AddComponent(new SpriteRenderer(sp, _sprite, _ppu));
+    sp->transform.localPosition = _position;
+}
+#pragma endregion

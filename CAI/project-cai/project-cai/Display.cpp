@@ -1,18 +1,11 @@
 #include "Display.h"
 
+/// Rendered Object
+///
 #pragma region RenderedObject
 RenderedObject::RenderedObject()
 {
 }
-//RenderedObject::RenderedObject(Sprite* _sprite, Vector2f _sPos, Vector2f _cPos, int _cppu, Vector2i _wPos, Vector2f _sScale, int _sppu)
-//	: sprite(_sprite)
-//{
-//	rwPos = _sPos - _cPos;
-//	rdPos = (Vector2i)(rwPos * (float)_cppu);
-//	dPos = Vector2i(_wPos.x + rdPos.x, _wPos.y - rdPos.y);
-//
-//	dScale = _sScale * (float)(_cppu / _sppu);
-//}
 RenderedObject::RenderedObject(SpriteRenderer* _sr, Camera* _cam, Vector2f _origin)
 	: spriteRenderer(_sr), cam(_cam), origin(_origin)
 {
@@ -26,39 +19,32 @@ RenderedObject::~RenderedObject()
 void RenderedObject::CalculateDraw()
 {
 	/// Position
+	Vector2f pos;
+	pos = spriteRenderer->gameObject->transform.position() - cam->gameObject->transform.position(); // Calculate the position of the sprite relative to the camera
+	pos *= (float)cam->ppu(); // Convert the position from units to pixels
+	pos = Vector2f(origin.x + pos.x, origin.y - pos.y); // Calculate the position relative to the origin of the display (and not the top left corner)
 
-	Vector2f spriteRendererPos = spriteRenderer->gameObject->transform.position();
-	Vector2f cameraPos = cam->gameObject->transform.position();
-	Vector2f worldPos = spriteRendererPos - cameraPos;
-
-	int cameraPPU = cam->ppu();
-	Vector2f pixelWorldPos = worldPos * (float)cameraPPU;
-
-	Vector2f displayPos = Vector2f(origin.x + pixelWorldPos.x, origin.y - pixelWorldPos.y);
-
-	cachedDisplayPos = displayPos;
+	cachedDisplayPos = pos;
 
 	/// Scale
-
-	Vector2f spriteScale = spriteRenderer->gameObject->transform.scale();
-	int spritePPU = spriteRenderer->pixelsPerUnit;
-	Vector2f displayScale = spriteScale * ((float)cameraPPU / (float)spritePPU);
-
-	cachedDisplayScale = displayScale;
+	Vector2f scale;
+	scale = spriteRenderer->gameObject->transform.scale() * ((float)cam->ppu() / (float)spriteRenderer->pixelsPerUnit); // Calculate the scale of the sprite using the ratio between
+																														// the camera's ppu and the sprite's ppu
+	cachedDisplayScale = scale;
 
 	/// Draw Sprite
+	pos -= Vector2f(sprite->getTextureRect().width * scale.x, sprite->getTextureRect().height * scale.y) / 2.0f; // Calculate the final position relative to the center of the sprite
 
-	Vector2f displayRect = Vector2f(sprite->getTextureRect().width * displayScale.x, sprite->getTextureRect().height * displayScale.y) / 2.0f;
-	displayPos -= displayRect;
+	cachedDrawPos = pos;
 
-	cachedDrawPos = displayPos;
-
-	sprite->setPosition(displayPos);
-	sprite->setScale(displayScale);
+	sprite->setPosition(pos);
+	sprite->setScale(scale);
 }
 #pragma endregion
+///
 
-
+/// Display
+///
 #pragma region Display
 Display::Display()
 {
@@ -68,7 +54,7 @@ Display::Display(Vector2f _resolution, GameWindow* _gameWindow)
 {
 }
 Display::Display(int resX, int resY, GameWindow* _gameWindow)
-	: Display(Vector2f(resX, resY), _gameWindow)
+	: Display(Vector2f((float)resX, (float)resY), _gameWindow)
 {
 }
 
@@ -76,28 +62,29 @@ Display::~Display()
 {
 }
 
-void Display::Setup(vector<SpriteRenderer*> _spriteObjects, Camera* _cameraObject)
+#pragma region Setup
+void Display::Setup(vector<SpriteRenderer*> _srs, Camera* _camera)
 {
-	cameraObject = _cameraObject;
+	cameraObject = _camera;
 
-	for (auto& sr : _spriteObjects)
+	for (auto& sr : _srs)
 	{
 		AddObjectToRender(sr);
 	}
 }
 
-void Display::AddObjectToRender(SpriteRenderer* _spriteObject)
+void Display::AddObjectToRender(SpriteRenderer* _sr)
 {
-	if (ContainsSpriteObject(_spriteObject) >= 0) return;
+	if (ContainsObjectToRender(_sr) >= 0) return;
 
-	spriteObjects.push_back(_spriteObject);
+	spriteObjects.push_back(_sr);
 
-	RenderedObject _r = RenderedObject(_spriteObject, cameraObject, origin());
+	RenderedObject _r = RenderedObject(_sr, cameraObject, displayOrigin());
 	renderedObjects.push_back(_r);
 }
-void Display::RemoveObjectToRender(SpriteRenderer* _spriteObject)
+void Display::RemoveObjectToRender(SpriteRenderer* _sr)
 {
-	int _i = ContainsSpriteObject(_spriteObject);
+	int _i = ContainsObjectToRender(_sr);
 	if (_i >= 0)
 	{
 		spriteObjects.erase(spriteObjects.begin() + _i);
@@ -106,8 +93,18 @@ void Display::RemoveObjectToRender(SpriteRenderer* _spriteObject)
 	}
 }
 
+int Display::ContainsObjectToRender(SpriteRenderer* _sr)
+{
+	for (int i = 0; i < renderedObjects.size(); ++i) {
+		if (renderedObjects[i].spriteRenderer == _sr)
+			return i;
+	} return -1;
+}
+#pragma endregion
+
 void Display::Render()
 {
+	DrawBackground();
 	DrawGrid();
 
 	for (auto& r : renderedObjects)
@@ -126,16 +123,23 @@ void Display::Draw(Sprite* _sprite)
 void Display::DebugDraw(RenderedObject* _rd)
 {
 	RectangleShape point = RectangleShape(Vector2f(4, 4));
-	point.setFillColor(Color(255, 0, 0));
+	point.setFillColor(redColor);
 	point.setPosition(_rd->cachedDisplayPos);
 	gameWindow->window->draw(point);
 
 	RectangleShape rect = RectangleShape(Vector2f(_rd->sprite->getTextureRect().width * _rd->cachedDisplayScale.x, 
 		_rd->sprite->getTextureRect().height * _rd->cachedDisplayScale.y));
-	rect.setOutlineColor(Color(0, 255, 0));
+	rect.setOutlineColor(greenColor);
 	rect.setOutlineThickness(1);
 	rect.setFillColor(Color(0, 0, 0, 0));
 	rect.setPosition(_rd->cachedDrawPos);
+	gameWindow->window->draw(rect);
+}
+
+void Display::DrawBackground()
+{
+	RectangleShape rect = RectangleShape(Vector2f(resolution.x, resolution.y));
+	rect.setFillColor(backgroundColor);
 	gameWindow->window->draw(rect);
 }
 
@@ -143,50 +147,60 @@ void Display::DrawGrid()
 {
 	int camPPU = cameraObject->ppu();
 
+	const int base = 5 * 2;
+
 	Vector2f camPosition = cameraObject->gameObject->transform.position();
 	Vector2f cachedCamOffset = Vector2f((resolution.x / 2) / camPPU, (resolution.y / 2) / camPPU);
 	Vector2f minCamPos = camPosition - cachedCamOffset;
 	Vector2f maxCamPos = camPosition + cachedCamOffset;
 
-	for (int x = ceil(minCamPos.x); x <= floor(maxCamPos.x); x++)
+	int lineCountX = (int)(floor(maxCamPos.x) - ceil(minCamPos.x));
+
+	int power = powerOf((float)lineCountX, base);
+	int currentPPU = camPPU * (int)pow(base, power);
+
+	cachedCamOffset = Vector2f((resolution.x / 2) / currentPPU, (resolution.y / 2) / currentPPU);
+	minCamPos = camPosition - cachedCamOffset;
+	maxCamPos = camPosition + cachedCamOffset;
+
+	lineCountX = (int)(floor(maxCamPos.x) - ceil(minCamPos.x));
+
+	float xPos = ceil(minCamPos.x);
+	xPos -= camPosition.x;
+	xPos *= camPPU;
+	xPos += displayOrigin().x;
+
+	for (int x = 0; x <= lineCountX; ++x)
 	{
-		float xWorldPos = x - camPosition.x;
-		float xPos = xWorldPos * camPPU;
-
-		float xDisplayPos = origin().x + xPos;
-
-		Vertex line[] = { Vertex(Vector2f(xDisplayPos, 0)), Vertex(Vector2f(xDisplayPos, resolution.y)) };
+		float pos = xPos + (float)(x * currentPPU);
+		Vertex line[] = { Vertex(Vector2f(pos, 0)), Vertex(Vector2f(pos, resolution.y)) };
+		line->color = detailColor;
+		//line->color.a = 
 		gameWindow->window->draw(line, 2, Lines);
 	}
-	for (int y = ceil(minCamPos.y); y <= floor(maxCamPos.y); y++)
+
+	float yPos = ceil(minCamPos.y);
+	yPos -= camPosition.y;
+	yPos *= camPPU;
+	yPos += displayOrigin().y;
+
+	int lineCountY = (int)(floor(maxCamPos.y) - ceil(minCamPos.y));
+
+	for (int y = 0; y <= lineCountY; ++y)
 	{
-		float yWorldPos = y - camPosition.y;
-		float yPos = yWorldPos * camPPU;
-
-		float yDisplayPos = origin().y - yPos;
-
-		Vertex line[] = { Vertex(Vector2f(0, yDisplayPos)), Vertex(Vector2f(resolution.x, yDisplayPos)) };
+		float pos = yPos + (float)(y * currentPPU);
+		Vertex line[] = { Vertex(Vector2f(0, pos)), Vertex(Vector2f(resolution.x, pos)) };
+		line->color = detailColor;
 		gameWindow->window->draw(line, 2, Lines);
 	}
 
 	RectangleShape rect = RectangleShape(Vector2f(15, 15));
-	rect.setOutlineColor(Color(255, 0, 0));
+	rect.setOutlineColor(redColor);
 	rect.setOutlineThickness(1);
 	rect.setFillColor(Color(0, 0, 0, 0));
-	//rect.setPosition(origin());
-	rect.setPosition(Vector2f(origin().x - (rect.getSize().x / 2), origin().y - (rect.getSize().y / 2)));
+	rect.setPosition(Vector2f(worldOrigin().x - (rect.getSize().x / 2), worldOrigin().y - (rect.getSize().y / 2)));
 	gameWindow->window->draw(rect);
 }
 
-int Display::ContainsSpriteObject(SpriteRenderer* _spriteObject)
-{
-	for (int i = 0; i < renderedObjects.size(); i++)
-	{
-		if (renderedObjects[i].spriteRenderer == _spriteObject)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
 #pragma endregion
+///

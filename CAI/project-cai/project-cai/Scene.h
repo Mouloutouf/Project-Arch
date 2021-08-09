@@ -55,19 +55,30 @@ public:
 	void Update(float _elapsedTime);
 	void Render(RenderWindow* _window);
 
-	void DrawGrid();
+	void CreateSpriteObject(string _name, string _sprite, int _ppu, Vector2f _position);
 
 	string name;
 
 	vector<GameObject> gameObjects;
 
-	Camera* GetMainCamera() { return FindGameObjectWithTag(Tag::Main_Camera)->GetComponent<Camera>(); }
+	Camera* GetMainCamera() {
+		GameObject* camObject = FindGameObjectWithTag(Tag::Main_Camera);
+		if (camObject != nullptr)
+			return camObject->GetComponent<Camera>();
+		return nullptr;
+	}
+	Camera* mainCamera;
 
 protected:
 
 	GameWindow* gameWindow;
 
 	Display currentDisplay;
+
+	/// DEBUG
+	int signSize = 1;
+	int signPos = 1;
+	///
 };
 
 #endif // !SCENE_H

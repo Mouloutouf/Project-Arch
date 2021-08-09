@@ -59,9 +59,7 @@ public:
 		{
 			T* def = nullptr;
 			if (typeid(*c) == typeid(T))
-			{
 				return dynamic_cast<T*>(c);
-			}
 		}
 		return nullptr;
 	}
@@ -71,9 +69,7 @@ public:
 		for (auto& c : components)
 		{
 			if (typeid(*c) == typeid(T))
-			{
 				_components.push_back(dynamic_cast<T*>(c));
-			}
 		}
 		return _components;
 	}

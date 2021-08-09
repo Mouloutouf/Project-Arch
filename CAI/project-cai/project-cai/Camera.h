@@ -30,11 +30,14 @@ public:
 
 	void Input();
 
-	float size;
+	void setSize(float _value); float getSize();
 	Display* display;
 
 	int ppu() { return (int)(displayResolution.y / (size * 2)); }
+
 private:
+
+	float size;
 
 	Vector2f displayResolution;
 };

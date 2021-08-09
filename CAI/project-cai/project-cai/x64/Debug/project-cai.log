@@ -1,3 +1,2 @@
-﻿  Scene.cpp
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Scene.cpp(35): warning C4715: 'Scene::FindGameObjectWithTag' : les chemins de contrôle ne retournent pas tous une valeur
+﻿  Display.cpp
   project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe
