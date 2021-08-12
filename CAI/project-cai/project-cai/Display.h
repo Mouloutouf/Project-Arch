@@ -63,6 +63,16 @@ struct Display
 		while (_value >= _base) { _value /= _base; ++r; }
 		return r;
 	}
+	float pceil(float _value, int _base) {
+		float mod = (float)fmod(_value, _base);
+		_value += (_value > 0 ? _base : 0 - mod);
+		return _value;
+	}
+	float pfloor(float _value, int _base) {
+		float mod = _value > 0 ? (float)fmod(_value, _base) : (float)fmod(_base, _value);
+		_value -= mod;
+		return _value;
+	}
 
 private:
 

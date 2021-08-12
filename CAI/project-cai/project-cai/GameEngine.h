@@ -23,6 +23,7 @@ public:
 	void UserInit();
 
 	void Run(float _elapsedTime);
+	void E_Run(Event& _event, float _elapsedTime);
 
 	GameWindow* GetGameWindow();
 

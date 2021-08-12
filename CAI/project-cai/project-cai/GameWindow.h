@@ -14,15 +14,15 @@ class GameWindow
 {
 public:
 
-	GameWindow(string _projectName = "New Awesome Project", float _width = 1920, float _height = 1080);
+	GameWindow(string _projectName = "New Awesome Project", int _width = 1920, int _height = 1080);
 	GameWindow(const GameWindow& that);
 	GameWindow& operator=(const GameWindow& that);
 	~GameWindow();
 
 	RenderWindow* window;
 
-	float width;
-	float height;
+	int width;
+	int height;
 
 	string name;
 };

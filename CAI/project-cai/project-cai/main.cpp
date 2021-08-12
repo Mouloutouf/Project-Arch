@@ -24,9 +24,8 @@ int main()
 
 	while (window->isOpen())
 	{
-		Time elapsed = clock.getElapsedTime();
-		clock.restart();
-		float elapsedTime = (float)elapsed.asMicroseconds() / (float)1000000;
+		Time elapsed = clock.restart();
+		float elapsedTime = elapsed.asSeconds(); //(float)elapsed.asMicroseconds() / (float)1000000;
 
 		Event event;
 		while (window->pollEvent(event))
@@ -35,6 +34,7 @@ int main()
 			{
 				window->close();
 			}
+			gameEngine.E_Run(event, elapsedTime);
 		}
 
 		gameEngine.Run(elapsedTime);

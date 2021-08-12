@@ -105,7 +105,7 @@ int Display::ContainsObjectToRender(SpriteRenderer* _sr)
 void Display::Render()
 {
 	DrawBackground();
-	DrawGrid();
+	//DrawGrid();
 
 	for (auto& r : renderedObjects)
 	{
@@ -147,30 +147,29 @@ void Display::DrawGrid()
 {
 	int camPPU = cameraObject->ppu();
 
-	const int base = 5 * 2;
+	const int step = 10;
 
+	/// Camera Dimensions
 	Vector2f camPosition = cameraObject->gameObject->transform.position();
 	Vector2f cachedCamOffset = Vector2f((resolution.x / 2) / camPPU, (resolution.y / 2) / camPPU);
 	Vector2f minCamPos = camPosition - cachedCamOffset;
 	Vector2f maxCamPos = camPosition + cachedCamOffset;
 
-	int lineCountX = (int)(floor(maxCamPos.x) - ceil(minCamPos.x));
+	int lineCount = (int)(floor(maxCamPos.x) - ceil(minCamPos.x));
 
-	int power = powerOf((float)lineCountX, base);
-	int currentPPU = camPPU * (int)pow(base, power);
+	int power = powerOf((float)lineCount / 2, step);
+	int base = (int)pow(step, power);
+	int currentPPU = camPPU * base;
 
-	cachedCamOffset = Vector2f((resolution.x / 2) / currentPPU, (resolution.y / 2) / currentPPU);
-	minCamPos = camPosition - cachedCamOffset;
-	maxCamPos = camPosition + cachedCamOffset;
+	int linesX = (int)((pfloor(maxCamPos.x, base) / base) - (pceil(minCamPos.x, base) / base));
+	cout << linesX << endl;
 
-	lineCountX = (int)(floor(maxCamPos.x) - ceil(minCamPos.x));
-
-	float xPos = ceil(minCamPos.x);
+	float xPos = pceil(minCamPos.x, base);
 	xPos -= camPosition.x;
 	xPos *= camPPU;
 	xPos += displayOrigin().x;
 
-	for (int x = 0; x <= lineCountX; ++x)
+	for (int x = 0; x <= linesX; ++x)
 	{
 		float pos = xPos + (float)(x * currentPPU);
 		Vertex line[] = { Vertex(Vector2f(pos, 0)), Vertex(Vector2f(pos, resolution.y)) };
@@ -179,14 +178,14 @@ void Display::DrawGrid()
 		gameWindow->window->draw(line, 2, Lines);
 	}
 
-	float yPos = ceil(minCamPos.y);
+	float yPos = pceil(minCamPos.y, base);
 	yPos -= camPosition.y;
 	yPos *= camPPU;
 	yPos += displayOrigin().y;
 
-	int lineCountY = (int)(floor(maxCamPos.y) - ceil(minCamPos.y));
+	int linesY = (int)((pfloor(maxCamPos.y, base) / base) - (pceil(minCamPos.y, base) / base));
 
-	for (int y = 0; y <= lineCountY; ++y)
+	for (int y = 0; y <= linesY; ++y)
 	{
 		float pos = yPos + (float)(y * currentPPU);
 		Vertex line[] = { Vertex(Vector2f(0, pos)), Vertex(Vector2f(resolution.x, pos)) };

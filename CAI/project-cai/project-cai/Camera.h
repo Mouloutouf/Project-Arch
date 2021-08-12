@@ -28,7 +28,8 @@ public:
 
 	void Update(float _elapsedTime) override;
 
-	void Input();
+	void Input(float _elapsedTime, RenderWindow& _window);
+	void E_Input(float _elapsedTime, Event& _event, RenderWindow& _window);
 
 	void setSize(float _value); float getSize();
 	Display* display;
@@ -36,6 +37,23 @@ public:
 	int ppu() { return (int)(displayResolution.y / (size * 2)); }
 
 private:
+
+	float speed = 0.4f;
+	float scrollSpeed = 7;
+	bool isDrag;
+	Vector2f capturedMousePos;
+	float moveSpeed = 0.4f;
+	Vector2f Clamp(Vector2f _vec, float _radius) {
+		float dist = Distance(Vector2f(0, 0), _vec);
+		if (dist > _radius) {
+			Vector2f newVec = (_vec * _radius) / dist;
+			return newVec;
+		}
+		return _vec;
+	}
+	float Distance(Vector2f _v1, Vector2f _v2) {
+		return sqrtf(powf(_v1.x - _v2.x, 2) + powf(_v1.y - _v2.y, 2));
+	}
 
 	float size;
 

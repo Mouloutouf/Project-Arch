@@ -1,6 +1,6 @@
 #include "GameWindow.h"
 
-GameWindow::GameWindow(string _name, float _width, float _height)
+GameWindow::GameWindow(string _name, int _width, int _height)
 	: width(_width), height(_height), name(_name)
 {
 	window = new RenderWindow(VideoMode(_width, _height), _name);

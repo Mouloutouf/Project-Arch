@@ -2,7 +2,7 @@
 
 GameEngine::GameEngine()
 {
-	gameWindow = GameWindow("The Arch Project Debug");
+	gameWindow = GameWindow("The Arch Project Debug", 1920, 1080);
 }
 
 void GameEngine::Init()
@@ -31,6 +31,11 @@ void GameEngine::Run(float _elapsedTime)
 	currentScene->Render(gameWindow.window);
 
 	gameWindow.window->display();
+}
+
+void GameEngine::E_Run(Event& _event, float _elapsedTime)
+{
+	currentScene->E_Update(_event, _elapsedTime);
 }
 
 GameWindow* GameEngine::GetGameWindow()

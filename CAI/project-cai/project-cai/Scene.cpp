@@ -28,7 +28,7 @@ void Scene::DestroyGameObject(GameObject* _gameObject)
 #pragma region Initialization
 void Scene::Init()
 {
-    currentDisplay = Display(1920, 1080, gameWindow);
+    currentDisplay = Display(gameWindow->width, gameWindow->height, gameWindow);
 
     UserInit();
 
@@ -41,7 +41,7 @@ inline void Scene::UserInit()
     cameraObject->tags.push_back(Tag::Main_Camera);
     /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
     cameraObject->AddComponent(new Camera(cameraObject, &currentDisplay, currentDisplay.resolution, 1));
-    cameraObject->transform.localPosition = Vector2f(1, 0);
+    //cameraObject->transform.localPosition = Vector2f(3, 1);
 
     CreateSpriteObject("Fire Orb", "Assets/Fire Orb.png", 24, Vector2f(-2.5, 0.5));
     CreateSpriteObject("Robot", "Assets/Kastelan Robot.png", 24, Vector2f(3, 1));
@@ -61,13 +61,18 @@ void Scene::Update(float _elapsedTime)
     ///
     if (mainCamera != nullptr)
     {
-        //if (mainCamera->getSize() > 5) signSize = -1;
-        if (mainCamera->getSize() < 0.05) signSize = +1;
-        mainCamera->setSize(mainCamera->getSize() + _elapsedTime * signSize);
+        mainCamera->Input(_elapsedTime, *gameWindow->window);
+    }
+    ///
+}
 
-        /*if (mainCamera->gameObject->transform.position().x > 4) signPos = -1;
-        if (mainCamera->gameObject->transform.position().x < -4) signPos = +1;
-        mainCamera->gameObject->transform.localPosition.x += _elapsedTime * signPos * 2;*/
+void Scene::E_Update(Event& _event, float _elapsedTime)
+{
+    /// DEBUG
+    ///
+    if (mainCamera != nullptr)
+    {
+        mainCamera->E_Input(_elapsedTime, _event, *gameWindow->window);
     }
     ///
 }
@@ -96,7 +101,7 @@ GameObject* Scene::FindGameObjectWithTag(Tag _tag)
             if (go.tags[i] == _tag)
                 return &go;
         }
-    }
+    } return nullptr;
 }
 #pragma endregion
 

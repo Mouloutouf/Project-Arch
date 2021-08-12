@@ -53,6 +53,7 @@ public:
 	inline void UserInit();
 
 	void Update(float _elapsedTime);
+	void E_Update(Event& _event, float _elapsedTime);
 	void Render(RenderWindow* _window);
 
 	void CreateSpriteObject(string _name, string _sprite, int _ppu, Vector2f _position);
@@ -63,7 +64,7 @@ public:
 
 	Camera* GetMainCamera() {
 		GameObject* camObject = FindGameObjectWithTag(Tag::Main_Camera);
-		if (camObject != nullptr)
+		if (camObject)
 			return camObject->GetComponent<Camera>();
 		return nullptr;
 	}

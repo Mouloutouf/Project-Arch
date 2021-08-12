@@ -33,6 +33,7 @@ Collider::Collider(GameObject* _gameObject, Vector2f _size)
 Collider::Collider(const Collider& that)
 	: Component(that), bounds(that.bounds)
 {
+	bounds.transform = &that.gameObject->transform;
 }
 
 Collider::~Collider()

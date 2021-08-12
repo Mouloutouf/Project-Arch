@@ -26,8 +26,58 @@ void Camera::Update(float _elapsedTime)
 {
 }
 
-void Camera::Input()
+void Camera::Input(float _elapsedTime, RenderWindow& _window)
 {
+	if (Keyboard::isKeyPressed(Keyboard::Z)) {
+		gameObject->transform.localPosition.y += _elapsedTime * speed;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::S)) {
+		gameObject->transform.localPosition.y -= _elapsedTime * speed;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Q)) {
+		gameObject->transform.localPosition.x -= _elapsedTime * speed;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::D)) {
+		gameObject->transform.localPosition.x += _elapsedTime * speed;
+	}
+
+	if (isDrag) {
+		Vector2f dragPos;
+
+		Vector2f currentMousePos = (Vector2f)Mouse::getPosition(_window);
+		currentMousePos = Vector2f(currentMousePos.x - _window.getSize().x, _window.getSize().y - currentMousePos.y);
+		currentMousePos /= (float)ppu();
+
+		Vector2f mouseMoveOffset = capturedMousePos - currentMousePos;
+		dragPos = gameObject->transform.localPosition + mouseMoveOffset;
+
+		gameObject->transform.localPosition = dragPos;
+
+		capturedMousePos = currentMousePos;
+	}
+}
+
+void Camera::E_Input(float _elapsedTime, Event& _event, RenderWindow& _window)
+{
+	if (_event.type == Event::MouseWheelScrolled) {
+		float ticks = _event.mouseWheelScroll.delta;
+		setSize(size - (ticks * _elapsedTime * scrollSpeed));
+	}
+
+	if (_event.type == Event::MouseButtonPressed) {
+		if (_event.mouseButton.button == Mouse::Right) {
+			isDrag = true;
+
+			capturedMousePos = (Vector2f)Mouse::getPosition(_window);
+			capturedMousePos = Vector2f(capturedMousePos.x - _window.getSize().x, _window.getSize().y - capturedMousePos.y);
+			capturedMousePos /= (float)ppu();
+		}
+	}
+	if (_event.type == Event::MouseButtonReleased) {
+		if (_event.mouseButton.button == Mouse::Right) {
+			isDrag = false;
+		}
+	}
 }
 
 void Camera::setSize(float _value) {
