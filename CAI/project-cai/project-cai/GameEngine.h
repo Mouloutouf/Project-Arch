@@ -10,29 +10,42 @@
 using namespace std;
 using namespace sf;
 
+#include "Utility.h"
+
 #include "GameWindow.h"
+#include "Assets.h"
 #include "Scene.h"
 
-class GameEngine
+#include "GameObject.h"
+
+namespace alpha
 {
-public:
+	namespace core
+	{
+		extern string ASSETS_FOLDER;
 
-	GameEngine();
+		class GameEngine
+		{
+		public:
 
-	void Init();
-	void UserInit();
+			GameEngine();
 
-	void Run(float _elapsedTime);
-	void E_Run(Event& _event, float _elapsedTime);
+			void Init();
+			void UserInit();
 
-	GameWindow* GetGameWindow();
+			void Run(float _elapsedTime);
+			void E_Run(Event& _event, float _elapsedTime);
 
-protected:
+			GameWindow* GetGameWindow();
 
-	GameWindow gameWindow;
+		protected:
 
-	Scene* currentScene;
-	vector<Scene> scenes;
-};
+			GameWindow gameWindow;
+
+			Scene* currentScene;
+			vector<Scene> scenes;
+		};
+	}
+}
 
 #endif // !GAME_ENGINE_H

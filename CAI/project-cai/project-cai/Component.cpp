@@ -1,26 +1,36 @@
 #include "Component.h"
 
-Component::Component()
+namespace alpha
 {
-}
-Component::Component(GameObject* _gameObject)
-	: gameObject(_gameObject)
-{
-}
-Component::Component(const Component& that)
-	: gameObject(that.gameObject)
-{
-}
+	namespace core
+	{
+		Component::Component()
+		{
+		}
+		Component::Component(GameObject* _gameObject)
+			: gameObject(_gameObject)
+		{
+		}
+		Component::Component(const Component& that)
+			: gameObject(that.gameObject)
+		{
+		}
 
-Component::~Component()
-{
-}
+		Component::~Component()
+		{
+		}
 
-Component* Component::Clone()
-{
-	return new Component(*this);
-}
+		Component* Component::Clone()
+		{
+			return new Component(*this);
+		}
 
-void Component::Update(float _elapsedTime)
-{
+		void Component::Start()
+		{
+		}
+
+		void Component::Update(float _elapsedTime)
+		{
+		}
+	}
 }

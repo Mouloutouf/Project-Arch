@@ -10,21 +10,27 @@
 using namespace std;
 using namespace sf;
 
-class GameWindow
+namespace alpha
 {
-public:
+	namespace core
+	{
+		class GameWindow
+		{
+		public:
 
-	GameWindow(string _projectName = "New Awesome Project", int _width = 1920, int _height = 1080);
-	GameWindow(const GameWindow& that);
-	GameWindow& operator=(const GameWindow& that);
-	~GameWindow();
+			GameWindow(string _projectName = "New Awesome Project", int _width = 1920, int _height = 1080);
+			GameWindow(const GameWindow& that);
+			GameWindow& operator=(const GameWindow& that);
+			~GameWindow();
 
-	RenderWindow* window;
+			RenderWindow* window;
 
-	int width;
-	int height;
+			int width;
+			int height;
 
-	string name;
-};
+			string name;
+		};
+	}
+}
 
 #endif // !GAME_WINDOW_H

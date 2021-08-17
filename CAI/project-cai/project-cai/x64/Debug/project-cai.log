@@ -1,2 +1,6 @@
-﻿  Camera.cpp
-  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe
+﻿  Grid.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Scene.h(29,22): error C2871: 'game' : un espace de noms avec ce nom n'existe pas
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Grid.cpp(93,30): warning C4267: 'argument' : conversion de 'size_t' en 'unsigned int', perte possible de données
+  main.cpp
+  SpriteRenderer.cpp
+  Génération de code en cours...

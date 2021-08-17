@@ -10,22 +10,29 @@
 using namespace std;
 using namespace sf;
 
-class GameObject;
-
-class Component
+namespace alpha
 {
-public:
+	namespace core
+	{
+		class GameObject;
 
-	Component();
-	Component(GameObject* _gameObject);
-	Component(const Component& that);
-	~Component();
+		class Component
+		{
+		public:
 
-	virtual Component* Clone();
+			Component();
+			Component(GameObject* _gameObject);
+			Component(const Component& that);
+			~Component();
 
-	virtual void Update(float _elapsedTime);
+			virtual Component* Clone();
 
-	GameObject* gameObject;
-};
+			virtual void Start();
+			virtual void Update(float _elapsedTime);
+
+			GameObject* gameObject;
+		};
+	}
+}
 
 #endif // !COMPONENT_H

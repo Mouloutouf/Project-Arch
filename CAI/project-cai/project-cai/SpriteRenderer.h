@@ -13,28 +13,34 @@ using namespace sf;
 #include "GameObject.h"
 #include "Component.h"
 
-class SpriteRenderer : public Component
+namespace alpha
 {
-public:
+	namespace core
+	{
+		class SpriteRenderer : public Component
+		{
+		public:
 
-	SpriteRenderer();
-	SpriteRenderer(GameObject* _gameObject, string _spritePath = nullptr, int _ppu = 1);
-	SpriteRenderer(const SpriteRenderer& that);
-	~SpriteRenderer();
+			SpriteRenderer();
+			SpriteRenderer(GameObject* _gameObject, string _spritePath = nullptr, int _ppu = 1);
+			SpriteRenderer(const SpriteRenderer& that);
+			~SpriteRenderer();
 
-	SpriteRenderer* Clone() override;
+			SpriteRenderer* Clone() override;
 
-	Vector2f GetSize();
-	Sprite* GetSprite();
+			Vector2f GetSize();
+			Sprite* GetSprite();
 
-	int pixelsPerUnit = 1;
+			int pixelsPerUnit = 1;
 
-protected:
+		protected:
 
-	string spritePath;
+			string spritePath;
 
-	Sprite sprite;
-	Texture texture;
-};
+			Sprite sprite;
+			Texture texture;
+		};
+	}
+}
 
 #endif // !SPRITE_RENDERER_H

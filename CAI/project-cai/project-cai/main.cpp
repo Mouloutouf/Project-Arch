@@ -7,6 +7,9 @@ using namespace sf;
 
 #include "GameEngine.h"
 
+using namespace alpha;
+using namespace core;
+
 int main()
 {
 	GameEngine gameEngine = GameEngine();

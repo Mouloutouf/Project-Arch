@@ -15,42 +15,48 @@ using namespace sf;
 
 #include "SpriteRenderer.h"
 
-struct Bounds
+namespace alpha
 {
-	Bounds();
-	Bounds(Transform2D* _transform, Vector2f _size = Vector2f(1, 1), Vector2f _offset = Vector2f(0, 0));
-	~Bounds();
+	namespace core
+	{
+		struct Bounds
+		{
+			Bounds();
+			Bounds(Transform2D* _transform, Vector2f _size = Vector2f(1, 1), Vector2f _offset = Vector2f(0, 0));
+			~Bounds();
 
-	Vector2f localSize; // e.g. base or initial size, with no scale applied
-	Vector2f size() { return Vector2f(localSize.x * transform->scale().x, localSize.y * transform->scale().y); }
+			Vector2f localSize; // e.g. base or initial size, with no scale applied
+			Vector2f size() { return Vector2f(localSize.x * transform->scale().x, localSize.y * transform->scale().y); }
 
-	Vector2f extents() { return localSize / 2.0f; }
+			Vector2f extents() { return localSize / 2.0f; }
 
-	Vector2f localPosition; // e.g. offset
-	Vector2f center() { return transform->position() + localPosition; }
+			Vector2f localPosition; // e.g. offset
+			Vector2f center() { return transform->position() + localPosition; }
 
-	Vector2f min() { return Vector2f(center().x - extents().x, center().y - extents().y); }
-	Vector2f max() { return Vector2f(center().x + extents().x, center().y + extents().y); }
+			Vector2f min() { return Vector2f(center().x - extents().x, center().y - extents().y); }
+			Vector2f max() { return Vector2f(center().x + extents().x, center().y + extents().y); }
 
-	Transform2D* transform;
-};
+			Transform2D* transform;
+		};
 
-class Collider : public Component
-{
-public:
+		class Collider : public Component
+		{
+		public:
 
-	Collider();
-	Collider(GameObject* _gameObject, Vector2f _size);
-	Collider(const Collider& that);
-	~Collider();
+			Collider();
+			Collider(GameObject* _gameObject, Vector2f _size);
+			Collider(const Collider& that);
+			~Collider();
 
-	Collider* Clone() override;
+			Collider* Clone() override;
 
-	Bounds bounds;
+			Bounds bounds;
 
-protected:
+		protected:
 
-	Layer& layer = gameObject->layer;
-};
+			Layer& layer = gameObject->layer;
+		};
+	}
+}
 
 #endif // !COLLIDER_H
