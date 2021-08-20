@@ -3,16 +3,12 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include <string>
-#include <iostream>
 #include <chrono>
-#include <SFML\Graphics.hpp>
+#include "Alpha.h"
 
-using namespace std;
-using namespace sf;
-
-#include "Assets.h"
 #include "ScriptBehaviour.h"
+
+///\
 
 namespace alpha
 {
@@ -34,9 +30,12 @@ namespace alpha
 		public:
 
 			Grid();
-			Grid(int _width, int _height, bool _useRandomSeed = true, string _seed = to_string(_TIME));
+			Grid(GameObject* _gameObject, int _width, int _height, bool _useRandomSeed = true, string _seed = to_string(_TIME));
 			Grid(const Grid& that);
+			Grid& operator=(const Grid& that);
 			~Grid();
+
+			void Init() override;
 
 			void Start() override;
 			void Update(float _elapsedTime) override;

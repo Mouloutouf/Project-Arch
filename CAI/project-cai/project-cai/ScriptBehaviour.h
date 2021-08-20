@@ -3,15 +3,14 @@
 #ifndef SCRIPT_BEHAVIOUR_H
 #define SCRIPT_BEHAVIOUR_H
 
-#include <string>
-#include <iostream>
-#include <SFML\Graphics.hpp>
-
-using namespace std;
-using namespace sf;
+#include "Alpha.h"
 
 #include "GameObject.h"
 #include "Component.h"
+
+///\
+
+#include "AssetManager.h"
 
 namespace alpha
 {
@@ -30,9 +29,6 @@ namespace alpha
 
 			void Start() override;
 			void Update(float _elapsedTime) override;
-
-		private:
-
 		};
 	}
 }

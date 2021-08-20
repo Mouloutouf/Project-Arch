@@ -25,6 +25,10 @@ namespace alpha
 			return new Component(*this);
 		}
 
+		void Component::Init()
+		{
+		}
+
 		void Component::Start()
 		{
 		}

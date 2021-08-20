@@ -7,12 +7,12 @@ namespace alpha
 		Grid::Grid()
 		{
 		}
-		Grid::Grid(int _width, int _height, bool _useRandomSeed, string _seed)
-			: width(_width), height(_height), useRandomSeed(_useRandomSeed), seed(_seed)
+		Grid::Grid(GameObject* _gameObject, int _width, int _height, bool _useRandomSeed, string _seed)
+			: ScriptBehaviour(_gameObject), width(_width), height(_height), useRandomSeed(_useRandomSeed), seed(_seed)
 		{
 		}
 		Grid::Grid(const Grid& that)
-			: width(that.width), height(that.height), useRandomSeed(that.useRandomSeed), seed(that.seed)
+			: ScriptBehaviour(that), width(that.width), height(that.height), useRandomSeed(that.useRandomSeed), seed(that.seed)
 		{
 			int size = that.width * that.height;
 			tiles = new Tile[size];
@@ -22,6 +22,38 @@ namespace alpha
 					tiles[index(x, y)] = that.tiles[index(x, y)];
 				}
 			}
+
+			tileObjects = new GameObject*[size];
+
+			for (int x = 0; x < that.width; ++x) {
+				for (int y = 0; y < that.height; ++y) {
+					tileObjects[index(x, y)] = that.tileObjects[index(x, y)];
+				}
+			}
+		}
+
+		Grid& Grid::operator=(const Grid& that)
+		{
+			if (this != &that)
+			{
+				int size = that.width * that.height;
+				tiles = new Tile[size];
+
+				for (int x = 0; x < that.width; ++x) {
+					for (int y = 0; y < that.height; ++y) {
+						tiles[index(x, y)] = that.tiles[index(x, y)];
+					}
+				}
+
+				tileObjects = new GameObject * [size];
+
+				for (int x = 0; x < that.width; ++x) {
+					for (int y = 0; y < that.height; ++y) {
+						tileObjects[index(x, y)] = that.tileObjects[index(x, y)];
+					}
+				}
+			}
+			return *this;
 		}
 
 		Grid::~Grid()
@@ -30,14 +62,14 @@ namespace alpha
 			delete[] tileObjects;
 		}
 
-		void Grid::Start()
+		void Grid::Init()
 		{
-			tilePrefabs.insert({ Biome::Water, Assets::LoadAsset("Tile Water") });
-			tilePrefabs.insert({ Biome::Mountain, Assets::LoadAsset("Building Storage") });
-			tilePrefabs.insert({ Biome::Desert, Assets::LoadAsset("Tile Field Small") });
-			tilePrefabs.insert({ Biome::Field, Assets::LoadAsset("Tile Field Big") });
-			tilePrefabs.insert({ Biome::Forest, Assets::LoadAsset("Tile Woods Big") });
-			tilePrefabs.insert({ Biome::None, Assets::LoadAsset("Tile None") });
+			tilePrefabs.insert({ Biome::Water, AssetManager::LoadAsset("Tile Water") });
+			tilePrefabs.insert({ Biome::Mountain, AssetManager::LoadAsset("Building Storage") });
+			tilePrefabs.insert({ Biome::Desert, AssetManager::LoadAsset("Tile Field Small") });
+			tilePrefabs.insert({ Biome::Field, AssetManager::LoadAsset("Tile Field Big") });
+			tilePrefabs.insert({ Biome::Forest, AssetManager::LoadAsset("Tile Woods Big") });
+			tilePrefabs.insert({ Biome::None, AssetManager::LoadAsset("Tile None") });
 
 			int size = width * height;
 			tiles = new Tile[size];
@@ -55,7 +87,10 @@ namespace alpha
 			biomesFillPower[Biome::Hill] = 0;
 
 			biomesFillPower[Biome::None] = 4; // None cannot be less than 1
+		}
 
+		void Grid::Start()
+		{
 			int total = 0;
 			for (auto& b : biomesFillPower) {
 				total += b.second;
@@ -97,7 +132,10 @@ namespace alpha
 				{
 					int r = rand() % 100;
 					for (auto& b : biomesFillPercent) {
-						if (r < b.second) tiles[index(x, y)].biome = b.first;
+						if (r < b.second) {
+							tiles[index(x, y)].biome = b.first;
+							break;
+						}
 					}
 				}
 			}
@@ -112,7 +150,7 @@ namespace alpha
 				{
 					// Instantiate Prefab
 					Tile& t = tiles[index(x, y)];
-					GameObject* tGo = Assets::InstantiateAsset(tilePrefabs[t.biome], Vector2f((float)x, (float)y), 0, gameObject);
+					GameObject* tGo = AssetManager::InstantiateAsset(tilePrefabs[t.biome], Vector2f((float)x, (float)y), 0, gameObject);
 					tileObjects[index(x, y)] = tGo;
 				}
 			}

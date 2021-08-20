@@ -3,15 +3,12 @@
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
-#include <string>
-#include <iostream>
-#include <SFML\Graphics.hpp>
-
-using namespace std;
-using namespace sf;
+#include "Alpha.h"
 
 #include "GameObject.h"
 #include "Component.h"
+
+///\
 
 #include "SpriteRenderer.h"
 
@@ -51,10 +48,6 @@ namespace alpha
 			Collider* Clone() override;
 
 			Bounds bounds;
-
-		protected:
-
-			Layer& layer = gameObject->layer;
 		};
 	}
 }

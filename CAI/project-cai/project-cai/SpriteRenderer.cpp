@@ -18,10 +18,6 @@ namespace alpha
 				texture.loadFromFile(_spritePath);
 
 				sprite.setTexture(texture);
-				/*FloatRect rect;
-				IntRect pixelRect;*/
-
-				//centerPosition = Vector2f(texture.getSize() / 2u);
 			}
 		}
 		SpriteRenderer::SpriteRenderer(const SpriteRenderer& that)

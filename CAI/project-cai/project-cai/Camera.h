@@ -3,15 +3,12 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <string>
-#include <iostream>
-#include <SFML\Graphics.hpp>
-
-using namespace std;
-using namespace sf;
+#include "Alpha.h"
 
 #include "GameObject.h"
 #include "Component.h"
+
+///\
 
 namespace alpha
 {
@@ -33,21 +30,23 @@ namespace alpha
 			void Update(float _elapsedTime) override;
 
 			void Input(float _elapsedTime, RenderWindow& _window);
-			void E_Input(float _elapsedTime, Event& _event, RenderWindow& _window);
+			void EventInput(float _elapsedTime, Event& _event, RenderWindow& _window);
 
 			void setSize(float _value); float getSize();
 			Display* display;
 
-			int ppu() { return (int)(displayResolution.y / (size * 2)); }
+			int pixelsPerUnit() { return (int)(displayResolution.y / (size * 2)); }
 
 		private:
 
+			/// Input
 			float speed = 0.4f;
 			float scrollSpeed = 7;
 			bool isDrag;
 			Vector2f capturedMousePos;
 			float moveSpeed = 0.4f;
-			
+			///
+
 			float size;
 
 			Vector2f displayResolution;

@@ -3,15 +3,12 @@
 #ifndef SPRITE_RENDERER_H
 #define SPRITE_RENDERER_H
 
-#include <string>
-#include <iostream>
-#include <SFML\Graphics.hpp>
-
-using namespace std;
-using namespace sf;
+#include "Alpha.h"
 
 #include "GameObject.h"
 #include "Component.h"
+
+///\
 
 namespace alpha
 {

@@ -155,7 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Assets.cpp" />
+    <ClCompile Include="AssetView.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -165,21 +165,25 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneView.cpp" />
     <ClCompile Include="ScriptBehaviour.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alpha.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Core.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="Assets.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="AssetView.h" />
+    <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="SceneView.h" />
     <ClInclude Include="ScriptBehaviour.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="TemplateHeader.h" />

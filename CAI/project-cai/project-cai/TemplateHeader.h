@@ -3,12 +3,7 @@
 #ifndef T_HEADER_H // Your own Header Guard #define
 #define T_HEADER_H
 
-#include <string>
-#include <iostream>
-#include <SFML\Graphics.hpp>
-
-using namespace std;
-using namespace sf;
+#include "Alpha.h"
 
 /// Other #includes
 

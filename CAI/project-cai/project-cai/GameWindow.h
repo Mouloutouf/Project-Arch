@@ -3,12 +3,9 @@
 #ifndef GAME_WINDOW_H
 #define GAME_WINDOW_H
 
-#include <string>
-#include <iostream>
-#include <SFML\Graphics.hpp>
+#include "Alpha.h"
 
-using namespace std;
-using namespace sf;
+///\
 
 namespace alpha
 {

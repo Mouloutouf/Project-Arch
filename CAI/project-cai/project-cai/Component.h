@@ -3,12 +3,9 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#include <string>
-#include <iostream>
-#include <SFML\Graphics.hpp>
+#include "Alpha.h"
 
-using namespace std;
-using namespace sf;
+///\
 
 namespace alpha
 {
@@ -26,6 +23,8 @@ namespace alpha
 			~Component();
 
 			virtual Component* Clone();
+
+			virtual void Init();
 
 			virtual void Start();
 			virtual void Update(float _elapsedTime);

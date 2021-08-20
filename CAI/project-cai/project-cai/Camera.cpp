@@ -50,7 +50,7 @@ namespace alpha
 
 				Vector2f currentMousePos = (Vector2f)Mouse::getPosition(_window);
 				currentMousePos = Vector2f(currentMousePos.x - _window.getSize().x, _window.getSize().y - currentMousePos.y);
-				currentMousePos /= (float)ppu();
+				currentMousePos /= (float)pixelsPerUnit();
 
 				Vector2f mouseMoveOffset = capturedMousePos - currentMousePos;
 				dragPos = gameObject->transform.localPosition + mouseMoveOffset;
@@ -61,7 +61,7 @@ namespace alpha
 			}
 		}
 
-		void Camera::E_Input(float _elapsedTime, Event& _event, RenderWindow& _window)
+		void Camera::EventInput(float _elapsedTime, Event& _event, RenderWindow& _window)
 		{
 			if (_event.type == Event::MouseWheelScrolled) {
 				float ticks = _event.mouseWheelScroll.delta;
@@ -74,7 +74,7 @@ namespace alpha
 
 					capturedMousePos = (Vector2f)Mouse::getPosition(_window);
 					capturedMousePos = Vector2f(capturedMousePos.x - _window.getSize().x, _window.getSize().y - capturedMousePos.y);
-					capturedMousePos /= (float)ppu();
+					capturedMousePos /= (float)pixelsPerUnit();
 				}
 			}
 			if (_event.type == Event::MouseButtonReleased) {

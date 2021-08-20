@@ -3,15 +3,12 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
-#include <string>
-#include <iostream>
-#include <SFML\Graphics.hpp>
 #include <typeinfo>
-
-using namespace std;
-using namespace sf;
+#include "Alpha.h"
 
 #include "Component.h"
+
+///\
 
 namespace alpha
 {
@@ -28,7 +25,7 @@ namespace alpha
 			Transform2D(const Transform2D& that);
 			~Transform2D();
 
-			GameObject* gameObject;
+			GameObject* gameObject = nullptr;
 
 			Vector2f position();
 			float rotation();
@@ -45,45 +42,39 @@ namespace alpha
 
 			/// Constructors
 			GameObject(string _name = "New Game Object", Transform2D _transform = Transform2D(), GameObject* _parent = nullptr,
-				Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default },
-				...);
+				Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default });
 			GameObject(const GameObject& that);
-			template <typename T = Component> void CopyComponent(T* _component)
-			{
-				components.push_back(new T(*_component));
-				components.back()->gameObject = this;
-			}
 			GameObject& operator=(const GameObject& that);
+
 			~GameObject();
 
 			/// Methods
-			template <typename T = Component> T* GetComponent()
-			{
-				for (auto& c : components)
-				{
-					T* def = nullptr;
+			void AddComponent(Component* _component); /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
+			void RemoveComponent(Component* _component);
+
+			template <typename T = Component> T* GetComponent() {
+				for (auto& c : components) {
 					if (typeid(*c) == typeid(T))
 						return dynamic_cast<T*>(c);
-				}
-				return nullptr;
+				} return nullptr;
 			}
-			template <typename T = Component> vector<T*> GetComponents()
-			{
+			template <typename T = Component> vector<T*> GetComponents() {
 				vector<T*> _components;
-				for (auto& c : components)
-				{
+				for (auto& c : components) {
 					if (typeid(*c) == typeid(T))
 						_components.push_back(dynamic_cast<T*>(c));
-				}
-				return _components;
+				} return _components;
 			}
 
 			vector<Component*>* GetComponentsList();
 
-			void AddComponent(Component* _component);
-			void RemoveComponent(Component* _component);
+			int AddChild(GameObject* _gameObject);
+			void DeleteChild(int _index);
 
-			GameObject* GetChild(int _index); GameObject* GetChild(string _name);
+			GameObject* GetChild(int _index);
+			GameObject* GetChild(string _name);
+			
+			void Init();
 
 			void Start();
 			void Update(float _elapsedTime);
@@ -99,7 +90,11 @@ namespace alpha
 			Layer layer;
 			vector<Tag> tags;
 
+			int index = 0;
+
 		protected:
+
+			int childIndex = -1;
 
 			vector<Component*> components;
 		};

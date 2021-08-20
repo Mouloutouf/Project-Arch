@@ -37,7 +37,7 @@
     <Filter Include="Fichiers d%27en-tête\Core\Components">
       <UniqueIdentifier>{25089c19-9492-47c6-8cd6-fc6c009191bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Temp">
+    <Filter Include="Fichiers d%27en-tête\Template">
       <UniqueIdentifier>{2efffee3-b1a6-4676-95db-91cc7d25884e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -51,7 +51,7 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
+    <ClCompile Include="SceneView.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
     <ClCompile Include="GameEngine.cpp">
@@ -78,7 +78,7 @@
     <ClCompile Include="ScriptBehaviour.cpp">
       <Filter>Fichiers sources\Core\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Assets.cpp">
+    <ClCompile Include="AssetView.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +92,7 @@
     <ClInclude Include="GameObject.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
+    <ClInclude Include="SceneView.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
     <ClInclude Include="GameEngine.h">
@@ -122,11 +122,23 @@
     <ClInclude Include="TileObject.h">
       <Filter>Fichiers d%27en-tête\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="Assets.h">
+    <ClInclude Include="AssetView.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
     <ClInclude Include="TemplateHeader.h">
-      <Filter>Fichiers d%27en-tête\Temp</Filter>
+      <Filter>Fichiers d%27en-tête\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Alpha.h">
+      <Filter>Fichiers d%27en-tête\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Fichiers d%27en-tête\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Fichiers d%27en-tête\Template</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

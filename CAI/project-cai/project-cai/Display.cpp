@@ -25,14 +25,14 @@ namespace alpha
 			/// Position
 			Vector2f pos;
 			pos = spriteRenderer->gameObject->transform.position() - cam->gameObject->transform.position(); // Calculate the position of the sprite relative to the camera
-			pos *= (float)cam->ppu(); // Convert the position from units to pixels
+			pos *= (float)cam->pixelsPerUnit(); // Convert the position from units to pixels
 			pos = Vector2f(origin.x + pos.x, origin.y - pos.y); // Calculate the position relative to the origin of the display (and not the top left corner)
 
 			cachedDisplayPos = pos;
 
 			/// Scale
 			Vector2f scale;
-			scale = spriteRenderer->gameObject->transform.scale() * ((float)cam->ppu() / (float)spriteRenderer->pixelsPerUnit); // Calculate the scale of the sprite using the ratio between
+			scale = spriteRenderer->gameObject->transform.scale() * ((float)cam->pixelsPerUnit() / (float)spriteRenderer->pixelsPerUnit); // Calculate the scale of the sprite using the ratio between
 																																// the camera's ppu and the sprite's ppu
 			cachedDisplayScale = scale;
 
@@ -69,7 +69,7 @@ namespace alpha
 #pragma region Setup
 		void Display::Setup(vector<SpriteRenderer*> _srs, Camera* _camera)
 		{
-			cameraObject = _camera;
+			camera = _camera;
 
 			for (auto& sr : _srs)
 			{
@@ -81,9 +81,9 @@ namespace alpha
 		{
 			if (ContainsObjectToRender(_sr) >= 0) return;
 
-			spriteObjects.push_back(_sr);
+			renderers.push_back(_sr);
 
-			RenderedObject _r = RenderedObject(_sr, cameraObject, displayOrigin());
+			RenderedObject _r = RenderedObject(_sr, camera, displayOrigin());
 			renderedObjects.push_back(_r);
 		}
 		void Display::RemoveObjectToRender(SpriteRenderer* _sr)
@@ -91,7 +91,7 @@ namespace alpha
 			int _i = ContainsObjectToRender(_sr);
 			if (_i >= 0)
 			{
-				spriteObjects.erase(spriteObjects.begin() + _i);
+				renderers.erase(renderers.begin() + _i);
 
 				renderedObjects.erase(renderedObjects.begin() + _i);
 			}
@@ -127,13 +127,13 @@ namespace alpha
 		void Display::DebugDraw(RenderedObject* _rd)
 		{
 			RectangleShape point = RectangleShape(Vector2f(4, 4));
-			point.setFillColor(redColor);
+			point.setFillColor(RED_COLOR);
 			point.setPosition(_rd->cachedDisplayPos);
 			gameWindow->window->draw(point);
 
 			RectangleShape rect = RectangleShape(Vector2f(_rd->sprite->getTextureRect().width * _rd->cachedDisplayScale.x,
 				_rd->sprite->getTextureRect().height * _rd->cachedDisplayScale.y));
-			rect.setOutlineColor(greenColor);
+			rect.setOutlineColor(GREEN_COLOR);
 			rect.setOutlineThickness(1);
 			rect.setFillColor(Color(0, 0, 0, 0));
 			rect.setPosition(_rd->cachedDrawPos);
@@ -143,32 +143,32 @@ namespace alpha
 		void Display::DrawBackground()
 		{
 			RectangleShape rect = RectangleShape(Vector2f(resolution.x, resolution.y));
-			rect.setFillColor(backgroundColor);
+			rect.setFillColor(BACKGROUND_COLOR);
 			gameWindow->window->draw(rect);
 		}
 
 		void Display::DrawGrid()
 		{
-			int camPPU = cameraObject->ppu();
+			int camPPU = camera->pixelsPerUnit();
 
 			const int step = 10;
 
 			/// Camera Dimensions
-			Vector2f camPosition = cameraObject->gameObject->transform.position();
+			Vector2f camPosition = camera->gameObject->transform.position();
 			Vector2f cachedCamOffset = Vector2f((resolution.x / 2) / camPPU, (resolution.y / 2) / camPPU);
 			Vector2f minCamPos = camPosition - cachedCamOffset;
 			Vector2f maxCamPos = camPosition + cachedCamOffset;
 
 			int lineCount = (int)(floor(maxCamPos.x) - ceil(minCamPos.x));
 
-			int power = powerOf((float)lineCount / 2, step);
+			int power = Utility::powerOf((float)lineCount / 2, step);
 			int base = (int)pow(step, power);
 			int currentPPU = camPPU * base;
 
-			int linesX = (int)((pfloor(maxCamPos.x, base) / base) - (pceil(minCamPos.x, base) / base));
+			int linesX = (int)((Utility::pfloor(maxCamPos.x, base) / base) - (Utility::pceil(minCamPos.x, base) / base));
 			cout << linesX << endl;
 
-			float xPos = pceil(minCamPos.x, base);
+			float xPos = Utility::pceil(minCamPos.x, base);
 			xPos -= camPosition.x;
 			xPos *= camPPU;
 			xPos += displayOrigin().x;
@@ -177,28 +177,28 @@ namespace alpha
 			{
 				float pos = xPos + (float)(x * currentPPU);
 				Vertex line[] = { Vertex(Vector2f(pos, 0)), Vertex(Vector2f(pos, resolution.y)) };
-				line->color = detailColor;
+				line->color = DETAIL_COLOR;
 				//line->color.a = 
 				gameWindow->window->draw(line, 2, Lines);
 			}
 
-			float yPos = pceil(minCamPos.y, base);
+			float yPos = Utility::pceil(minCamPos.y, base);
 			yPos -= camPosition.y;
 			yPos *= camPPU;
 			yPos += displayOrigin().y;
 
-			int linesY = (int)((pfloor(maxCamPos.y, base) / base) - (pceil(minCamPos.y, base) / base));
+			int linesY = (int)((Utility::pfloor(maxCamPos.y, base) / base) - (Utility::pceil(minCamPos.y, base) / base));
 
 			for (int y = 0; y <= linesY; ++y)
 			{
 				float pos = yPos + (float)(y * currentPPU);
 				Vertex line[] = { Vertex(Vector2f(0, pos)), Vertex(Vector2f(resolution.x, pos)) };
-				line->color = detailColor;
+				line->color = DETAIL_COLOR;
 				gameWindow->window->draw(line, 2, Lines);
 			}
 
 			RectangleShape rect = RectangleShape(Vector2f(15, 15));
-			rect.setOutlineColor(redColor);
+			rect.setOutlineColor(RED_COLOR);
 			rect.setOutlineThickness(1);
 			rect.setFillColor(Color(0, 0, 0, 0));
 			rect.setPosition(Vector2f(worldOrigin().x - (rect.getSize().x / 2), worldOrigin().y - (rect.getSize().y / 2)));
