@@ -17,22 +17,15 @@ namespace alpha
 
 		void GameEngine::Init()
 		{
-			UserInit();
-
-			if (currentScene != nullptr)
-			{
-				currentScene->Init();
-			}
-		}
-
-		void GameEngine::UserInit()
-		{
 			scenes.push_back(new SceneView(&gameWindow, "Game Scene"));
 
 			currentScene = scenes.back();
+			currentScene->Init();
 
 			AssetView::currentScene = currentScene;
 			AssetManager::UserInit();
+
+			currentScene->Play();
 		}
 
 		void GameEngine::Run(float _elapsedTime)

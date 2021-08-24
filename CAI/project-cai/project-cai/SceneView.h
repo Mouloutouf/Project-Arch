@@ -48,7 +48,7 @@ namespace alpha
 			void Init();
 			void UserInit();
 
-			void Start();
+			void Play();
 
 			void Update(float _elapsedTime);
 			void EventUpdate(Event& _event, float _elapsedTime);
@@ -67,8 +67,10 @@ namespace alpha
 					return camObject->GetComponent<Camera>();
 				return nullptr;
 			}
-			void CreateSpriteObject(string _name, string _sprite, int _ppu, Vector2f _position);
+			GameObject* CreateSpriteObject(string _name, string _sprite, int _ppu, Vector2f _position);
 			///
+
+			Display* GetCurrentDisplay() { return &currentDisplay; }
 
 		private:
 

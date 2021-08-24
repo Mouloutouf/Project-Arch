@@ -10,32 +10,43 @@ namespace alpha
 		void AssetManager::UserInit()
 		{
 			string extension = ".png";
-			vector<string> tileSprites = { "Tile None", "Tile Field Big", "Tile Field Small", "Tile Water", "Tile Woods Big", "Building Storage" };
+			vector<string> tileSpriteNames = { "Tile None", "Tile Field Big", "Tile Field Small", "Tile Water", "Tile Woods Big", "Building Storage" };
 
-			for (int i = 0; i < tileSprites.size(); i++)
+			for (int i = 0; i < tileSpriteNames.size(); i++)
 			{
-				GameObject tileGo = GameObject(tileSprites[i]);
-				tileGo.AddComponent(new SpriteRenderer(&tileGo, ASSETS_FOLDER + tileSprites[i] + extension, 24));
-				AssetView::AddAsset(tileGo);
+				auto tlgo = new GameObject(tileSpriteNames[i]);
+				AssetView::AddAsset(tlgo);
+				tlgo->AddComponent(new SpriteRenderer(tlgo, AssetView::currentScene->GetCurrentDisplay(), ASSETS_FOLDER + tileSpriteNames[i] + extension, 16));
 			}
 		}
 
-		GameObject* AssetManager::InstantiateAsset(GameObject* _gameObject, Vector2f _position, float _rotation, GameObject* _parent)
+		GameObject* AssetManager::InstantiateAsset(GameObject* _prefab, Vector2f _position, float _rotation, GameObject* _parent)
 		{
-			for (auto& g : AssetView::prefabs)
-			{
-				if (g == _gameObject) {
-					auto go = AssetView::currentScene->InstantiateGameObject(_gameObject);
-					go->transform.localPosition = _position;
-					go->transform.localRotation = _rotation;
-					go->parent = _parent;
+			bool usePrefab = false;
+			GameObject objectToInstantiate;
 
-					return go;
+			for (auto& p : AssetView::prefabs) {
+				if (p == _prefab)
+				{
+					objectToInstantiate = *_prefab;
+					objectToInstantiate.RemoveTag(Tag::Prefab);
+
+					usePrefab = true;
+
+					break;
 				}
 			}
-			auto _g = GameObject("New Game Object");
-			auto _gptr = AssetView::currentScene->InstantiateGameObject(&_g);
-			return _gptr;
+			if (usePrefab == false) {
+				objectToInstantiate = GameObject("New Game Object");
+			}
+
+			auto go = AssetView::currentScene->InstantiateGameObject(&objectToInstantiate);
+
+			go->transform.localPosition = _position;
+			go->transform.localRotation = _rotation;
+			go->SetParent(_parent);
+
+			return go;
 		}
 
 		AssetView::AssetView()
@@ -48,9 +59,10 @@ namespace alpha
 				delete pg;
 		}
 
-		void AssetView::AddAsset(GameObject& _gameObject)
+		void AssetView::AddAsset(GameObject* _gameObject)
 		{
-			prefabs.push_back(&_gameObject);
+			prefabs.push_back(_gameObject);
+			_gameObject->AddTag(Tag::Prefab);
 		}
 
 		void AssetView::DeleteAsset(string _gameObjectName)

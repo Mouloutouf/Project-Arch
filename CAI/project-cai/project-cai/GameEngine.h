@@ -27,7 +27,6 @@ namespace alpha
 			~GameEngine();
 
 			void Init();
-			void UserInit();
 
 			void Run(float _elapsedTime);
 			void EventRun(Event& _event, float _elapsedTime);

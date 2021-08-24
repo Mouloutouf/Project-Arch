@@ -10,6 +10,8 @@
 
 ///\
 
+#include "Display.h"
+
 namespace alpha
 {
 	namespace core
@@ -19,11 +21,13 @@ namespace alpha
 		public:
 
 			SpriteRenderer();
-			SpriteRenderer(GameObject* _gameObject, string _spritePath = nullptr, int _ppu = 1);
-			SpriteRenderer(const SpriteRenderer& that);
+			SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath = nullptr, int _ppu = 1);
+			SpriteRenderer(const SpriteRenderer& that, GameObject* _gameObject);
 			~SpriteRenderer();
 
-			SpriteRenderer* Clone() override;
+			SpriteRenderer* Clone(GameObject* _gameObject) override;
+
+			void AddToRender();
 
 			Vector2f GetSize();
 			Sprite* GetSprite();
@@ -36,6 +40,8 @@ namespace alpha
 
 			Sprite sprite;
 			Texture texture;
+
+			Display* display;
 		};
 	}
 }

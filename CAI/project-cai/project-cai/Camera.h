@@ -22,15 +22,10 @@ namespace alpha
 
 			Camera();
 			Camera(GameObject* _gameObject, Display* _display, Vector2f _resolution, float _size);
-			Camera(const Camera& that);
+			Camera(const Camera& that, GameObject* _gameObject);
 			~Camera();
 
-			Camera* Clone() override;
-
-			void Update(float _elapsedTime) override;
-
-			void Input(float _elapsedTime, RenderWindow& _window);
-			void EventInput(float _elapsedTime, Event& _event, RenderWindow& _window);
+			Camera* Clone(GameObject* _gameObject) override;
 
 			void setSize(float _value); float getSize();
 			Display* display;
@@ -38,14 +33,6 @@ namespace alpha
 			int pixelsPerUnit() { return (int)(displayResolution.y / (size * 2)); }
 
 		private:
-
-			/// Input
-			float speed = 0.4f;
-			float scrollSpeed = 7;
-			bool isDrag;
-			Vector2f capturedMousePos;
-			float moveSpeed = 0.4f;
-			///
 
 			float size;
 

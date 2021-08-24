@@ -31,9 +31,11 @@ namespace alpha
 
 			Grid();
 			Grid(GameObject* _gameObject, int _width, int _height, bool _useRandomSeed = true, string _seed = to_string(_TIME));
-			Grid(const Grid& that);
+			Grid(const Grid& that, GameObject* _gameObject);
 			Grid& operator=(const Grid& that);
 			~Grid();
+
+			Grid* Clone(GameObject* _gameObject) override;
 
 			void Init() override;
 

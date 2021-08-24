@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="AssetView.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraInput.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Display.cpp" />
@@ -172,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="Alpha.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraInput.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Core.h" />

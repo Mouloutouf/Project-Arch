@@ -34,8 +34,8 @@ namespace alpha
 		{
 			bounds = Bounds(&gameObject->transform, _size);
 		}
-		Collider::Collider(const Collider& that)
-			: Component(that), bounds(that.bounds)
+		Collider::Collider(const Collider& that, GameObject* _gameObject)
+			: Component(that, _gameObject), bounds(that.bounds)
 		{
 			bounds.transform = &that.gameObject->transform;
 		}
@@ -44,9 +44,9 @@ namespace alpha
 		{
 		}
 
-		Collider* Collider::Clone()
+		Collider* Collider::Clone(GameObject* _gameObject)
 		{
-			return new Collider(*this);
+			return new Collider(*this, _gameObject);
 		}
 	}
 }

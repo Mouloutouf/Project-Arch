@@ -12,8 +12,8 @@ namespace alpha
 			: Component(_gameObject), display(_display), displayResolution(_resolution), size(_size)
 		{
 		}
-		Camera::Camera(const Camera& that)
-			: Component(that), display(that.display), displayResolution(that.displayResolution), size(that.size)
+		Camera::Camera(const Camera& that, GameObject* _gameObject)
+			: Component(that, _gameObject), display(that.display), displayResolution(that.displayResolution), size(that.size)
 		{
 		}
 
@@ -21,67 +21,9 @@ namespace alpha
 		{
 		}
 
-		Camera* Camera::Clone()
+		Camera* Camera::Clone(GameObject* _gameObject)
 		{
-			return new Camera(*this);
-		}
-
-		void Camera::Update(float _elapsedTime)
-		{
-		}
-
-		void Camera::Input(float _elapsedTime, RenderWindow& _window)
-		{
-			if (Keyboard::isKeyPressed(Keyboard::Z)) {
-				gameObject->transform.localPosition.y += _elapsedTime * speed;
-			}
-			if (Keyboard::isKeyPressed(Keyboard::S)) {
-				gameObject->transform.localPosition.y -= _elapsedTime * speed;
-			}
-			if (Keyboard::isKeyPressed(Keyboard::Q)) {
-				gameObject->transform.localPosition.x -= _elapsedTime * speed;
-			}
-			if (Keyboard::isKeyPressed(Keyboard::D)) {
-				gameObject->transform.localPosition.x += _elapsedTime * speed;
-			}
-
-			if (isDrag) {
-				Vector2f dragPos;
-
-				Vector2f currentMousePos = (Vector2f)Mouse::getPosition(_window);
-				currentMousePos = Vector2f(currentMousePos.x - _window.getSize().x, _window.getSize().y - currentMousePos.y);
-				currentMousePos /= (float)pixelsPerUnit();
-
-				Vector2f mouseMoveOffset = capturedMousePos - currentMousePos;
-				dragPos = gameObject->transform.localPosition + mouseMoveOffset;
-
-				gameObject->transform.localPosition = dragPos;
-
-				capturedMousePos = currentMousePos;
-			}
-		}
-
-		void Camera::EventInput(float _elapsedTime, Event& _event, RenderWindow& _window)
-		{
-			if (_event.type == Event::MouseWheelScrolled) {
-				float ticks = _event.mouseWheelScroll.delta;
-				setSize(size - (ticks * _elapsedTime * scrollSpeed));
-			}
-
-			if (_event.type == Event::MouseButtonPressed) {
-				if (_event.mouseButton.button == Mouse::Right) {
-					isDrag = true;
-
-					capturedMousePos = (Vector2f)Mouse::getPosition(_window);
-					capturedMousePos = Vector2f(capturedMousePos.x - _window.getSize().x, _window.getSize().y - capturedMousePos.y);
-					capturedMousePos /= (float)pixelsPerUnit();
-				}
-			}
-			if (_event.type == Event::MouseButtonReleased) {
-				if (_event.mouseButton.button == Mouse::Right) {
-					isDrag = false;
-				}
-			}
+			return new Camera(*this, _gameObject);
 		}
 
 		void Camera::setSize(float _value) {

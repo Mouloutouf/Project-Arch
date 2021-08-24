@@ -22,13 +22,14 @@ namespace alpha
 
 			ScriptBehaviour();
 			ScriptBehaviour(GameObject* _gameObject);
-			ScriptBehaviour(const ScriptBehaviour& that);
+			ScriptBehaviour(const ScriptBehaviour& that, GameObject* _gameObject);
 			~ScriptBehaviour();
 
-			ScriptBehaviour* Clone() override;
+			ScriptBehaviour* Clone(GameObject* _gameObject) override;
 
 			void Start() override;
 			void Update(float _elapsedTime) override;
+			void EventUpdate(Event& _event, float _elapsedTime) override;
 		};
 	}
 }

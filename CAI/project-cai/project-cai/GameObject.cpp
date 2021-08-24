@@ -24,23 +24,23 @@ namespace alpha
 
 		Vector2f Transform2D::position()
 		{
-			Vector2f parentPosition;
-			if (gameObject->parent != nullptr) parentPosition = gameObject->parent->transform.position();
+			Vector2f parentPosition = Vector2f(0, 0);
+			if (gameObject->GetParent() != nullptr) parentPosition = gameObject->GetParent()->transform.position();
 			return localPosition + parentPosition;
 		}
 
 		float Transform2D::rotation()
 		{
 			float parentRotation = 0.0f;
-			if (gameObject->parent != nullptr) parentRotation = gameObject->parent->transform.rotation();
+			if (gameObject->GetParent() != nullptr) parentRotation = gameObject->GetParent()->transform.rotation();
 			return localRotation + parentRotation;
 		}
 
 		Vector2f Transform2D::scale()
 		{
-			Vector2f parentScale;
-			if (gameObject->parent != nullptr) parentScale = gameObject->parent->transform.scale();
-			return localScale + parentScale;
+			Vector2f parentScale = Vector2f(1, 1);
+			if (gameObject->GetParent() != nullptr) parentScale = gameObject->GetParent()->transform.scale();
+			return Vector2f(localScale.x * parentScale.x, localScale.y * parentScale.y);
 		}
 
 #pragma endregion
@@ -50,8 +50,10 @@ namespace alpha
 		GameObject::GameObject(string _name, Transform2D _transform, GameObject* _parent, Layer _layer, vector<Tag> _tags)
 			: transform(_transform), parent(_parent), name(_name), layer(_layer), tags(_tags)
 		{
+			// Transform
 			transform.gameObject = this;
 
+			// Parent
 			if (parent != nullptr) {
 				childIndex = parent->AddChild(this);
 			}
@@ -59,50 +61,58 @@ namespace alpha
 		GameObject::GameObject(const GameObject& that)
 			: transform(that.transform), parent(that.parent), name(that.name), layer(that.layer), tags(that.tags)
 		{
+			// Transform
 			transform.gameObject = this;
 
-			for (auto& c : that.components)
-			{
-				components.push_back(c->Clone());
-				components.back()->gameObject = this;
-			}
-
+			// Parent
 			if (parent != nullptr) {
 				childIndex = parent->AddChild(this);
 			}
 
+			// Children
 			for (auto& ch : that.children) {
 				children.push_back(ch);
+			}
+
+			// Components
+			for (auto& c : that.components)
+			{
+				components.push_back(c->Clone(this));
+				//components.back()->gameObject = this;
 			}
 		}
 		GameObject& GameObject::operator=(const GameObject& that)
 		{
 			if (this != &that)
 			{
+				// Transform
 				transform = that.transform;
 				transform.gameObject = this;
 
-				for (auto& c : components)
-					delete c;
-				components.clear();
-
-				for (int i = 0; i < that.components.size(); ++i)
-				{
-					components.push_back(that.components[i]->Clone());
-					components.back()->gameObject = this;
-				}
-
+				// Members
 				parent = that.parent;
 				name = that.name;
 				layer = that.layer;
 				tags = that.tags;
 
+				// Children
 				for (auto& ch : children)
 					delete ch;
 				children.clear();
 
 				for (int i = 0; i < that.children.size(); i++) {
 					children.push_back(that.children[i]);
+				}
+
+				// Components
+				for (auto& c : components)
+					delete c;
+				components.clear();
+
+				for (int i = 0; i < that.components.size(); ++i)
+				{
+					components.push_back(that.components[i]->Clone(this));
+					//components.back()->gameObject = this;
 				}
 			}
 			return *this;
@@ -116,7 +126,8 @@ namespace alpha
 			for (auto& c : components)
 				delete c;
 
-			parent->DeleteChild(childIndex);
+			if (parent != nullptr)
+				parent->DeleteChild(childIndex);
 		}
 
 		vector<Component*>* GameObject::GetComponentsList() { return &components; }
@@ -133,10 +144,16 @@ namespace alpha
 
 		int GameObject::AddChild(GameObject* _gameObject)
 		{
-			children.push_back(this);
-			return parent->children.size() - 1;
+			children.push_back(_gameObject);
+			return children.size() - 1;
 		}
-
+		void GameObject::RemoveChild(GameObject* _gameObject)
+		{
+			for (int i = 0; i < children.size(); i++) {
+				if (children[i] = _gameObject)
+					children.erase(children.begin() + i);
+			}
+		}
 		void GameObject::DeleteChild(int _index)
 		{
 			if (_index >= 0 && _index < children.size()) {
@@ -160,6 +177,53 @@ namespace alpha
 			} return nullptr;
 		}
 
+		vector<GameObject*>* GameObject::GetChildren() { return &children; }
+
+		void GameObject::SetParent(GameObject* _gameObject)
+		{
+			if (_gameObject == nullptr) return;
+
+			if (_gameObject != parent)
+			{
+				if (parent != nullptr)
+					parent->RemoveChild(this);
+				parent = _gameObject;
+				parent->AddChild(this);
+			}
+		}
+		void GameObject::ExtractFromParent()
+		{
+			if (parent != nullptr) {
+				parent->RemoveChild(this);
+				parent = parent->parent;
+				parent->AddChild(this);
+			}
+		}
+
+		GameObject* GameObject::GetParent() { return parent; }
+
+		void GameObject::AddTag(Tag _tag)
+		{
+			if (ContainsTag(_tag) >= 0) return;
+			tags.push_back(_tag);
+		}
+		void GameObject::RemoveTag(Tag _tag)
+		{
+			int _i = ContainsTag(_tag);
+			if (_i >= 0)
+				tags.erase(tags.begin() + _i);
+		}
+
+		int GameObject::ContainsTag(Tag _tag)
+		{
+			for (int i = 0; i < tags.size(); ++i) {
+				if (tags[i] == _tag)
+					return i;
+			} return -1;
+		}
+
+		vector<Tag>* GameObject::GetTagsList() { return &tags; }
+
 		void GameObject::Init()
 		{
 			for (auto& c : components) {
@@ -177,6 +241,12 @@ namespace alpha
 		{
 			for (auto& c : components)
 				c->Update(_elapsedTime);
+		}
+
+		void GameObject::EventUpdate(Event& _event, float _elapsedTime)
+		{
+			for (auto& c : components)
+				c->EventUpdate(_event, _elapsedTime);
 		}
 
 #pragma endregion

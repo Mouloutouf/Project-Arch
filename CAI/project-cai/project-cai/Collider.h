@@ -42,10 +42,10 @@ namespace alpha
 
 			Collider();
 			Collider(GameObject* _gameObject, Vector2f _size);
-			Collider(const Collider& that);
+			Collider(const Collider& that, GameObject* _gameObject);
 			~Collider();
 
-			Collider* Clone() override;
+			Collider* Clone(GameObject* _gameObject) override;
 
 			Bounds bounds;
 		};

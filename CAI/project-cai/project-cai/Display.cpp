@@ -10,10 +10,9 @@ namespace alpha
 		RenderedObject::RenderedObject()
 		{
 		}
-		RenderedObject::RenderedObject(SpriteRenderer* _sr, Camera* _cam, Vector2f _origin)
-			: spriteRenderer(_sr), cam(_cam), origin(_origin)
+		RenderedObject::RenderedObject(GameObject* _gameObject, Sprite* _sprite, int _ppu, Camera* _cam, Vector2f _origin)
+			: objectToRender(_gameObject), spriteToRender(_sprite), spritePixelsPerUnit(_ppu), cam(_cam), origin(_origin)
 		{
-			sprite = spriteRenderer->GetSprite();
 		}
 
 		RenderedObject::~RenderedObject()
@@ -24,7 +23,7 @@ namespace alpha
 		{
 			/// Position
 			Vector2f pos;
-			pos = spriteRenderer->gameObject->transform.position() - cam->gameObject->transform.position(); // Calculate the position of the sprite relative to the camera
+			pos = objectToRender->transform.position() - cam->gameObject->transform.position(); // Calculate the position of the sprite relative to the camera
 			pos *= (float)cam->pixelsPerUnit(); // Convert the position from units to pixels
 			pos = Vector2f(origin.x + pos.x, origin.y - pos.y); // Calculate the position relative to the origin of the display (and not the top left corner)
 
@@ -32,17 +31,17 @@ namespace alpha
 
 			/// Scale
 			Vector2f scale;
-			scale = spriteRenderer->gameObject->transform.scale() * ((float)cam->pixelsPerUnit() / (float)spriteRenderer->pixelsPerUnit); // Calculate the scale of the sprite using the ratio between
-																																// the camera's ppu and the sprite's ppu
+			scale = objectToRender->transform.scale() * ((float)cam->pixelsPerUnit() / (float)spritePixelsPerUnit); // Calculate the scale of the sprite using the ratio between
+																													// the camera's ppu and the sprite's ppu
 			cachedDisplayScale = scale;
 
 			/// Draw Sprite
-			pos -= Vector2f(sprite->getTextureRect().width * scale.x, sprite->getTextureRect().height * scale.y) / 2.0f; // Calculate the final position relative to the center of the sprite
+			pos -= Vector2f(spriteToRender->getTextureRect().width * scale.x, spriteToRender->getTextureRect().height * scale.y) / 2.0f; // Calculate the final position relative to the center of the sprite
 
 			cachedDrawPos = pos;
 
-			sprite->setPosition(pos);
-			sprite->setScale(scale);
+			spriteToRender->setPosition(pos);
+			spriteToRender->setScale(scale);
 		}
 #pragma endregion
 		///
@@ -64,43 +63,35 @@ namespace alpha
 
 		Display::~Display()
 		{
+			for (auto& ro : renderedObjects)
+				delete ro;
 		}
 
 #pragma region Setup
-		void Display::Setup(vector<SpriteRenderer*> _srs, Camera* _camera)
-		{
-			camera = _camera;
 
-			for (auto& sr : _srs)
-			{
-				AddObjectToRender(sr);
-			}
+		void Display::AddObjectToRender(GameObject* _gameObject, Sprite* _sprite, int _ppu)
+		{
+			if (ContainsObjectToRender(_gameObject) >= 0) return;
+
+			objectsToRender.push_back(_gameObject);
+			renderedObjects.push_back(new RenderedObject(_gameObject, _sprite, _ppu, camera, displayOrigin()));
 		}
-
-		void Display::AddObjectToRender(SpriteRenderer* _sr)
+		void Display::RemoveObjectToRender(GameObject* _gameObject)
 		{
-			if (ContainsObjectToRender(_sr) >= 0) return;
-
-			renderers.push_back(_sr);
-
-			RenderedObject _r = RenderedObject(_sr, camera, displayOrigin());
-			renderedObjects.push_back(_r);
-		}
-		void Display::RemoveObjectToRender(SpriteRenderer* _sr)
-		{
-			int _i = ContainsObjectToRender(_sr);
+			int _i = ContainsObjectToRender(_gameObject);
 			if (_i >= 0)
 			{
-				renderers.erase(renderers.begin() + _i);
+				objectsToRender.erase(objectsToRender.begin() + _i);
 
+				delete renderedObjects[_i];
 				renderedObjects.erase(renderedObjects.begin() + _i);
 			}
 		}
 
-		int Display::ContainsObjectToRender(SpriteRenderer* _sr)
+		int Display::ContainsObjectToRender(GameObject* _gameObject)
 		{
 			for (int i = 0; i < renderedObjects.size(); ++i) {
-				if (renderedObjects[i].spriteRenderer == _sr)
+				if (renderedObjects[i]->objectToRender == _gameObject)
 					return i;
 			} return -1;
 		}
@@ -113,9 +104,9 @@ namespace alpha
 
 			for (auto& r : renderedObjects)
 			{
-				r.CalculateDraw();
-				Draw(r.sprite);
-				DebugDraw(&r);
+				r->CalculateDraw();
+				Draw(r->spriteToRender);
+				//DebugDraw(r);
 			}
 		}
 
@@ -131,8 +122,8 @@ namespace alpha
 			point.setPosition(_rd->cachedDisplayPos);
 			gameWindow->window->draw(point);
 
-			RectangleShape rect = RectangleShape(Vector2f(_rd->sprite->getTextureRect().width * _rd->cachedDisplayScale.x,
-				_rd->sprite->getTextureRect().height * _rd->cachedDisplayScale.y));
+			RectangleShape rect = RectangleShape(Vector2f(_rd->spriteToRender->getTextureRect().width * _rd->cachedDisplayScale.x,
+				_rd->spriteToRender->getTextureRect().height * _rd->cachedDisplayScale.y));
 			rect.setOutlineColor(GREEN_COLOR);
 			rect.setOutlineThickness(1);
 			rect.setFillColor(Color(0, 0, 0, 0));
@@ -151,7 +142,7 @@ namespace alpha
 		{
 			int camPPU = camera->pixelsPerUnit();
 
-			const int step = 10;
+			const int step = 1000;
 
 			/// Camera Dimensions
 			Vector2f camPosition = camera->gameObject->transform.position();

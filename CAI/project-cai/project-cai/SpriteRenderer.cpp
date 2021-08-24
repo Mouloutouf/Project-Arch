@@ -7,8 +7,8 @@ namespace alpha
 		SpriteRenderer::SpriteRenderer()
 		{
 		}
-		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _spritePath, int _ppu)
-			: Component(_gameObject), spritePath(_spritePath), pixelsPerUnit(_ppu)
+		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath, int _ppu)
+			: Component(_gameObject), spritePath(_spritePath), pixelsPerUnit(_ppu), display(_display)
 		{
 			texture = Texture();
 			sprite = Sprite();
@@ -19,20 +19,33 @@ namespace alpha
 
 				sprite.setTexture(texture);
 			}
+
+			AddToRender();
 		}
-		SpriteRenderer::SpriteRenderer(const SpriteRenderer& that)
-			: Component(that), sprite(that.sprite), texture(that.texture), spritePath(that.spritePath), pixelsPerUnit(that.pixelsPerUnit)
+		SpriteRenderer::SpriteRenderer(const SpriteRenderer& that, GameObject* _gameObject)
+			: Component(that, _gameObject), sprite(that.sprite), texture(that.texture), spritePath(that.spritePath), pixelsPerUnit(that.pixelsPerUnit), display(that.display)
 		{
 			sprite.setTexture(texture);
+
+			AddToRender();
 		}
 
 		SpriteRenderer::~SpriteRenderer()
 		{
 		}
 
-		SpriteRenderer* SpriteRenderer::Clone()
+		void SpriteRenderer::AddToRender()
 		{
-			return new SpriteRenderer(*this);
+			auto& tl = *gameObject->GetTagsList();
+			for (int i = 0; i < tl.size(); i++) {
+				if (tl[i] == Tag::Prefab)
+					return;
+			} display->AddObjectToRender(gameObject, &sprite, pixelsPerUnit);
+		}
+
+		SpriteRenderer* SpriteRenderer::Clone(GameObject* _gameObject)
+		{
+			return new SpriteRenderer(*this, _gameObject);
 		}
 
 		Vector2f SpriteRenderer::GetSize()

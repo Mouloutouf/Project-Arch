@@ -14,8 +14,8 @@ namespace alpha
 
         SceneView::~SceneView()
         {
-            for (auto& g : gameObjects)
-                delete g;
+            for (auto& go : gameObjects)
+                if (go != nullptr) delete go;
         }
 
 #pragma region Core Methods
@@ -37,8 +37,9 @@ namespace alpha
 
         void SceneView::DestroyGameObject(GameObject* _gameObject)
         {
-            for (int i = 0; i < _gameObject->children.size(); i++) {
-                delete _gameObject->children[i];
+            auto& chs = *_gameObject->GetChildren();
+            for (int i = 0; i < chs.size(); i++) {
+                delete chs[i];
             }
             delete _gameObject;
         }
@@ -50,33 +51,35 @@ namespace alpha
             currentDisplay = Display(gameWindow->width, gameWindow->height, gameWindow);
 
             UserInit();
-
-            mainCamera = GetMainCamera();
-            currentDisplay.Setup(FindAllComponentsOfType<SpriteRenderer>(), mainCamera);
-
-            for (auto& g : gameObjects) {
-                g->Init();
-            }
-
-            Start();
         }
 
         void SceneView::UserInit()
         {
             GameObject* cameraObject = CreateGameObject("Main Camera");
-            cameraObject->tags.push_back(Tag::Main_Camera);
+            cameraObject->AddTag(Tag::Main_Camera);
             cameraObject->AddComponent(new Camera(cameraObject, &currentDisplay, currentDisplay.resolution, 1));
 
-            CreateSpriteObject("Dummy", ASSETS_FOLDER + "Dummy.png", 24, Vector2f(0, 0));
+            mainCamera = GetMainCamera();
+            currentDisplay.camera = mainCamera;
+
+            cameraObject->AddComponent(new CameraInput(mainCamera, *gameWindow->window));
+
+            auto dmy = CreateSpriteObject("Dummy", ASSETS_FOLDER + "Dummy.png", 24, Vector2f(-4, 0));
+            auto kst = CreateSpriteObject("Kastelan", ASSETS_FOLDER + "Kastelan Robot.png", 60, Vector2f(-2, -6));
+            kst->SetParent(dmy);
+            CreateSpriteObject("Fire", ASSETS_FOLDER + "Fire Orb.png", 14, Vector2f(-6, -2));
 
             GameObject* gridObject = CreateGameObject("Grid");
             gridObject->AddComponent(new Grid(gridObject, 20, 20));
         }
 
-        void SceneView::Start()
+        void SceneView::Play()
         {
             for (auto& go : gameObjects)
-                go->Start();
+                if (go != nullptr) go->Init();
+
+            for (auto& go : gameObjects)
+                if (go != nullptr) go->Start();
         }
 #pragma endregion
 
@@ -84,26 +87,13 @@ namespace alpha
         void SceneView::Update(float _elapsedTime)
         {
             for (auto& go : gameObjects)
-                go->Update(_elapsedTime);
-
-            /// DEBUG
-            ///
-            if (mainCamera != nullptr)
-            {
-                mainCamera->Input(_elapsedTime, *gameWindow->window);
-            }
-            ///
+                if (go != nullptr) go->Update(_elapsedTime);
         }
 
         void SceneView::EventUpdate(Event& _event, float _elapsedTime)
         {
-            /// DEBUG
-            ///
-            if (mainCamera != nullptr)
-            {
-                mainCamera->EventInput(_elapsedTime, _event, *gameWindow->window);
-            }
-            ///
+            for (auto& go : gameObjects)
+                if (go != nullptr) go->EventUpdate(_event, _elapsedTime);
         }
 
         void SceneView::Render(RenderWindow* _window)
@@ -126,8 +116,9 @@ namespace alpha
         GameObject* SceneView::FindGameObjectWithTag(Tag _tag)
         {
             for (auto& go : gameObjects) {
-                for (int i = 0; i < go->tags.size(); ++i) {
-                    if (go->tags[i] == _tag)
+                auto& tl = *go->GetTagsList();
+                for (int i = 0; i < tl.size(); ++i) {
+                    if (tl[i] == _tag)
                         return go;
                 }
             } return nullptr;
@@ -135,11 +126,12 @@ namespace alpha
 #pragma endregion
 
 #pragma region Shortcut Methods
-        void SceneView::CreateSpriteObject(string _name, string _sprite, int _ppu, Vector2f _position)
+        GameObject* SceneView::CreateSpriteObject(string _name, string _sprite, int _ppu, Vector2f _position)
         {
-            GameObject* sp = CreateGameObject(_name);
-            sp->AddComponent(new SpriteRenderer(sp, _sprite, _ppu));
-            sp->transform.localPosition = _position;
+            GameObject* sgo = CreateGameObject(_name);
+            sgo->AddComponent(new SpriteRenderer(sgo, &currentDisplay, _sprite, _ppu));
+            sgo->transform.localPosition = _position;
+            return sgo;
         }
 #pragma endregion
     }

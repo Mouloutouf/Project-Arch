@@ -11,8 +11,8 @@ namespace alpha
 			: ScriptBehaviour(_gameObject), width(_width), height(_height), useRandomSeed(_useRandomSeed), seed(_seed)
 		{
 		}
-		Grid::Grid(const Grid& that)
-			: ScriptBehaviour(that), width(that.width), height(that.height), useRandomSeed(that.useRandomSeed), seed(that.seed)
+		Grid::Grid(const Grid& that, GameObject* _gameObject)
+			: ScriptBehaviour(that, _gameObject), width(that.width), height(that.height), useRandomSeed(that.useRandomSeed), seed(that.seed)
 		{
 			int size = that.width * that.height;
 			tiles = new Tile[size];
@@ -89,6 +89,11 @@ namespace alpha
 			biomesFillPower[Biome::None] = 4; // None cannot be less than 1
 		}
 
+		Grid* Grid::Clone(GameObject* _gameObject)
+		{
+			return new Grid(*this, _gameObject);
+		}
+
 		void Grid::Start()
 		{
 			int total = 0;
@@ -151,6 +156,7 @@ namespace alpha
 					// Instantiate Prefab
 					Tile& t = tiles[index(x, y)];
 					GameObject* tGo = AssetManager::InstantiateAsset(tilePrefabs[t.biome], Vector2f((float)x, (float)y), 0, gameObject);
+					tGo->name += "(" + to_string(index(x, y)) + ")";
 					tileObjects[index(x, y)] = tGo;
 				}
 			}

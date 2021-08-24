@@ -19,15 +19,16 @@ namespace alpha
 
 			Component();
 			Component(GameObject* _gameObject);
-			Component(const Component& that);
+			Component(const Component& that, GameObject* _gameObject);
 			~Component();
 
-			virtual Component* Clone();
+			virtual Component* Clone(GameObject* _gameObject);
 
 			virtual void Init();
 
 			virtual void Start();
 			virtual void Update(float _elapsedTime);
+			virtual void EventUpdate(Event& _event, float _elapsedTime);
 
 			GameObject* gameObject;
 		};

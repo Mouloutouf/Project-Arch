@@ -14,7 +14,7 @@ namespace alpha
 {
 	namespace core
 	{
-		enum class Tag { Default, Main_Camera };
+		enum class Tag { Default, Main_Camera, Prefab };
 
 		enum class Layer { Default };
 
@@ -69,33 +69,45 @@ namespace alpha
 			vector<Component*>* GetComponentsList();
 
 			int AddChild(GameObject* _gameObject);
+			void RemoveChild(GameObject* _gameObject);
 			void DeleteChild(int _index);
 
 			GameObject* GetChild(int _index);
 			GameObject* GetChild(string _name);
 			
+			vector<GameObject*>* GetChildren();
+
+			void SetParent(GameObject* _gameObject);
+			void ExtractFromParent();
+			GameObject* GetParent();
+
+			vector<Tag>* GetTagsList();
+			void AddTag(Tag _tag);
+			void RemoveTag(Tag _tag);
+			int ContainsTag(Tag _tag);
+
 			void Init();
 
 			void Start();
 			void Update(float _elapsedTime);
+			void EventUpdate(Event& _event, float _elapsedTime);
 
 			/// Variables
 			Transform2D transform;
 
-			GameObject* parent = nullptr;
-			vector<GameObject*> children;
-
 			string name;
-
 			Layer layer;
-			vector<Tag> tags;
-
+			
 			int index = 0;
 
 		protected:
 
 			int childIndex = -1;
 
+			GameObject* parent = nullptr;
+			vector<GameObject*> children;
+
+			vector<Tag> tags;
 			vector<Component*> components;
 		};
 	}

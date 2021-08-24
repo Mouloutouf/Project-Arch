@@ -11,7 +11,6 @@
 
 #include "GameWindow.h"
 
-#include "SpriteRenderer.h"
 #include "Camera.h"
 
 namespace alpha
@@ -23,13 +22,14 @@ namespace alpha
 		public:
 
 			RenderedObject();
-			RenderedObject(SpriteRenderer* _sr, Camera* _cam, Vector2f _origin);
+			RenderedObject(GameObject* _gameObject, Sprite* _sprite, int _ppu, Camera* _cam, Vector2f _origin);
 			~RenderedObject();
 
 			void CalculateDraw();
 
-			Sprite* sprite;
-			SpriteRenderer* spriteRenderer;
+			GameObject* objectToRender;
+			Sprite* spriteToRender;
+			int spritePixelsPerUnit;
 			Camera* cam;
 
 			Vector2f origin;
@@ -46,10 +46,8 @@ namespace alpha
 			Display(int resX, int resY, GameWindow* _gameWindow);
 			~Display();
 
-			void Setup(vector<SpriteRenderer*> _srs, Camera* _camera);
-
-			void AddObjectToRender(SpriteRenderer* _sr);
-			void RemoveObjectToRender(SpriteRenderer* _sr);
+			void AddObjectToRender(GameObject* _gameObject, Sprite* _sprite, int _ppu);
+			void RemoveObjectToRender(GameObject* _gameObject);
 
 			void Render();
 			void Draw(Sprite* _sprite);
@@ -63,16 +61,17 @@ namespace alpha
 			Vector2f resolution;
 			Vector2f displayOrigin() { return resolution / 2.0f; }
 
+			Camera* camera;
+
 		private:
 
 			GameWindow* gameWindow;
 
-			vector<SpriteRenderer*> renderers;
-			Camera* camera;
+			vector<GameObject*> objectsToRender;
+			
+			vector<RenderedObject*> renderedObjects;
 
-			vector<RenderedObject> renderedObjects;
-
-			int ContainsObjectToRender(SpriteRenderer* _sr);
+			int ContainsObjectToRender(GameObject* _gameObject);
 
 			Vector2f worldOrigin() {
 				Vector2f origin = -(camera->gameObject->transform.position());
