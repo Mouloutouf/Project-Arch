@@ -3,6 +3,8 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include <algorithm>
+#include <random>
 #include "Alpha.h"
 
 ///\
@@ -63,6 +65,27 @@ namespace alpha
 			}
 
 #pragma endregion
+			
+			template<typename I>
+			static I GetRandomIterator(I begin, I end)
+			{
+				const unsigned long n = distance(begin, end);
+				const unsigned long divisor = (RAND_MAX + 1) / n;
+
+				unsigned long k;
+				do { k = rand() / divisor; } while (k >= n);
+
+				std::advance(begin, k);
+				return begin;
+			}
+
+			template<typename T>
+			static T GetRandomElementFromContainer(const vector<T>& _container)
+			{
+				vector<T> result;
+				sample( _container.begin(), _container.end(), back_inserter(result), 1, mt19937 { random_device {}() });
+				return result.front();
+			}
 		};
 	}
 }

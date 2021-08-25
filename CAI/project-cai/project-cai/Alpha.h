@@ -5,6 +5,7 @@
 
 #include <string>
 #include <iostream>
+#include <list>
 #include <SFML\Graphics.hpp>
 
 using namespace std;

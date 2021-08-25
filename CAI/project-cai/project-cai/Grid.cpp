@@ -4,6 +4,11 @@ namespace alpha
 {
 	namespace game
 	{
+		Tile::Tile(Biome _biome) 
+			: biome(_biome)
+		{
+		}
+
 		Grid::Grid()
 		{
 		}
@@ -15,19 +20,16 @@ namespace alpha
 			: ScriptBehaviour(that, _gameObject), width(that.width), height(that.height), useRandomSeed(that.useRandomSeed), seed(that.seed)
 		{
 			int size = that.width * that.height;
-			tiles = new Tile[size];
 
 			for (int x = 0; x < that.width; ++x) {
 				for (int y = 0; y < that.height; ++y) {
-					tiles[index(x, y)] = that.tiles[index(x, y)];
+					tiles.push_back(that.tiles[index(x, y)]);
 				}
 			}
 
-			tileObjects = new GameObject*[size];
-
 			for (int x = 0; x < that.width; ++x) {
 				for (int y = 0; y < that.height; ++y) {
-					tileObjects[index(x, y)] = that.tileObjects[index(x, y)];
+					tileObjects.push_back(that.tileObjects[index(x, y)]);
 				}
 			}
 		}
@@ -37,19 +39,16 @@ namespace alpha
 			if (this != &that)
 			{
 				int size = that.width * that.height;
-				tiles = new Tile[size];
 
 				for (int x = 0; x < that.width; ++x) {
 					for (int y = 0; y < that.height; ++y) {
-						tiles[index(x, y)] = that.tiles[index(x, y)];
+						tiles.push_back(that.tiles[index(x, y)]);
 					}
 				}
 
-				tileObjects = new GameObject * [size];
-
 				for (int x = 0; x < that.width; ++x) {
 					for (int y = 0; y < that.height; ++y) {
-						tileObjects[index(x, y)] = that.tileObjects[index(x, y)];
+						tileObjects.push_back(that.tileObjects[index(x, y)]);
 					}
 				}
 			}
@@ -58,35 +57,35 @@ namespace alpha
 
 		Grid::~Grid()
 		{
-			delete[] tiles;
-			delete[] tileObjects;
+			for (auto& tgo : tileObjects)
+				delete tgo;
 		}
 
 		void Grid::Init()
 		{
-			tilePrefabs.insert({ Biome::Water, AssetManager::LoadAsset("Tile Water") });
-			tilePrefabs.insert({ Biome::Mountain, AssetManager::LoadAsset("Building Storage") });
-			tilePrefabs.insert({ Biome::Desert, AssetManager::LoadAsset("Tile Field Small") });
-			tilePrefabs.insert({ Biome::Field, AssetManager::LoadAsset("Tile Field Big") });
-			tilePrefabs.insert({ Biome::Forest, AssetManager::LoadAsset("Tile Woods Big") });
-			tilePrefabs.insert({ Biome::None, AssetManager::LoadAsset("Tile None") });
+			tilePrefab = AssetManager::LoadAsset("Tile");
+
+			tileSprites.insert({ Biome::Water, vector<string>({"Tile Sea 1", "Tile Sea 2", "Tile Sea 3"})});
+			tileSprites.insert({ Biome::Mountain, vector<string>({"Tile Mountain 1", "Tile Mountain 2", "Tile Mountain 3"}) });
+			tileSprites.insert({ Biome::Desert, vector<string>({"Tile Desert 1", "Tile Desert 2", "Tile Desert 3"}) });
+			tileSprites.insert({ Biome::Field, vector<string>({"Tile Field 1", "Tile Field 2", "Tile Field 3", "Tile Field 4"})});
+			tileSprites.insert({ Biome::Forest, vector<string>({"Tile Forest 1 AA", "Tile Forest 2 AA", "Tile Forest 3 AA", "Tile Forest 4 AA"}) });
+			tileSprites.insert({ Biome::None, vector<string>({"Tile None"}) });
 
 			int size = width * height;
-			tiles = new Tile[size];
+			for (int i = 0; i < size; i++) {
+				tiles.push_back(Tile(Biome::None));
+			}
 
 			biomesFillPower[Biome::Desert] = 2;
 			biomesFillPower[Biome::Field] = 2;
-			biomesFillPower[Biome::Plain] = 0;
-			biomesFillPower[Biome::Forest] = 2;
-			biomesFillPower[Biome::Woods] = 0;
+			biomesFillPower[Biome::Forest] = 4;
 
 			biomesFillPower[Biome::Water] = 4;
 			biomesFillPower[Biome::Lake] = 0;
-			biomesFillPower[Biome::River] = 0;
 			biomesFillPower[Biome::Mountain] = 1;
-			biomesFillPower[Biome::Hill] = 0;
 
-			biomesFillPower[Biome::None] = 4; // None cannot be less than 1
+			biomesFillPower[Biome::None] = 2; // None cannot be less than 1
 		}
 
 		Grid* Grid::Clone(GameObject* _gameObject)
@@ -148,16 +147,21 @@ namespace alpha
 		void Grid::CreateMap()
 		{
 			int size = width * height;
-			tileObjects = new GameObject*[size];
 
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++)
 				{
 					// Instantiate Prefab
 					Tile& t = tiles[index(x, y)];
-					GameObject* tGo = AssetManager::InstantiateAsset(tilePrefabs[t.biome], Vector2f((float)x, (float)y), 0, gameObject);
-					tGo->name += "(" + to_string(index(x, y)) + ")";
-					tileObjects[index(x, y)] = tGo;
+					GameObject* tGo = AssetManager::InstantiateAsset(tilePrefab, Vector2f((float)x, (float)y), 0, gameObject);
+
+					auto tileStr = Utility::GetRandomElementFromContainer(tileSprites[t.biome]);
+					string tileSpriteStr = ASSETS_FOLDER + tileStr + ".png";
+					tGo->GetComponent<SpriteRenderer>()->SetSprite(tileSpriteStr);
+
+					tGo->name = tileStr + "(" + to_string(index(x, y)) + ")";
+
+					tileObjects.push_back(tGo);
 				}
 			}
 		}

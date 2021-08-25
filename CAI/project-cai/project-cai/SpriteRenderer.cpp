@@ -13,12 +13,7 @@ namespace alpha
 			texture = Texture();
 			sprite = Sprite();
 
-			if (!_spritePath.empty())
-			{
-				texture.loadFromFile(_spritePath);
-
-				sprite.setTexture(texture);
-			}
+			SetSprite(_spritePath);
 
 			AddToRender();
 		}
@@ -56,6 +51,15 @@ namespace alpha
 		Sprite* SpriteRenderer::GetSprite()
 		{
 			return &sprite;
+		}
+
+		void SpriteRenderer::SetSprite(string _spritePath)
+		{
+			if (!_spritePath.empty())
+			{
+				texture.loadFromFile(_spritePath);
+				sprite.setTexture(texture);
+			}
 		}
 	}
 }

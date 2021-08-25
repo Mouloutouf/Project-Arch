@@ -3,6 +3,8 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include "Utility.h"
+
 #include "GameObject.h"
 #include "Component.h"
 

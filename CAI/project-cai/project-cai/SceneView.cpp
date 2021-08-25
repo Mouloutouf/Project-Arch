@@ -57,7 +57,7 @@ namespace alpha
         {
             GameObject* cameraObject = CreateGameObject("Main Camera");
             cameraObject->AddTag(Tag::Main_Camera);
-            cameraObject->AddComponent(new Camera(cameraObject, &currentDisplay, currentDisplay.resolution, 1));
+            cameraObject->AddComponent(new Camera(cameraObject, &currentDisplay, currentDisplay.resolution, 10));
 
             mainCamera = GetMainCamera();
             currentDisplay.camera = mainCamera;

@@ -31,6 +31,7 @@ namespace alpha
 
 			Vector2f GetSize();
 			Sprite* GetSprite();
+			void SetSprite(string _spritePath);
 
 			int pixelsPerUnit = 1;
 

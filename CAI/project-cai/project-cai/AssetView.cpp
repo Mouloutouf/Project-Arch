@@ -9,15 +9,9 @@ namespace alpha
 
 		void AssetManager::UserInit()
 		{
-			string extension = ".png";
-			vector<string> tileSpriteNames = { "Tile None", "Tile Field Big", "Tile Field Small", "Tile Water", "Tile Woods Big", "Building Storage" };
-
-			for (int i = 0; i < tileSpriteNames.size(); i++)
-			{
-				auto tlgo = new GameObject(tileSpriteNames[i]);
-				AssetView::AddAsset(tlgo);
-				tlgo->AddComponent(new SpriteRenderer(tlgo, AssetView::currentScene->GetCurrentDisplay(), ASSETS_FOLDER + tileSpriteNames[i] + extension, 16));
-			}
+			auto tilePrefab = new GameObject("Tile");
+			AssetView::AddAsset(tilePrefab);
+			tilePrefab->AddComponent(new SpriteRenderer(tilePrefab, AssetView::currentScene->GetCurrentDisplay(), ASSETS_FOLDER + "Tile None" + ".png", 16));
 		}
 
 		GameObject* AssetManager::InstantiateAsset(GameObject* _prefab, Vector2f _position, float _rotation, GameObject* _parent)
