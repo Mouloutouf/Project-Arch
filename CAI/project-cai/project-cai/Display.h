@@ -21,7 +21,6 @@ namespace alpha
 		{
 		public:
 
-			RenderedObject();
 			RenderedObject(GameObject* _gameObject, Sprite* _sprite, int _ppu, Camera* _cam, Vector2f _origin);
 			~RenderedObject();
 
@@ -58,14 +57,16 @@ namespace alpha
 
 			void DrawGrid();
 
+			Vector2f ScreenToWorldPosition(Vector2f _screenPosition);
+			Vector2f WorldToScreenPosition(Vector2f _worldPosition);
+
 			Vector2f resolution;
 			Vector2f displayOrigin() { return resolution / 2.0f; }
 
-			Camera* camera;
+			Camera* camera = nullptr;
+			GameWindow* gameWindow = nullptr;
 
 		private:
-
-			GameWindow* gameWindow;
 
 			vector<GameObject*> objectsToRender;
 			

@@ -57,6 +57,8 @@ namespace alpha
 
 		Grid::~Grid()
 		{
+			for (auto& t : tiles)
+				delete t;
 			for (auto& tgo : tileObjects)
 				delete tgo;
 		}
@@ -68,18 +70,18 @@ namespace alpha
 			tileSprites.insert({ Biome::Water, vector<string>({"Tile Sea 1", "Tile Sea 2", "Tile Sea 3"})});
 			tileSprites.insert({ Biome::Mountain, vector<string>({"Tile Mountain 1", "Tile Mountain 2", "Tile Mountain 3"}) });
 			tileSprites.insert({ Biome::Desert, vector<string>({"Tile Desert 1", "Tile Desert 2", "Tile Desert 3"}) });
-			tileSprites.insert({ Biome::Field, vector<string>({"Tile Field 1", "Tile Field 2", "Tile Field 3", "Tile Field 4"})});
+			tileSprites.insert({ Biome::Field, vector<string>({"Tile Field 1", "Tile Field 2", "Tile Field 3", "Tile Field 4"}) });
 			tileSprites.insert({ Biome::Forest, vector<string>({"Tile Forest 1 AA", "Tile Forest 2 AA", "Tile Forest 3 AA", "Tile Forest 4 AA"}) });
 			tileSprites.insert({ Biome::None, vector<string>({"Tile None"}) });
 
 			int size = width * height;
 			for (int i = 0; i < size; i++) {
-				tiles.push_back(Tile(Biome::None));
+				tiles.push_back(new Tile(Biome::None));
 			}
 
 			biomesFillPower[Biome::Desert] = 2;
 			biomesFillPower[Biome::Field] = 2;
-			biomesFillPower[Biome::Forest] = 4;
+			biomesFillPower[Biome::Forest] = 6;
 
 			biomesFillPower[Biome::Water] = 4;
 			biomesFillPower[Biome::Lake] = 0;
@@ -129,7 +131,7 @@ namespace alpha
 			if (useRandomSeed) {
 				seed = to_string(_TIME);
 			}
-			srand(hash<string>()(seed));
+			srand((unsigned int)hash<string>()(seed));
 
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++)
@@ -137,7 +139,7 @@ namespace alpha
 					int r = rand() % 100;
 					for (auto& b : biomesFillPercent) {
 						if (r < b.second) {
-							tiles[index(x, y)].biome = b.first;
+							tiles[index(x, y)]->biome = b.first;
 							break;
 						}
 					}
@@ -152,10 +154,10 @@ namespace alpha
 				for (int y = 0; y < height; y++)
 				{
 					// Instantiate Prefab
-					Tile& t = tiles[index(x, y)];
+					auto t = tiles[index(x, y)];
 					GameObject* tGo = AssetManager::InstantiateAsset(tilePrefab, Vector2f((float)x, (float)y), 0, gameObject);
 
-					auto tileStr = Utility::GetRandomElementFromContainer(tileSprites[t.biome]);
+					auto tileStr = Utility::GetRandomElementFromContainer(tileSprites[t->biome]);
 					string tileSpriteStr = ASSETS_FOLDER + tileStr + ".png";
 					tGo->GetComponent<SpriteRenderer>()->SetSprite(tileSpriteStr);
 

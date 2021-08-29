@@ -3,6 +3,7 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include <chrono>
 #include <algorithm>
 #include <random>
 #include "Alpha.h"
@@ -13,6 +14,8 @@ namespace alpha
 {
 	namespace core
 	{
+#define _TIME chrono::system_clock::to_time_t(chrono::system_clock::now())
+
 #pragma region FILES
 
 		const string ASSETS_FOLDER = "Assets/";
@@ -85,6 +88,12 @@ namespace alpha
 				vector<T> result;
 				sample( _container.begin(), _container.end(), back_inserter(result), 1, mt19937 { random_device {}() });
 				return result.front();
+			}
+
+			static int GetRandomNumberInRange(int min, int max)
+			{
+				srand((unsigned int)hash<string>()(to_string(_TIME)));
+				return (rand() % (max - min)) + min;
 			}
 		};
 	}

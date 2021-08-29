@@ -1,3 +1,24 @@
-﻿  Grid.cpp
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Grid.cpp(132,30): warning C4267: 'argument' : conversion de 'size_t' en 'unsigned int', perte possible de données
-  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe
+﻿  AssetView.cpp
+  Biome.cpp
+  Building.cpp
+  Buildings.cpp
+  CameraInput.cpp
+  Collider.cpp
+  Construction.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Construction.cpp(8,3): error C2440: '<function-style-cast>' : impossible de convertir de 'initializer list' en 'std::map<alpha::game::BuildingType,alpha::game::Builder<alpha::game::Building>,std::less<alpha::game::BuildingType>,std::allocator<std::pair<const alpha::game::BuildingType,alpha::game::Builder<alpha::game::Building>>>>'
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Construction.cpp(27,3): message : Aucun constructeur n'a pu prendre le type de source, ou la résolution de la surcharge du constructeur était ambiguë
+  ConstructionInput.cpp
+  Display.cpp
+  Biomes.cpp
+  GameEngine.cpp
+  Grid.cpp
+  main.cpp
+  Resource.cpp
+  SceneView.cpp
+  SpriteRenderer.cpp
+  Storage.cpp
+  Structure.cpp
+  Tile.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Tile.cpp(19,19): warning C4150: suppression de pointeur vers type incomplet 'alpha::game::Building' ; aucun destructeur appelé
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Tile.h(17): message : voir la déclaration de 'alpha::game::Building'
+  Génération de code en cours...

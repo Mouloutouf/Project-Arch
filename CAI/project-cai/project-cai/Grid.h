@@ -3,7 +3,6 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include <chrono>
 #include "Alpha.h"
 #include "Core.h"
 
@@ -15,8 +14,6 @@ namespace alpha
 
 	namespace game
 	{
-#define _TIME chrono::system_clock::to_time_t(chrono::system_clock::now())
-
 		enum class Biome { None, Forest, Field, Desert, Mountain, Water, Lake };
 
 		struct Tile
@@ -43,14 +40,14 @@ namespace alpha
 			void Start() override;
 			void Update(float _elapsedTime) override;
 
-			vector<Tile> tiles;
+			vector<Tile*> tiles;
 
-			GameObject* tilePrefab;
+			GameObject* tilePrefab = nullptr;
 			map<Biome, vector<string>> tileSprites;
 
 			vector<GameObject*> tileObjects;
 
-			int width, height;
+			int width = 2, height = 2;
 			int index(int x, int y) const { return x + width * y; }
 
 			map<Biome, int> biomesFillPower { {Biome::Desert, 0}, {Biome::Forest, 0}, {Biome::Field, 0}, {Biome::Water, 0},
@@ -61,12 +58,10 @@ namespace alpha
 			map<Biome, int> biomesFillPercent;
 
 			string seed;
-			bool useRandomSeed;
+			bool useRandomSeed = true;
 
 			void GenerateMap();
-
 			void RandomMap();
-
 			void CreateMap();
 		};
 	}

@@ -31,108 +31,150 @@
     <Filter Include="Fichiers sources\Scripts">
       <UniqueIdentifier>{d48e2c9b-fc19-4eec-829c-619c0b75c478}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\Components">
-      <UniqueIdentifier>{8bc220bc-1eac-444e-b38e-d56637610e8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Core\Components">
-      <UniqueIdentifier>{25089c19-9492-47c6-8cd6-fc6c009191bb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête\Template">
       <UniqueIdentifier>{2efffee3-b1a6-4676-95db-91cc7d25884e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Scripts\Input">
+      <UniqueIdentifier>{b044ec52-a1dc-4aa7-a69b-195524229277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scripts\Building">
+      <UniqueIdentifier>{50ad72b5-10ec-4108-b0b9-342236a4e99d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scripts\Environment">
+      <UniqueIdentifier>{6b9f3337-5765-440d-bfea-5ce8ed936b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scripts\Resource">
+      <UniqueIdentifier>{46e3bd0b-aabf-4c2b-b5f7-604ccce56e8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scripts\Building">
+      <UniqueIdentifier>{e0e867e8-1981-406d-9f5a-c1b8cdc2e68c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scripts\Environment">
+      <UniqueIdentifier>{85942b4a-8d60-4470-a733-fe94a2bdc658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scripts\Resource">
+      <UniqueIdentifier>{169b7b8d-9af3-4e91-bc21-431a6708db75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scripts\Input">
+      <UniqueIdentifier>{d1930ef2-7b27-4b56-86a3-28146d067895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core\Engine">
+      <UniqueIdentifier>{c6fb89d3-0690-4601-9796-d7c00f89e57a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core\Views">
+      <UniqueIdentifier>{df954d20-ef7d-4f30-a070-5b846980b573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core\Elements">
+      <UniqueIdentifier>{494ce1ba-c512-4d87-9ef0-63513425a093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core\Elements\Components">
+      <UniqueIdentifier>{25089c19-9492-47c6-8cd6-fc6c009191bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Views">
+      <UniqueIdentifier>{7ec042db-49b3-4c15-a09e-1c93d37d001d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Engine">
+      <UniqueIdentifier>{f2fadc0d-a98a-4484-b9dc-c2ca6a607bd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Elements">
+      <UniqueIdentifier>{8b6b4033-0a85-4f2f-b80b-38c5f162aa46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Elements\Components">
+      <UniqueIdentifier>{8bc220bc-1eac-444e-b38e-d56637610e8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Component.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Display.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneView.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngine.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="GameWindow.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Fichiers sources\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Fichiers sources\Core\Components</Filter>
+      <Filter>Fichiers sources\Core\Elements\Components</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Fichiers sources\Core\Components</Filter>
+      <Filter>Fichiers sources\Core\Elements\Components</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Fichiers sources\Core\Components</Filter>
+      <Filter>Fichiers sources\Core\Elements\Components</Filter>
     </ClCompile>
     <ClCompile Include="ScriptBehaviour.cpp">
-      <Filter>Fichiers sources\Core\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetView.cpp">
-      <Filter>Fichiers sources\Core</Filter>
+      <Filter>Fichiers sources\Core\Elements\Components</Filter>
     </ClCompile>
     <ClCompile Include="CameraInput.cpp">
-      <Filter>Fichiers sources\Scripts</Filter>
+      <Filter>Fichiers sources\Scripts\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Biome.cpp">
+      <Filter>Fichiers sources\Scripts\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Biomes.cpp">
+      <Filter>Fichiers sources\Scripts\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Structure.cpp">
+      <Filter>Fichiers sources\Scripts\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Fichiers sources\Scripts\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Fichiers sources\Scripts\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Storage.cpp">
+      <Filter>Fichiers sources\Scripts\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Fichiers sources\Scripts\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>Fichiers sources\Scripts\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Buildings.cpp">
+      <Filter>Fichiers sources\Scripts\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Construction.cpp">
+      <Filter>Fichiers sources\Scripts\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetView.cpp">
+      <Filter>Fichiers sources\Core\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Display.cpp">
+      <Filter>Fichiers sources\Core\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneView.cpp">
+      <Filter>Fichiers sources\Core\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Fichiers sources\Core\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWindow.cpp">
+      <Filter>Fichiers sources\Core\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Fichiers sources\Core\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Fichiers sources\Core\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructionInput.cpp">
+      <Filter>Fichiers sources\Scripts\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Display.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneView.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngine.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="GameWindow.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Fichiers d%27en-tête\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Fichiers d%27en-tête\Core\Components</Filter>
+      <Filter>Fichiers d%27en-tête\Core\Elements\Components</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Fichiers d%27en-tête\Core\Components</Filter>
+      <Filter>Fichiers d%27en-tête\Core\Elements\Components</Filter>
     </ClInclude>
     <ClInclude Include="ScriptBehaviour.h">
-      <Filter>Fichiers d%27en-tête\Core\Components</Filter>
+      <Filter>Fichiers d%27en-tête\Core\Elements\Components</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>Fichiers d%27en-tête\Core\Components</Filter>
+      <Filter>Fichiers d%27en-tête\Core\Elements\Components</Filter>
     </ClInclude>
     <ClInclude Include="Utility.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
-    <ClInclude Include="TileObject.h">
-      <Filter>Fichiers d%27en-tête\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetView.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
     <ClInclude Include="TemplateHeader.h">
       <Filter>Fichiers d%27en-tête\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetManager.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
     <ClInclude Include="Alpha.h">
       <Filter>Fichiers d%27en-tête\Template</Filter>
@@ -143,8 +185,71 @@
     <ClInclude Include="Game.h">
       <Filter>Fichiers d%27en-tête\Template</Filter>
     </ClInclude>
-    <ClInclude Include="CameraInput.h">
+    <ClInclude Include="Crew.h">
       <Filter>Fichiers d%27en-tête\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Fichiers d%27en-tête\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Biome.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Biomes.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Structure.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Storage.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Buildings.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Construction.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraInput.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>Fichiers d%27en-tête\Core\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetView.h">
+      <Filter>Fichiers d%27en-tête\Core\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneView.h">
+      <Filter>Fichiers d%27en-tête\Core\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
+      <Filter>Fichiers d%27en-tête\Core\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.h">
+      <Filter>Fichiers d%27en-tête\Core\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWindow.h">
+      <Filter>Fichiers d%27en-tête\Core\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Fichiers d%27en-tête\Core\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Fichiers d%27en-tête\Core\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructionInput.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

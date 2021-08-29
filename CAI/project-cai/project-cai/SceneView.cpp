@@ -22,7 +22,7 @@ namespace alpha
         GameObject* SceneView::CreateGameObject(string _name, Transform2D _transform, GameObject* _parent, Layer _layer, vector<Tag> _tags)
         {
             gameObjects.push_back(new GameObject(_name, _transform, _parent, _layer, _tags));
-            gameObjects.back()->index = gameObjects.size() - 1;
+            gameObjects.back()->index = (int)gameObjects.size() - 1;
 
             return gameObjects.back();
         }
@@ -30,7 +30,7 @@ namespace alpha
         GameObject* SceneView::InstantiateGameObject(GameObject* _gameObject)
         {
             gameObjects.push_back(new GameObject(*_gameObject));
-            gameObjects.back()->index = gameObjects.size() - 1;
+            gameObjects.back()->index = (int)gameObjects.size() - 1;
 
             return gameObjects.back();
         }
@@ -70,7 +70,7 @@ namespace alpha
             CreateSpriteObject("Fire", ASSETS_FOLDER + "Fire Orb.png", 14, Vector2f(-6, -2));
 
             GameObject* gridObject = CreateGameObject("Grid");
-            gridObject->AddComponent(new Grid(gridObject, 20, 20));
+            gridObject->AddComponent(new Grid(gridObject, 40, 40));
         }
 
         void SceneView::Play()

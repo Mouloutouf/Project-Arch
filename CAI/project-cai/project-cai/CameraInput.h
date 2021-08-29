@@ -5,6 +5,8 @@
 
 #include "Alpha.h"
 
+///\
+
 #include "ScriptBehaviour.h"
 #include "Camera.h"
 
@@ -35,7 +37,7 @@ namespace alpha
 
 			float scrollSpeed = 7;
 			float moveSpeed = 0.4f;
-			bool isDrag;
+			bool isDrag = false;
 			Vector2f capturedMousePos;
 		};
 	}

@@ -158,28 +158,46 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetView.cpp" />
+    <ClCompile Include="Biome.cpp" />
+    <ClCompile Include="Building.cpp" />
+    <ClCompile Include="Buildings.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraInput.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Construction.cpp" />
+    <ClCompile Include="ConstructionInput.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Biomes.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="SceneView.cpp" />
     <ClCompile Include="ScriptBehaviour.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="Storage.cpp" />
+    <ClCompile Include="Structure.cpp" />
+    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alpha.h" />
+    <ClInclude Include="Biome.h" />
+    <ClInclude Include="Building.h" />
+    <ClInclude Include="Buildings.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraInput.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Construction.h" />
+    <ClInclude Include="ConstructionInput.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Crew.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="Biomes.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
@@ -187,11 +205,14 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="AssetView.h" />
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneView.h" />
     <ClInclude Include="ScriptBehaviour.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="Storage.h" />
+    <ClInclude Include="Structure.h" />
     <ClInclude Include="TemplateHeader.h" />
-    <ClInclude Include="TileObject.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

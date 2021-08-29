@@ -7,9 +7,6 @@ namespace alpha
 		/// Rendered Object
 		///
 #pragma region RenderedObject
-		RenderedObject::RenderedObject()
-		{
-		}
 		RenderedObject::RenderedObject(GameObject* _gameObject, Sprite* _sprite, int _ppu, Camera* _cam, Vector2f _origin)
 			: objectToRender(_gameObject), spriteToRender(_sprite), spritePixelsPerUnit(_ppu), cam(_cam), origin(_origin)
 		{
@@ -196,6 +193,19 @@ namespace alpha
 			gameWindow->window->draw(rect);
 		}
 #pragma endregion
+
+		Vector2f Display::ScreenToWorldPosition(Vector2f _screenPosition)
+		{
+			_screenPosition = Vector2f(_screenPosition.x - gameWindow->window->getSize().x, gameWindow->window->getSize().y - _screenPosition.y);
+			_screenPosition /= (float)camera->pixelsPerUnit();
+			return _screenPosition;
+		}
+		Vector2f Display::WorldToScreenPosition(Vector2f _worldPosition)
+		{
+			_worldPosition *= (float)camera->pixelsPerUnit();
+			_worldPosition = Vector2f(displayOrigin().x + _worldPosition.x, displayOrigin().y - _worldPosition.y);
+			return _worldPosition;
+		}
 		///
 	}
 }
