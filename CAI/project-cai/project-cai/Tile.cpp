@@ -15,8 +15,10 @@ namespace alpha
 
 		Tile::~Tile()
 		{
-			delete biome;
-			delete building;
+			if (biome != nullptr)
+				delete biome;
+			if (building != nullptr)
+				delete building;
 		}
 	}
 }

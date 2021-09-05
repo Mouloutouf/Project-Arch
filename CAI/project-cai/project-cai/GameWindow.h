@@ -11,6 +11,11 @@ namespace alpha
 {
 	namespace core
 	{
+		/// <summary>
+		/// TO-DO :
+		/// Refactor class to avoid use of Copy constructor and Copy assignment operator
+		/// </summary>
+
 		class GameWindow
 		{
 		public:

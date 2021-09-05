@@ -10,12 +10,15 @@
 
 #include "Structure.h"
 #include "Storage.h"
-#include "Tile.h"
+#include "Biomes.h"
+#include "Crew.h"
 
 namespace alpha
 {
 	namespace game
 	{
+		class Tile;
+
 		enum class BiomeElementStatus { KeepIntactAll, Destroy, KeepIntactExploited };
 
 		struct ArchBuilding
@@ -37,6 +40,8 @@ namespace alpha
 			BiomeElementStatus resourcesStatus;
 			BiomeElementStatus structuresStatus;
 
+			int maxCrewAssignees;
+
 			string sprite;
 		};
 
@@ -48,9 +53,12 @@ namespace alpha
 
 			int ResourceConsumption(__ResourceType _resourceType);
 
-			ArchBuilding archBuilding;
+			virtual void Process(float _elapsedTime) = 0;
 
+			ArchBuilding archBuilding;
 			BuildingType buildingType;
+
+			vector<CrewMember*> assignedCrewMembers;
 
 		protected:
 			Tile* positionTile;

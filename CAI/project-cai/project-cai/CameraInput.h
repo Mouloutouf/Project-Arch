@@ -4,11 +4,9 @@
 #define CAMERA_INPUT_H
 
 #include "Alpha.h"
+#include "Core.h"
 
 ///\
-
-#include "ScriptBehaviour.h"
-#include "Camera.h"
 
 namespace alpha
 {

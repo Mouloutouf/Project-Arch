@@ -17,6 +17,9 @@ namespace alpha
 			positionTile = _positionTile;
 			exploitedTiles = _exploitedTiles;
 		}
+		void OxygenGathererBuilding::Process(float _elapsedTime)
+		{
+		}
 
 		OxygenExcavatorBuilding::OxygenExcavatorBuilding()
 		{
@@ -29,6 +32,9 @@ namespace alpha
 		{
 			positionTile = _positionTile;
 			exploitedTiles = _exploitedTiles;
+		}
+		void OxygenExcavatorBuilding::Process(float _elapsedTime)
+		{
 		}
 #pragma endregion
 
@@ -46,6 +52,9 @@ namespace alpha
 			positionTile = _positionTile;
 			exploitedTiles = _exploitedTiles;
 		}
+		void WaterExtractorBuilding::Process(float _elapsedTime)
+		{
+		}
 
 		WaterPurifierBuilding::WaterPurifierBuilding()
 		{
@@ -58,6 +67,9 @@ namespace alpha
 		{
 			positionTile = _positionTile;
 			exploitedTiles = _exploitedTiles;
+		}
+		void WaterPurifierBuilding::Process(float _elapsedTime)
+		{
 		}
 #pragma endregion
 
@@ -75,6 +87,9 @@ namespace alpha
 			positionTile = _positionTile;
 			exploitedTiles = _exploitedTiles;
 		}
+		void FarmBuilding::Process(float _elapsedTime)
+		{
+		}
 
 		HuntCampBuilding::HuntCampBuilding()
 		{
@@ -88,6 +103,9 @@ namespace alpha
 			positionTile = _positionTile;
 			exploitedTiles = _exploitedTiles;
 		}
+		void HuntCampBuilding::Process(float _elapsedTime)
+		{
+		}
 
 		CookeryBuilding::CookeryBuilding()
 		{
@@ -99,6 +117,9 @@ namespace alpha
 			: CookeryBuilding()
 		{
 			positionTile = _positionTile;
+		}
+		void CookeryBuilding::Process(float _elapsedTime)
+		{
 		}
 #pragma endregion
 
@@ -115,6 +136,9 @@ namespace alpha
 		{
 			positionTile = _positionTile;
 		}
+		void ShedBuilding::Process(float _elapsedTime)
+		{
+		}
 
 		StorageBuilding::StorageBuilding()
 		{
@@ -126,6 +150,9 @@ namespace alpha
 			: StorageBuilding()
 		{
 			positionTile = _positionTile;
+		}
+		void StorageBuilding::Process(float _elapsedTime)
+		{
 		}
 #pragma endregion
 
@@ -142,6 +169,9 @@ namespace alpha
 		{
 			positionTile = _positionTile;
 		}
+		void PrefabsBuilding::Process(float _elapsedTime)
+		{
+		}
 
 		PharmacyBuilding::PharmacyBuilding()
 		{
@@ -154,6 +184,9 @@ namespace alpha
 		{
 			positionTile = _positionTile;
 		}
+		void PharmacyBuilding::Process(float _elapsedTime)
+		{
+		}
 
 		DroneBayBuilding::DroneBayBuilding()
 		{
@@ -165,6 +198,9 @@ namespace alpha
 			: DroneBayBuilding()
 		{
 			positionTile = _positionTile;
+		}
+		void DroneBayBuilding::Process(float _elapsedTime)
+		{
 		}
 #pragma endregion
 
@@ -180,6 +216,9 @@ namespace alpha
 			: ExcavationGroundsBuilding()
 		{
 			positionTile = _positionTile;
+		}
+		void ExcavationGroundsBuilding::Process(float _elapsedTime)
+		{
 		}
 #pragma endregion
 	}

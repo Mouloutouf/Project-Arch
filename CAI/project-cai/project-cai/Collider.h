@@ -41,7 +41,7 @@ namespace alpha
 		public:
 
 			Collider();
-			Collider(GameObject* _gameObject, Vector2f _size);
+			Collider(Vector2f _size);
 			Collider(const Collider& that, GameObject* _gameObject);
 			~Collider();
 

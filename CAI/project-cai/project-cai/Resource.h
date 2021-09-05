@@ -39,6 +39,7 @@ namespace alpha
 		{
 		public:
 			Resource();
+			Resource(__ResourceType _resourceType);
 			Resource(__ResourceType _resourceType, unsigned int _quantity);
 
 			void SetQuantity(unsigned int _value);
@@ -50,7 +51,7 @@ namespace alpha
 			__ResourceType getResourceType() { return resourceType; }
 
 		private:
-			ResourceCategory category;
+			ResourceCategory category = ResourceCategory::Core; // NEEDS TO CHANGE
 			__ResourceType resourceType = ResourceType::NONE;
 
 			unsigned int quantity = 0;

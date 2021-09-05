@@ -18,8 +18,6 @@ namespace alpha
 
 	namespace core
 	{
-		extern const string ASSETS_FOLDER;
-
 		class SceneView
 		{
 		public:
@@ -53,13 +51,11 @@ namespace alpha
 			void Update(float _elapsedTime);
 			void EventUpdate(Event& _event, float _elapsedTime);
 
-			void Render(RenderWindow* _window);
-
-			string name;
-
-			vector<GameObject*> gameObjects;
+			void Render();
 
 			/// Utility
+			/// TO-DO :
+			/// Find a better way to cache the Main Camera
 			Camera* mainCamera = nullptr;
 			Camera* GetMainCamera() {
 				GameObject* camObject = FindGameObjectWithTag(Tag::Main_Camera);
@@ -68,20 +64,18 @@ namespace alpha
 				return nullptr;
 			}
 			GameObject* CreateSpriteObject(string _name, string _sprite, int _ppu, Vector2f _position);
+			Display* GetCurrentDisplay() { return &currentDisplay; }
 			///
 
-			Display* GetCurrentDisplay() { return &currentDisplay; }
+			string name;
 
 		private:
 
-			GameWindow* gameWindow = nullptr;
+			vector<GameObject*> gameObjects;
 
 			Display currentDisplay;
 
-			/// DEBUG
-			int signSize = 1;
-			int signPos = 1;
-			///
+			GameWindow* gameWindow = nullptr;
 		};
 	}
 }

@@ -82,6 +82,9 @@
     <Filter Include="Fichiers sources\Core\Elements\Components">
       <UniqueIdentifier>{8bc220bc-1eac-444e-b38e-d56637610e8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Template">
+      <UniqueIdentifier>{2d5fdf78-1e59-4df0-b368-90ea0c43e3c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -155,6 +158,18 @@
     </ClCompile>
     <ClCompile Include="ConstructionInput.cpp">
       <Filter>Fichiers sources\Scripts\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="TileObject.cpp">
+      <Filter>Fichiers sources\Scripts\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRenderer.cpp">
+      <Filter>Fichiers sources\Core\Elements\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TemplateGameScript.cpp">
+      <Filter>Fichiers sources\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingObject.cpp">
+      <Filter>Fichiers sources\Scripts\Building</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +265,18 @@
     </ClInclude>
     <ClInclude Include="ConstructionInput.h">
       <Filter>Fichiers d%27en-tête\Scripts\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObject.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderer.h">
+      <Filter>Fichiers d%27en-tête\Core\Elements\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateGameScript.h">
+      <Filter>Fichiers d%27en-tête\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingObject.h">
+      <Filter>Fichiers d%27en-tête\Scripts\Building</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

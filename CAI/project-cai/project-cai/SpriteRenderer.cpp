@@ -31,11 +31,11 @@ namespace alpha
 
 		void SpriteRenderer::AddToRender()
 		{
-			auto& tl = *gameObject->GetTagsList();
-			for (int i = 0; i < tl.size(); i++) {
-				if (tl[i] == Tag::Prefab)
+			auto& tags = *(gameObject->GetTagsList());
+			for (int i = 0; i < tags.size(); i++) {
+				if (tags[i] == Tag::Prefab)
 					return;
-			} display->AddObjectToRender(gameObject, &sprite, pixelsPerUnit);
+			} display->AddSpriteToRender(gameObject, &sprite, pixelsPerUnit);
 		}
 
 		SpriteRenderer* SpriteRenderer::Clone(GameObject* _gameObject)

@@ -22,24 +22,30 @@ namespace alpha
         GameObject* SceneView::CreateGameObject(string _name, Transform2D _transform, GameObject* _parent, Layer _layer, vector<Tag> _tags)
         {
             gameObjects.push_back(new GameObject(_name, _transform, _parent, _layer, _tags));
-            gameObjects.back()->index = (int)gameObjects.size() - 1;
+            auto go = gameObjects.back();
+            go->index = (int)gameObjects.size() - 1;
 
-            return gameObjects.back();
+            return go;
         }
 
         GameObject* SceneView::InstantiateGameObject(GameObject* _gameObject)
         {
             gameObjects.push_back(new GameObject(*_gameObject));
-            gameObjects.back()->index = (int)gameObjects.size() - 1;
+            auto go = gameObjects.back();
+            go->index = (int)gameObjects.size() - 1;
 
-            return gameObjects.back();
+            for (auto& ch : *go->GetChildren()) {
+                gameObjects.push_back(ch);
+            }
+
+            return go;
         }
 
         void SceneView::DestroyGameObject(GameObject* _gameObject)
         {
-            auto& chs = *_gameObject->GetChildren();
-            for (int i = 0; i < chs.size(); i++) {
-                delete chs[i];
+            auto& children = *_gameObject->GetChildren();
+            for (int i = 0; i < children.size(); i++) {
+                delete children[i];
             }
             delete _gameObject;
         }
@@ -57,7 +63,7 @@ namespace alpha
         {
             GameObject* cameraObject = CreateGameObject("Main Camera");
             cameraObject->AddTag(Tag::Main_Camera);
-            cameraObject->AddComponent(new Camera(cameraObject, &currentDisplay, currentDisplay.resolution, 10));
+            cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution, 10));
 
             mainCamera = GetMainCamera();
             currentDisplay.camera = mainCamera;
@@ -70,33 +76,36 @@ namespace alpha
             CreateSpriteObject("Fire", ASSETS_FOLDER + "Fire Orb.png", 14, Vector2f(-6, -2));
 
             GameObject* gridObject = CreateGameObject("Grid");
-            gridObject->AddComponent(new Grid(gridObject, 40, 40));
+            gridObject->AddComponent(new Grid(8, 8));
+
+            GameObject* constructionInputObject = CreateGameObject("Construction Input");
+            constructionInputObject->AddComponent(new ConstructionInput(currentDisplay));
         }
 
         void SceneView::Play()
         {
-            for (auto& go : gameObjects)
-                if (go != nullptr) go->Init();
+            for (int i = 0; i < gameObjects.size(); ++i)
+                if (gameObjects[i] != nullptr) gameObjects[i]->Init();
 
-            for (auto& go : gameObjects)
-                if (go != nullptr) go->Start();
+            for (int i = 0; i < gameObjects.size(); ++i)
+                if (gameObjects[i] != nullptr) gameObjects[i]->Start();
         }
 #pragma endregion
 
 #pragma region Core Loop
         void SceneView::Update(float _elapsedTime)
         {
-            for (auto& go : gameObjects)
-                if (go != nullptr) go->Update(_elapsedTime);
+            for (int i = 0; i < gameObjects.size(); ++i)
+                if (gameObjects[i] != nullptr) gameObjects[i]->Update(_elapsedTime);
         }
 
         void SceneView::EventUpdate(Event& _event, float _elapsedTime)
         {
-            for (auto& go : gameObjects)
-                if (go != nullptr) go->EventUpdate(_event, _elapsedTime);
+            for (int i = 0; i < gameObjects.size(); ++i)
+                if (gameObjects[i] != nullptr) gameObjects[i]->EventUpdate(_event, _elapsedTime);
         }
 
-        void SceneView::Render(RenderWindow* _window)
+        void SceneView::Render()
         {
             if (mainCamera == nullptr) return;
             currentDisplay.Render();
@@ -116,9 +125,9 @@ namespace alpha
         GameObject* SceneView::FindGameObjectWithTag(Tag _tag)
         {
             for (auto& go : gameObjects) {
-                auto& tl = *go->GetTagsList();
-                for (int i = 0; i < tl.size(); ++i) {
-                    if (tl[i] == _tag)
+                auto& tags = *go->GetTagsList();
+                for (int i = 0; i < tags.size(); ++i) {
+                    if (tags[i] == _tag)
                         return go;
                 }
             } return nullptr;

@@ -19,10 +19,16 @@ namespace alpha
 		{
 			scenes.push_back(new SceneView(&gameWindow, "Game Scene"));
 
+			/// <summary>
+			/// TO-DO:
+			/// Reorder these lines of code, set up the Asset and Scene Views in the best order possible
+			/// </summary>
+
 			currentScene = scenes.back();
 			currentScene->Init();
 
 			AssetView::currentScene = currentScene;
+			AssetManager::currentSceneDisplay = currentScene->GetCurrentDisplay();
 			AssetManager::UserInit();
 
 			currentScene->Play();
@@ -33,7 +39,7 @@ namespace alpha
 			gameWindow.window->clear();
 
 			currentScene->Update(_elapsedTime);
-			currentScene->Render(gameWindow.window);
+			currentScene->Render();
 
 			gameWindow.window->display();
 		}

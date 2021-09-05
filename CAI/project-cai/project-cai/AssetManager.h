@@ -8,6 +8,7 @@
 ///\
 
 #include "GameObject.h"
+#include "Display.h"
 
 namespace alpha
 {
@@ -19,7 +20,9 @@ namespace alpha
 			static void UserInit();
 
 			static GameObject* LoadAsset(string _gameObjectName);
-			static GameObject* InstantiateAsset(GameObject* _gameObject, Vector2f _position = Vector2f(0, 0), float _rotation = 0, GameObject* _parent = nullptr);
+			static GameObject* InstantiateAsset(const GameObject& _gameObject, Vector2f _position = Vector2f(0, 0), float _rotation = 0, GameObject* _parent = nullptr);
+
+			static Display* currentSceneDisplay;
 		};
 	}
 }

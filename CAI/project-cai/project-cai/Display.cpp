@@ -8,7 +8,12 @@ namespace alpha
 		///
 #pragma region RenderedObject
 		RenderedObject::RenderedObject(GameObject* _gameObject, Sprite* _sprite, int _ppu, Camera* _cam, Vector2f _origin)
-			: objectToRender(_gameObject), spriteToRender(_sprite), spritePixelsPerUnit(_ppu), cam(_cam), origin(_origin)
+			: objectToRender(_gameObject), spriteToRender(_sprite), spritePixelsPerUnit(_ppu), cam(_cam), origin(_origin), hasText(false)
+		{
+		}
+
+		RenderedObject::RenderedObject(GameObject* _gameObject, Text* _text, int _ppu, Camera* _cam, Vector2f _origin)
+			: objectToRender(_gameObject), textToRender(_text), spritePixelsPerUnit(_ppu), cam(_cam), origin(_origin), hasText(true)
 		{
 		}
 
@@ -33,12 +38,22 @@ namespace alpha
 			cachedDisplayScale = scale;
 
 			/// Draw Sprite
-			pos -= Vector2f(spriteToRender->getTextureRect().width * scale.x, spriteToRender->getTextureRect().height * scale.y) / 2.0f; // Calculate the final position relative to the center of the sprite
+			if (!hasText) {
+				pos -= Vector2f(spriteToRender->getTextureRect().width * scale.x, spriteToRender->getTextureRect().height * scale.y) / 2.0f; // Calculate the final position relative 
+																																			 // to the center of the sprite
+				cachedDrawPos = pos;
 
-			cachedDrawPos = pos;
+				spriteToRender->setPosition(pos);
+				spriteToRender->setScale(scale);
+			}
+			if (hasText) {
+				pos -= Vector2f(textToRender->getLocalBounds().width * scale.x, textToRender->getLocalBounds().height * scale.y) / 2.0f; // Calculate the final position relative 
+																																		 // to the center of the sprite
+				cachedDrawPos = pos;
 
-			spriteToRender->setPosition(pos);
-			spriteToRender->setScale(scale);
+				textToRender->setPosition(pos);
+				textToRender->setScale(scale);
+			}
 		}
 #pragma endregion
 		///
@@ -66,12 +81,22 @@ namespace alpha
 
 #pragma region Setup
 
-		void Display::AddObjectToRender(GameObject* _gameObject, Sprite* _sprite, int _ppu)
+		void Display::AddTextToRender(GameObject* _gameObject, Text* _text, int _ppu)
+		{
+			if (ContainsObjectToRender(_gameObject) >= 0) return;
+
+			objectsToRender.push_back(_gameObject);
+			renderedObjects.push_back(new RenderedObject(_gameObject, _text, _ppu, camera, displayOrigin()));
+			textRenderedObjects.push_back(renderedObjects.back());
+		}
+
+		void Display::AddSpriteToRender(GameObject* _gameObject, Sprite* _sprite, int _ppu)
 		{
 			if (ContainsObjectToRender(_gameObject) >= 0) return;
 
 			objectsToRender.push_back(_gameObject);
 			renderedObjects.push_back(new RenderedObject(_gameObject, _sprite, _ppu, camera, displayOrigin()));
+			spriteRenderedObjects.push_back(renderedObjects.back());
 		}
 		void Display::RemoveObjectToRender(GameObject* _gameObject)
 		{
@@ -99,11 +124,14 @@ namespace alpha
 			DrawBackground();
 			//DrawGrid();
 
-			for (auto& r : renderedObjects)
-			{
+			for (auto& r : spriteRenderedObjects) {
 				r->CalculateDraw();
 				Draw(r->spriteToRender);
 				//DebugDraw(r);
+			}
+			for (auto& r : textRenderedObjects) {
+				r->CalculateDraw();
+				Draw(r->spriteToRender);
 			}
 		}
 
@@ -205,6 +233,11 @@ namespace alpha
 			_worldPosition *= (float)camera->pixelsPerUnit();
 			_worldPosition = Vector2f(displayOrigin().x + _worldPosition.x, displayOrigin().y - _worldPosition.y);
 			return _worldPosition;
+		}
+
+		template<typename T>
+		typename enable_if<is_base_of<Drawable, T>::value && is_base_of<Transformable, T>::value, void>::type Add(T* pObj)
+		{
 		}
 		///
 	}

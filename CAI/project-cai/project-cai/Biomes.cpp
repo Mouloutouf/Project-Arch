@@ -16,14 +16,26 @@ namespace alpha
 
 			buildingsForResourceExploitation.insert({ RawResourceType::CROPS, BuildingType::Farm });
 			buildingsForResourceExploitation.insert({ RawResourceType::HERBS, BuildingType::Farm });
+
+			resourcesProvisions.insert({ RawResourceType::CROPS, Resource(RawResourceType::CROPS) });
+			resourcesProvisions.insert({ RawResourceType::HERBS, Resource(RawResourceType::HERBS) });
+
+			GenerateFieldBiome();
 		}
 		FieldBiome::FieldBiome(int _cropResources, int _herbResources, Structure* _shipStructure)
 			: FieldBiome()
 		{
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::CROPS, _cropResources) });
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::HERBS, _herbResources) });
+			resourcesProvisions[RawResourceType::CROPS].SetQuantity(_cropResources);
+			resourcesProvisions[RawResourceType::HERBS].SetQuantity(_herbResources);
 
 			structures.push_back(_shipStructure);
+		}
+		void FieldBiome::GenerateFieldBiome()
+		{
+			GenerateResources(RawResourceType::CROPS, 40, 60);
+			GenerateResources(RawResourceType::HERBS, 10, 20);
+
+			structures.push_back(Structure::CreateShipStructure());
 		}
 #pragma endregion
 
@@ -36,11 +48,17 @@ namespace alpha
 
 			allowBuild = true;
 			terrain = NORMAL_TERRAIN;
+
+			GenerateDesertBiome();
 		}
 		DesertBiome::DesertBiome(Structure* _shipStructure)
 			: DesertBiome()
 		{
 			structures.push_back(_shipStructure);
+		}
+		void DesertBiome::GenerateDesertBiome()
+		{
+			structures.push_back(Structure::CreateShipStructure());
 		}
 #pragma endregion
 
@@ -55,13 +73,23 @@ namespace alpha
 			terrain = HARD_TERRAIN;
 
 			buildingsForResourceExploitation.insert({ CoreResourceType::OXYGEN, BuildingType::OxygenExcavator });
+
+			resourcesProvisions.insert({ CoreResourceType::OXYGEN, Resource(CoreResourceType::OXYGEN) });
+
+			GenerateMountainBiome();
 		}
 		MountainBiome::MountainBiome(int _oxygenResources, Structure* _shipStructure)
 			: MountainBiome()
 		{
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(CoreResourceType::OXYGEN, _oxygenResources) });
+			resourcesProvisions[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);
 
 			structures.push_back(_shipStructure);
+		}
+		void MountainBiome::GenerateMountainBiome()
+		{
+			GenerateResources(CoreResourceType::OXYGEN, 160, 280);
+
+			structures.push_back(Structure::CreateShipStructure());
 		}
 #pragma endregion
 
@@ -75,11 +103,19 @@ namespace alpha
 			allowBuild = false;
 
 			buildingsForResourceExploitation.insert({ RawResourceType::WATER, BuildingType::WaterExtractor });
+
+			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER) });
+
+			GenerateLakeBiome();
 		}
 		LakeBiome::LakeBiome(int _waterResources)
 			: LakeBiome()
 		{
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER, _waterResources) });
+			resourcesProvisions[RawResourceType::WATER].SetQuantity(_waterResources);
+		}
+		void LakeBiome::GenerateLakeBiome()
+		{
+			GenerateResources(RawResourceType::WATER, 40, 70);
 		}
 #pragma endregion
 
@@ -99,22 +135,49 @@ namespace alpha
 			buildingsForResourceExploitation.insert({ CoreResourceType::OXYGEN, BuildingType::OxygenGatherer });
 			buildingsForResourceExploitation.insert({ RawResourceType::MEAT, BuildingType::HuntCamp });
 			buildingsForResourceExploitation.insert({ RawResourceType::HERBS, BuildingType::HuntCamp });
+
+			resourcesProvisions.insert({ CoreResourceType::OXYGEN, Resource(CoreResourceType::OXYGEN) });
+			resourcesProvisions.insert({ RawResourceType::MEAT, Resource(RawResourceType::MEAT) });
+			resourcesProvisions.insert({ RawResourceType::HERBS, Resource(RawResourceType::HERBS) });
+
+			GenerateForestBiome();
 		}
 		ForestBiome::ForestBiome(int _oxygenResources, int _meatResources, int _herbResources, Structure* _shipStructure)
 			: ForestBiome()
 		{
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(CoreResourceType::OXYGEN, _oxygenResources) });
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::MEAT, _meatResources) });
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::HERBS, _herbResources) });
+			resourcesProvisions[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);
+			resourcesProvisions[RawResourceType::MEAT].SetQuantity(_meatResources);
+			resourcesProvisions[RawResourceType::HERBS].SetQuantity(_herbResources);
 
 			structures.push_back(_shipStructure);
-			GenerateForestStructure();
+			structures.push_back(Structure::CreateForestStructure());
 		}
-		void ForestBiome::GenerateForestStructure()
+		void ForestBiome::GenerateForestBiome()
 		{
-			int minCstrMat = 5, maxCstrMat = 25;
-			int cstrMat = Utility::GetRandomNumberInRange(minCstrMat, maxCstrMat);
-			structures.push_back(new Structure(vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, cstrMat)}));
+			GenerateForestResources();
+			sprites = vector<string>(forestSprites[forestType]);
+			GenerateResources(RawResourceType::HERBS, 15, 30);
+
+			structures.push_back(Structure::CreateShipStructure());
+			structures.push_back(Structure::CreateForestStructure());
+		}
+		void ForestBiome::GenerateForestResources()
+		{
+			int minMat = 60, maxMat = 280;
+			int materials = Utility::GetRandomNumberInRange(minMat, maxMat);
+
+			int percentages[] = { 0, 25, 75, 100 };
+			string types[] = { "AA", "AD", "OD", "OO"};
+
+			int i = Utility::GetRandomNumberInRange(0, 3);
+
+			int oxygenMat = materials * (float)(percentages[i] / 100.0f);
+			int animalMat = materials * (float)((100 - percentages[i]) / 100.0f);
+
+			resourcesProvisions[CoreResourceType::OXYGEN].SetQuantity(oxygenMat);
+			resourcesProvisions[RawResourceType::MEAT].SetQuantity(animalMat);
+
+			forestType = types[i];
 		}
 #pragma endregion
 
@@ -128,11 +191,17 @@ namespace alpha
 			allowBuild = false;
 
 			buildingsForResourceExploitation.insert({ RawResourceType::WATER, BuildingType::WaterPurifier });
+
+			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER) });
 		}
 		SeaBiome::SeaBiome(int _waterResources)
 			: SeaBiome()
 		{
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER, _waterResources) });
+			resourcesProvisions[RawResourceType::WATER].SetQuantity(_waterResources);
+		}
+		void SeaBiome::GenerateSeaBiome()
+		{
+			GenerateResources(RawResourceType::WATER, 80, 120);
 		}
 #pragma endregion
 	}

@@ -12,6 +12,8 @@
 
 namespace alpha
 {
+	using namespace core;
+
 	namespace game
 	{
 		class Structure
@@ -22,6 +24,12 @@ namespace alpha
 
 			void ExtractResourcesFromStructure();
 			void DestroyStructure();
+
+			static Structure* CreateShipStructure();
+			static Structure* CreateShipStructure(int _constructionResources, int _electronicsResources);
+
+			static Structure* CreateForestStructure();
+			static Structure* CreateForestStructure(int _constructionResources);
 
 		private:
 			map<__ResourceType, Resource> heldResources;

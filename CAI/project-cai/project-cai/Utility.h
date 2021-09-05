@@ -70,16 +70,16 @@ namespace alpha
 #pragma endregion
 			
 			template<typename I>
-			static I GetRandomIterator(I begin, I end)
+			static I GetRandomIterator(I _begin, I _end)
 			{
-				const unsigned long n = distance(begin, end);
+				const unsigned long n = distance(_begin, _end);
 				const unsigned long divisor = (RAND_MAX + 1) / n;
 
 				unsigned long k;
 				do { k = rand() / divisor; } while (k >= n);
 
-				std::advance(begin, k);
-				return begin;
+				advance(_begin, k);
+				return _begin;
 			}
 
 			template<typename T>
@@ -90,10 +90,16 @@ namespace alpha
 				return result.front();
 			}
 
-			static int GetRandomNumberInRange(int min, int max)
+			static int GetRandomNumberInRange(int _min, int _max)
 			{
 				srand((unsigned int)hash<string>()(to_string(_TIME)));
-				return (rand() % (max - min)) + min;
+				return (rand() % (_max - _min)) + _min;
+			}
+
+			template<typename T>
+			static bool Contains(const vector<T>& _vector, const T& _value)
+			{
+				return find(_vector.begin(), _vector.end(), _value) != _vector.end();
 			}
 		};
 	}

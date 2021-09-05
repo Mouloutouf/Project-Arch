@@ -9,6 +9,7 @@
 #include "Component.h"
 
 #include "SpriteRenderer.h"
+#include "TextRenderer.h"
 #include "Collider.h"
 #include "Camera.h"
 #include "ScriptBehaviour.h"

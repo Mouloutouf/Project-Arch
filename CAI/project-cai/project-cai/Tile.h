@@ -9,13 +9,12 @@
 ///\
 
 #include "Biomes.h"
+#include "Buildings.h"
 
 namespace alpha
 {
 	namespace game
 	{
-		class Building;
-
 		class Tile
 		{
 		public:
@@ -23,9 +22,12 @@ namespace alpha
 			Tile(Biome* _biome);
 			~Tile();
 
+			BiomeType biomeType = BiomeType::None;
+			void setBiome(Biome* _biome) { biome = _biome; }
 			Biome* getBiome() { return biome; }
-			Building* getBuilding() { return building; }
 
+			void setBuilding(Building* _building) { building = _building; }
+			Building* getBuilding() { return building; }
 			bool hasBuilding() { return building != nullptr; }
 
 		private:

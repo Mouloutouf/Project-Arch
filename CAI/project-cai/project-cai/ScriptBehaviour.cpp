@@ -7,10 +7,6 @@ namespace alpha
 		ScriptBehaviour::ScriptBehaviour()
 		{
 		}
-		ScriptBehaviour::ScriptBehaviour(GameObject* _gameObject)
-			: Component(_gameObject)
-		{
-		}
 		ScriptBehaviour::ScriptBehaviour(const ScriptBehaviour& that, GameObject* _gameObject)
 			: Component(that, _gameObject)
 		{

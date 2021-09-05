@@ -21,7 +21,6 @@ namespace alpha
 		public:
 
 			ScriptBehaviour();
-			ScriptBehaviour(GameObject* _gameObject);
 			ScriptBehaviour(const ScriptBehaviour& that, GameObject* _gameObject);
 			~ScriptBehaviour();
 

@@ -71,7 +71,7 @@ namespace alpha
 
 			// Children
 			for (auto& ch : that.children) {
-				children.push_back(ch);
+				children.push_back(new GameObject(*ch));
 			}
 
 			// Components
@@ -81,58 +81,24 @@ namespace alpha
 				//components.back()->gameObject = this;
 			}
 		}
-		GameObject& GameObject::operator=(const GameObject& that)
-		{
-			if (this != &that)
-			{
-				// Transform
-				transform = that.transform;
-				transform.gameObject = this;
-
-				// Members
-				parent = that.parent;
-				name = that.name;
-				layer = that.layer;
-				tags = that.tags;
-
-				// Children
-				for (auto& ch : children)
-					delete ch;
-				children.clear();
-
-				for (int i = 0; i < that.children.size(); i++) {
-					children.push_back(that.children[i]);
-				}
-
-				// Components
-				for (auto& c : components)
-					delete c;
-				components.clear();
-
-				for (int i = 0; i < that.components.size(); ++i)
-				{
-					components.push_back(that.components[i]->Clone(this));
-					//components.back()->gameObject = this;
-				}
-			}
-			return *this;
-		}
 
 		GameObject::~GameObject()
 		{
-			for (auto& ch : children)
-				delete ch;
-
 			for (auto& c : components)
 				delete c;
 
 			if (parent != nullptr)
-				parent->DeleteChild(childIndex);
+				parent->RemoveChild(this);
 		}
 
+#pragma region Components
 		vector<Component*>* GameObject::GetComponentsList() { return &components; }
 
-		void GameObject::AddComponent(Component* _component) { components.push_back(_component); }
+		void GameObject::AddComponent(Component* _component)
+		{
+			components.push_back(_component);
+			_component->gameObject = this;
+		}
 
 		void GameObject::RemoveComponent(Component* _component)
 		{
@@ -141,7 +107,9 @@ namespace alpha
 					components.erase(components.begin() + i);
 			}
 		}
+#pragma endregion
 
+#pragma region Children
 		int GameObject::AddChild(GameObject* _gameObject)
 		{
 			children.push_back(_gameObject);
@@ -152,13 +120,6 @@ namespace alpha
 			for (int i = 0; i < children.size(); i++) {
 				if (children[i] = _gameObject)
 					children.erase(children.begin() + i);
-			}
-		}
-		void GameObject::DeleteChild(int _index)
-		{
-			if (_index >= 0 && _index < children.size()) {
-				delete children[_index];
-				children.erase(children.begin() + _index);
 			}
 		}
 
@@ -178,7 +139,9 @@ namespace alpha
 		}
 
 		vector<GameObject*>* GameObject::GetChildren() { return &children; }
+#pragma endregion
 
+#pragma region Parent
 		void GameObject::SetParent(GameObject* _gameObject)
 		{
 			if (_gameObject == nullptr) return;
@@ -201,7 +164,9 @@ namespace alpha
 		}
 
 		GameObject* GameObject::GetParent() { return parent; }
+#pragma endregion
 
+#pragma region Tags
 		void GameObject::AddTag(Tag _tag)
 		{
 			if (ContainsTag(_tag) >= 0) return;
@@ -223,6 +188,7 @@ namespace alpha
 		}
 
 		vector<Tag>* GameObject::GetTagsList() { return &tags; }
+#pragma endregion
 
 		void GameObject::Init()
 		{

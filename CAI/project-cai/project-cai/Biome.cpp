@@ -22,6 +22,12 @@ namespace alpha
 				delete s;
 		}
 
+		void Biome::GenerateResources(__ResourceType _resourceType, int min, int max)
+		{
+			int qty = Utility::GetRandomNumberInRange(min, max);
+			resourcesProvisions[_resourceType].SetQuantity(qty);
+		}
+
 		int Biome::RetrieveResourceProvision(__ResourceType _resourceType)
 		{
 			if (resourcesProvisions.count(_resourceType) == 0) return -1;

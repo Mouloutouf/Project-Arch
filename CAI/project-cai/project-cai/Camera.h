@@ -21,7 +21,7 @@ namespace alpha
 		public:
 
 			Camera();
-			Camera(GameObject* _gameObject, Display* _display, Vector2f _resolution, float _size);
+			Camera(Display* _display, Vector2f _resolution, float _size);
 			Camera(const Camera& that, GameObject* _gameObject);
 			~Camera();
 

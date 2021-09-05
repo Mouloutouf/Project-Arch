@@ -5,14 +5,12 @@
 
 #include "Alpha.h"
 #include "Core.h"
+#include "Game.h"
 
 #include "AssetManager.h"
 #include "SceneView.h"
 
 ///\
-
-#include "GameObject.h"
-#include "Component.h"
 
 namespace alpha
 {

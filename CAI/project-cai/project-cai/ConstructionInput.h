@@ -4,12 +4,14 @@
 #define CONSTRUCTION_INPUT_H
 
 #include "Alpha.h"
+#include "Core.h"
 
 ///\
 
 #include "Display.h"
-#include "ScriptBehaviour.h"
 #include "Construction.h"
+#include "BuildingObject.h"
+#include "Grid.h"
 
 namespace alpha
 {
@@ -34,16 +36,26 @@ namespace alpha
 
 		private:
 
+			Grid* grid;
+
 			Display& display;
 
-			map<int, pair<BuildingType, string>> buildingsSprites;
+			GameObject* buildingPrefab;
+
+			vector<pair<BuildingType, ArchBuilding>> archBuildings;
 
 			Vector2f offsetFromMouse;
-			GameObject* buildingSelectedObject = nullptr;
-			GameObject* buildingPreviewObject = nullptr;
+			GameObject* buildingSelectedObject;
+			GameObject* buildingPreviewObject;
 
-			int selectedBuildingType = 0;
+			int selected = 0;
 			bool scrollThroughBuildings = false;
+
+			Vector2f currentMousePosition;
+
+			TileObject* hoveredTile;
+
+			vector<Tile*> currentValidTiles = vector<Tile*>();
 		};
 	}
 }

@@ -22,12 +22,15 @@ namespace alpha
 		public:
 
 			RenderedObject(GameObject* _gameObject, Sprite* _sprite, int _ppu, Camera* _cam, Vector2f _origin);
+			RenderedObject(GameObject* _gameObject, Text* _text, int _ppu, Camera* _cam, Vector2f _origin);
 			~RenderedObject();
 
 			void CalculateDraw();
 
 			GameObject* objectToRender;
 			Sprite* spriteToRender;
+			bool hasText;
+			Text* textToRender;
 			int spritePixelsPerUnit;
 			Camera* cam;
 
@@ -45,7 +48,8 @@ namespace alpha
 			Display(int resX, int resY, GameWindow* _gameWindow);
 			~Display();
 
-			void AddObjectToRender(GameObject* _gameObject, Sprite* _sprite, int _ppu);
+			void AddTextToRender(GameObject* _gameObject, Text* _text, int _ppu);
+			void AddSpriteToRender(GameObject* _gameObject, Sprite* _sprite, int _ppu);
 			void RemoveObjectToRender(GameObject* _gameObject);
 
 			void Render();
@@ -71,6 +75,8 @@ namespace alpha
 			vector<GameObject*> objectsToRender;
 			
 			vector<RenderedObject*> renderedObjects;
+			vector<RenderedObject*> spriteRenderedObjects;
+			vector<RenderedObject*> textRenderedObjects;
 
 			int ContainsObjectToRender(GameObject* _gameObject);
 

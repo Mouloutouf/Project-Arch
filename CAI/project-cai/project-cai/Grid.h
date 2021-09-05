@@ -8,29 +8,21 @@
 
 ///\
 
+#include "TileObject.h"
+
 namespace alpha
 {
 	using namespace core;
 
 	namespace game
 	{
-		enum class Biome { None, Forest, Field, Desert, Mountain, Water, Lake };
-
-		struct Tile
-		{
-			Tile(Biome _biome);
-
-			Biome biome;
-		};
-
 		class Grid : public ScriptBehaviour
 		{
 		public:
 
 			Grid();
-			Grid(GameObject* _gameObject, int _width, int _height, bool _useRandomSeed = true, string _seed = to_string(_TIME));
+			Grid(int _width, int _height, bool _useRandomSeed = true, string _seed = to_string(_TIME));
 			Grid(const Grid& that, GameObject* _gameObject);
-			Grid& operator=(const Grid& that);
 			~Grid();
 
 			Grid* Clone(GameObject* _gameObject) override;
@@ -40,29 +32,27 @@ namespace alpha
 			void Start() override;
 			void Update(float _elapsedTime) override;
 
-			vector<Tile*> tiles;
-
-			GameObject* tilePrefab = nullptr;
-			map<Biome, vector<string>> tileSprites;
-
-			vector<GameObject*> tileObjects;
-
 			int width = 2, height = 2;
 			int index(int x, int y) const { return x + width * y; }
 
-			map<Biome, int> biomesFillPower { {Biome::Desert, 0}, {Biome::Forest, 0}, {Biome::Field, 0}, {Biome::Water, 0},
-											{Biome::Lake, 0}, {Biome::Mountain, 0}, {Biome::None, 0} };
+			TileObject* GetTile(int x, int y);
+
+			GameObject* tilePrefab = nullptr;
+
+			vector<TileObject*> tiles;
 
 		private:
 
-			map<Biome, int> biomesFillPercent;
+			void CalculateBiomes();
+
+			void GenerateRandomMap();
+			void CreateTile(int x, int y, BiomeType _b);
+
+			map<BiomeType, int> biomesFillValues;
+			map<BiomeType, int> biomesFillPercent;
 
 			string seed;
 			bool useRandomSeed = true;
-
-			void GenerateMap();
-			void RandomMap();
-			void CreateMap();
 		};
 	}
 }

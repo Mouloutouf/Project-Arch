@@ -40,15 +40,13 @@ namespace alpha
 		{
 		public:
 
-			/// Constructors
 			GameObject(string _name = "New Game Object", Transform2D _transform = Transform2D(), GameObject* _parent = nullptr,
 				Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default });
 			GameObject(const GameObject& that);
-			GameObject& operator=(const GameObject& that);
 
 			~GameObject();
 
-			/// Methods
+#pragma region Components
 			void AddComponent(Component* _component); /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
 			void RemoveComponent(Component* _component);
 
@@ -67,24 +65,30 @@ namespace alpha
 			}
 
 			vector<Component*>* GetComponentsList();
+#pragma endregion
 
+#pragma region Children
 			int AddChild(GameObject* _gameObject);
 			void RemoveChild(GameObject* _gameObject);
-			void DeleteChild(int _index);
 
 			GameObject* GetChild(int _index);
 			GameObject* GetChild(string _name);
-			
-			vector<GameObject*>* GetChildren();
 
+			vector<GameObject*>* GetChildren();
+#pragma endregion
+
+#pragma region Parent
 			void SetParent(GameObject* _gameObject);
 			void ExtractFromParent();
 			GameObject* GetParent();
+#pragma endregion
 
+#pragma region Tags
 			vector<Tag>* GetTagsList();
 			void AddTag(Tag _tag);
 			void RemoveTag(Tag _tag);
 			int ContainsTag(Tag _tag);
+#pragma endregion
 
 			void Init();
 
@@ -92,7 +96,6 @@ namespace alpha
 			void Update(float _elapsedTime);
 			void EventUpdate(Event& _event, float _elapsedTime);
 
-			/// Variables
 			Transform2D transform;
 
 			string name;

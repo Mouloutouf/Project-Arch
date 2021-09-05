@@ -7,8 +7,12 @@ namespace alpha
 		Resource::Resource()
 		{
 		}
+		Resource::Resource(__ResourceType _resourceType)
+			: resourceType(_resourceType)
+		{
+		}
 		Resource::Resource(__ResourceType _resourceType, unsigned int _quantity)
-			: category(ResourceCategory::Core), resourceType(_resourceType), quantity(_quantity)
+			: resourceType(_resourceType), quantity(_quantity)
 		{
 		}
 

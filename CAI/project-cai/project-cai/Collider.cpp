@@ -29,8 +29,7 @@ namespace alpha
 			// Otherwise, create a basic bounding box
 			bounds = Bounds(&gameObject->transform, Vector2f(1, 1));
 		}
-		Collider::Collider(GameObject* _gameObject, Vector2f _size)
-			: Component(_gameObject)
+		Collider::Collider(Vector2f _size)
 		{
 			bounds = Bounds(&gameObject->transform, _size);
 		}

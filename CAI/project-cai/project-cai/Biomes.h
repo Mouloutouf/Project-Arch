@@ -21,6 +21,8 @@ namespace alpha
 		public:
 			FieldBiome();
 			FieldBiome(int _cropResources, int _herbResources, Structure* _shipStructure);
+
+			void GenerateFieldBiome();
 		};
 
 		class DesertBiome : public Biome
@@ -28,6 +30,8 @@ namespace alpha
 		public:
 			DesertBiome();
 			DesertBiome(Structure* _shipStructure);
+
+			void GenerateDesertBiome();
 		};
 
 		class MountainBiome : public Biome
@@ -35,6 +39,8 @@ namespace alpha
 		public:
 			MountainBiome();
 			MountainBiome(int _oxygenResources, Structure* _shipStructure);
+
+			void GenerateMountainBiome();
 		};
 
 		class LakeBiome : public Biome
@@ -42,6 +48,8 @@ namespace alpha
 		public:
 			LakeBiome();
 			LakeBiome(int _waterResources);
+
+			void GenerateLakeBiome();
 		};
 
 		class ForestBiome : public Biome
@@ -50,9 +58,11 @@ namespace alpha
 			ForestBiome();
 			ForestBiome(int _oxygenResources, int _meatResources, int _herbResources, Structure* _shipStructure);
 
-			void GenerateForestStructure();
+			void GenerateForestBiome();
+			void GenerateForestResources();
 
 		private:
+			string forestType;
 			map<string, vector<string>> forestSprites;
 		};
 
@@ -61,6 +71,8 @@ namespace alpha
 		public:
 			SeaBiome();
 			SeaBiome(int _waterResources);
+
+			void GenerateSeaBiome();
 		};
 	}
 }

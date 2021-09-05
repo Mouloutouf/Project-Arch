@@ -43,12 +43,15 @@ namespace alpha
 			void RemoveStructure(Structure* _structure);
 			void RemoveAllStructures();
 
+			void GenerateResources(__ResourceType _resourceType, int min, int max);
+
 			BiomeType biomeType = BiomeType::None;
 
-		protected:
 			vector<string> sprites;
 			vector<string> spritesWithStructures;
 
+		protected:
+			
 			bool allowBuild = true;
 			Terrain terrain = NORMAL_TERRAIN;
 
