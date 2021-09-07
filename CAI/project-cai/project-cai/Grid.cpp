@@ -57,29 +57,35 @@ namespace alpha
 
 		void Grid::CalculateBiomes()
 		{
-			int allBiomesValues = 0;
+			float allBiomesValues = 0;
 			for (auto& bv : biomesFillValues) {
 				allBiomesValues += bv.second;
 			}
-			float valuePercentage = (float)(100 / allBiomesValues);
+			float valuePercentage = 100.0f / allBiomesValues;
 
 			float previousBiomeValue = 0;
 			for (auto& bv : biomesFillValues) {
 				if (bv.second == 0) continue;
 
 				auto bvCopy = bv;
-				bvCopy.second = (int)((valuePercentage * bvCopy.second) + previousBiomeValue);
+				bvCopy.second = (valuePercentage * bvCopy.second) + previousBiomeValue;
 				previousBiomeValue = (float)bvCopy.second;
 
 				biomesFillPercent.insert(bvCopy);
 			}
+			biomesFillPercent.rbegin()->second = 100.0f;
 		}
 
 		void Grid::GenerateRandomMap()
 		{
-			if (useRandomSeed)
+			/*if (useRandomSeed)
 				seed = to_string(_TIME);
-			srand((unsigned int)hash<string>()(seed));
+			srand((unsigned int)hash<string>()(seed));*/
+
+			random_device rd;
+			mt19937 mt(rd());
+
+			uniform_int_distribution dist(0, 99);
 
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++)
@@ -93,8 +99,10 @@ namespace alpha
 						continue;
 					}
 
-					int randomPercent = rand() % 100;
-					cout << randomPercent << endl;
+					/*int randomPercent = rand() % 100;
+					cout << randomPercent << endl;*/
+					
+					int randomPercent = dist(mt);
 
 					for (auto& bPercent : biomesFillPercent) {
 						if (randomPercent < bPercent.second)

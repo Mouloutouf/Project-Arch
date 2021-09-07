@@ -27,6 +27,7 @@ namespace alpha
 			AssetView();
 			~AssetView();
 
+			static GameObject* Prefab(GameObject* _gameObject);
 			static void AddAsset(GameObject* _gameObject);
 			static void DeleteAsset(string _gameObjectName);
 

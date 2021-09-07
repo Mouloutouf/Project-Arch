@@ -71,7 +71,7 @@ namespace alpha
 
 			// Children
 			for (auto& ch : that.children) {
-				children.push_back(new GameObject(*ch));
+				CreateChild(new GameObject(*ch));
 			}
 
 			// Components
@@ -105,11 +105,19 @@ namespace alpha
 			for (int i = 0; i < components.size(); ++i) {
 				if (components[i] == _component)
 					components.erase(components.begin() + i);
+					delete components[i];
 			}
 		}
 #pragma endregion
 
 #pragma region Children
+		GameObject* GameObject::CreateChild(GameObject* _gameObject)
+		{
+			children.push_back(_gameObject);
+			_gameObject->parent = this;
+			return _gameObject;
+		}
+
 		int GameObject::AddChild(GameObject* _gameObject)
 		{
 			children.push_back(_gameObject);
@@ -117,7 +125,7 @@ namespace alpha
 		}
 		void GameObject::RemoveChild(GameObject* _gameObject)
 		{
-			for (int i = 0; i < children.size(); i++) {
+			for (int i = 0; i < children.size(); ++i) {
 				if (children[i] = _gameObject)
 					children.erase(children.begin() + i);
 			}
@@ -142,24 +150,29 @@ namespace alpha
 #pragma endregion
 
 #pragma region Parent
-		void GameObject::SetParent(GameObject* _gameObject)
+		void GameObject::SetParent(GameObject* _newParent)
 		{
-			if (_gameObject == nullptr) return;
+			if (_newParent == nullptr) {
+				parent = nullptr;
+				return;
+			}
 
-			if (_gameObject != parent)
+			if (_newParent != parent)
 			{
 				if (parent != nullptr)
 					parent->RemoveChild(this);
-				parent = _gameObject;
+				parent = _newParent;
 				parent->AddChild(this);
 			}
 		}
 		void GameObject::ExtractFromParent()
 		{
-			if (parent != nullptr) {
+			if (parent != nullptr)
+			{
 				parent->RemoveChild(this);
 				parent = parent->parent;
-				parent->AddChild(this);
+				if (parent != nullptr)
+					parent->AddChild(this);
 			}
 		}
 

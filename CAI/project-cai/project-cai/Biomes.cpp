@@ -98,7 +98,7 @@ namespace alpha
 		{
 			biomeType = BiomeType::Lake;
 
-			sprites = vector<string>({ "" });
+			sprites = vector<string>({ "Tile Lake Center 1", "Tile Lake Center 2" });
 
 			allowBuild = false;
 

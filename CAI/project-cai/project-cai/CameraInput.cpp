@@ -56,6 +56,7 @@ namespace alpha
 		void CameraInput::EventUpdate(Event& _event, float _elapsedTime)
 		{
 			if (_event.type == Event::MouseWheelScrolled) {
+				if (Keyboard::isKeyPressed(Keyboard::LShift)) return;
 				float ticks = _event.mouseWheelScroll.delta;
 				camera->setSize(camera->getSize() - (ticks * _elapsedTime * scrollSpeed));
 			}

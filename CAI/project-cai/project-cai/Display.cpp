@@ -8,12 +8,12 @@ namespace alpha
 		///
 #pragma region RenderedObject
 		RenderedObject::RenderedObject(GameObject* _gameObject, Sprite* _sprite, int _ppu, Camera* _cam, Vector2f _origin)
-			: objectToRender(_gameObject), spriteToRender(_sprite), spritePixelsPerUnit(_ppu), cam(_cam), origin(_origin), hasText(false)
+			: objectToRender(_gameObject), spriteToRender(_sprite), ppu(_ppu), cam(_cam), origin(_origin), hasText(false)
 		{
 		}
 
 		RenderedObject::RenderedObject(GameObject* _gameObject, Text* _text, int _ppu, Camera* _cam, Vector2f _origin)
-			: objectToRender(_gameObject), textToRender(_text), spritePixelsPerUnit(_ppu), cam(_cam), origin(_origin), hasText(true)
+			: objectToRender(_gameObject), textToRender(_text), ppu(_ppu), cam(_cam), origin(_origin), hasText(true)
 		{
 		}
 
@@ -25,7 +25,7 @@ namespace alpha
 		{
 			/// Position
 			Vector2f pos;
-			pos = objectToRender->transform.position() - cam->gameObject->transform.position(); // Calculate the position of the sprite relative to the camera
+			pos = objectToRender->transform.position() - cam->gameObject->transform.position(); // Calculate the position of the rendered object relative to the camera
 			pos *= (float)cam->pixelsPerUnit(); // Convert the position from units to pixels
 			pos = Vector2f(origin.x + pos.x, origin.y - pos.y); // Calculate the position relative to the origin of the display (and not the top left corner)
 
@@ -33,8 +33,8 @@ namespace alpha
 
 			/// Scale
 			Vector2f scale;
-			scale = objectToRender->transform.scale() * ((float)cam->pixelsPerUnit() / (float)spritePixelsPerUnit); // Calculate the scale of the sprite using the ratio between
-																													// the camera's ppu and the sprite's ppu
+			scale = objectToRender->transform.scale() * ((float)cam->pixelsPerUnit() / (float)ppu); // Calculate the scale of the rendered object using the ratio
+																									// between the camera's ppu and the rendered object's ppu
 			cachedDisplayScale = scale;
 
 			/// Draw Sprite
@@ -48,12 +48,13 @@ namespace alpha
 			}
 			if (hasText) {
 				pos -= Vector2f(textToRender->getLocalBounds().width * scale.x, textToRender->getLocalBounds().height * scale.y) / 2.0f; // Calculate the final position relative 
-																																		 // to the center of the sprite
+																																		 // to the center of the text
 				cachedDrawPos = pos;
 
 				textToRender->setPosition(pos);
 				textToRender->setScale(scale);
 			}
+
 		}
 #pragma endregion
 		///
@@ -124,20 +125,20 @@ namespace alpha
 			DrawBackground();
 			//DrawGrid();
 
-			for (auto& r : spriteRenderedObjects) {
-				r->CalculateDraw();
-				Draw(r->spriteToRender);
+			for (auto& sr : spriteRenderedObjects) {
+				sr->CalculateDraw();
+				Draw(sr->spriteToRender);
 				//DebugDraw(r);
 			}
-			for (auto& r : textRenderedObjects) {
-				r->CalculateDraw();
-				Draw(r->spriteToRender);
+			for (auto& tr : textRenderedObjects) {
+				tr->CalculateDraw();
+				Draw(tr->textToRender);
 			}
 		}
 
-		void Display::Draw(Sprite* _sprite)
+		void Display::Draw(Drawable* _drawable)
 		{
-			gameWindow->window->draw(*_sprite);
+			gameWindow->window->draw(*_drawable);
 		}
 
 		void Display::DebugDraw(RenderedObject* _rd)
@@ -224,15 +225,23 @@ namespace alpha
 
 		Vector2f Display::ScreenToWorldPosition(Vector2f _screenPosition)
 		{
-			_screenPosition = Vector2f(_screenPosition.x - gameWindow->window->getSize().x, gameWindow->window->getSize().y - _screenPosition.y);
+			_screenPosition = Vector2f(_screenPosition.x - displayOrigin().x, displayOrigin().y - _screenPosition.y);
 			_screenPosition /= (float)camera->pixelsPerUnit();
+			_screenPosition += camera->gameObject->transform.position();
 			return _screenPosition;
 		}
 		Vector2f Display::WorldToScreenPosition(Vector2f _worldPosition)
 		{
+			_worldPosition -= camera->gameObject->transform.position();
 			_worldPosition *= (float)camera->pixelsPerUnit();
 			_worldPosition = Vector2f(displayOrigin().x + _worldPosition.x, displayOrigin().y - _worldPosition.y);
 			return _worldPosition;
+		}
+
+		Vector2f Display::MousePositionToWorld()
+		{
+			Vector2f mousePosition = (Vector2f)Mouse::getPosition(*gameWindow->window);
+			return ScreenToWorldPosition(mousePosition);
 		}
 
 		template<typename T>

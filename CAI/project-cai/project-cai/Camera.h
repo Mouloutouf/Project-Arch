@@ -28,13 +28,13 @@ namespace alpha
 			Camera* Clone(GameObject* _gameObject) override;
 
 			void setSize(float _value); float getSize();
-			Display* display;
+			Display* display = nullptr;
 
 			int pixelsPerUnit() { return (int)(displayResolution.y / (size * 2)); }
 
 		private:
 
-			float size;
+			float size = 1;
 
 			Vector2f displayResolution;
 		};

@@ -19,6 +19,13 @@ namespace alpha
 #pragma region FILES
 
 		const string ASSETS_FOLDER = "Assets/";
+		const string FONTS_FOLDER = ASSETS_FOLDER + "Fonts/";
+
+#pragma endregion
+
+#pragma region FONTS
+
+		const string TEXT_FONT = FONTS_FOLDER + "SourceCodePro-Regular" + ".ttf";
 
 #pragma endregion
 
@@ -92,8 +99,11 @@ namespace alpha
 
 			static int GetRandomNumberInRange(int _min, int _max)
 			{
-				srand((unsigned int)hash<string>()(to_string(_TIME)));
-				return (rand() % (_max - _min)) + _min;
+				random_device rd;
+				mt19937 mt(rd());
+
+				uniform_int_distribution dist(_min, _max);
+				return dist(mt) + _min;
 			}
 
 			template<typename T>

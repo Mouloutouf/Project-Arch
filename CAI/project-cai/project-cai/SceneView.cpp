@@ -36,6 +36,7 @@ namespace alpha
 
             for (auto& ch : *go->GetChildren()) {
                 gameObjects.push_back(ch);
+                ch->index = (int)gameObjects.size() - 1;
             }
 
             return go;
@@ -45,8 +46,10 @@ namespace alpha
         {
             auto& children = *_gameObject->GetChildren();
             for (int i = 0; i < children.size(); i++) {
+                gameObjects.erase(gameObjects.begin() + children[i]->index);
                 delete children[i];
             }
+            gameObjects.erase(gameObjects.begin() + _gameObject->index);
             delete _gameObject;
         }
 #pragma endregion
@@ -76,10 +79,10 @@ namespace alpha
             CreateSpriteObject("Fire", ASSETS_FOLDER + "Fire Orb.png", 14, Vector2f(-6, -2));
 
             GameObject* gridObject = CreateGameObject("Grid");
-            gridObject->AddComponent(new Grid(8, 8));
+            gridObject->AddComponent(new Grid(40, 40));
 
             GameObject* constructionInputObject = CreateGameObject("Construction Input");
-            constructionInputObject->AddComponent(new ConstructionInput(currentDisplay));
+            constructionInputObject->AddComponent(new ConstructionInput(currentDisplay, gridObject->GetComponent<Grid>()));
         }
 
         void SceneView::Play()

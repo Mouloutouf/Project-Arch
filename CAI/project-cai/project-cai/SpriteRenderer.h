@@ -42,7 +42,7 @@ namespace alpha
 			Sprite sprite;
 			Texture texture;
 
-			Display* display;
+			Display* display = nullptr;
 		};
 	}
 }

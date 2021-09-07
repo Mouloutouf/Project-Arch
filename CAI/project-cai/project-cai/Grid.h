@@ -48,8 +48,8 @@ namespace alpha
 			void GenerateRandomMap();
 			void CreateTile(int x, int y, BiomeType _b);
 
-			map<BiomeType, int> biomesFillValues;
-			map<BiomeType, int> biomesFillPercent;
+			map<BiomeType, float> biomesFillValues;
+			map<BiomeType, float> biomesFillPercent;
 
 			string seed;
 			bool useRandomSeed = true;

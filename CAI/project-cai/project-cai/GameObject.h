@@ -68,6 +68,7 @@ namespace alpha
 #pragma endregion
 
 #pragma region Children
+			GameObject* CreateChild(GameObject* _gameObject);
 			int AddChild(GameObject* _gameObject);
 			void RemoveChild(GameObject* _gameObject);
 
@@ -103,7 +104,7 @@ namespace alpha
 			
 			int index = 0;
 
-		protected:
+		private:
 
 			int childIndex = -1;
 

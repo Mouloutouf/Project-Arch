@@ -28,10 +28,12 @@ namespace alpha
 			void CalculateDraw();
 
 			GameObject* objectToRender;
-			Sprite* spriteToRender;
+
+			Sprite* spriteToRender = nullptr;
 			bool hasText;
-			Text* textToRender;
-			int spritePixelsPerUnit;
+			Text* textToRender = nullptr;
+
+			int ppu;
 			Camera* cam;
 
 			Vector2f origin;
@@ -53,7 +55,7 @@ namespace alpha
 			void RemoveObjectToRender(GameObject* _gameObject);
 
 			void Render();
-			void Draw(Sprite* _sprite);
+			void Draw(Drawable* _drawable);
 
 			void DebugDraw(RenderedObject* _rd);
 
@@ -63,6 +65,7 @@ namespace alpha
 
 			Vector2f ScreenToWorldPosition(Vector2f _screenPosition);
 			Vector2f WorldToScreenPosition(Vector2f _worldPosition);
+			Vector2f MousePositionToWorld();
 
 			Vector2f resolution;
 			Vector2f displayOrigin() { return resolution / 2.0f; }

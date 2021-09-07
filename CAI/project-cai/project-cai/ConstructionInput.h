@@ -23,7 +23,7 @@ namespace alpha
 		{
 		public:
 
-			ConstructionInput(Display& _display);
+			ConstructionInput(Display& _display, Grid* _grid);
 			ConstructionInput(const ConstructionInput& that, GameObject* _gameObject);
 
 			ConstructionInput* Clone(GameObject* _gameObject) override;
@@ -40,20 +40,21 @@ namespace alpha
 
 			Display& display;
 
-			GameObject* buildingPrefab;
+			GameObject* buildingPrefab = nullptr;
 
 			vector<pair<BuildingType, ArchBuilding>> archBuildings;
 
 			Vector2f offsetFromMouse;
-			GameObject* buildingSelectedObject;
-			GameObject* buildingPreviewObject;
+			GameObject* buildingSelectedObject = nullptr;
+			GameObject* buildingPreviewObject = nullptr;
 
 			int selected = 0;
 			bool scrollThroughBuildings = false;
 
 			Vector2f currentMousePosition;
 
-			TileObject* hoveredTile;
+			string SelectedBuildingSprite() { return ASSETS_FOLDER + archBuildings[selected].second.sprite + ".png"; }
+			TileObject* hoveredTile = nullptr;
 
 			vector<Tile*> currentValidTiles = vector<Tile*>();
 		};

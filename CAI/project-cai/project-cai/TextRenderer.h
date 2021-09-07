@@ -21,7 +21,7 @@ namespace alpha
 		public:
 
 			TextRenderer();
-			TextRenderer(GameObject* _gameObject, Display* _display, std::string _string = "", Color _color = Color::White, int _characterSize = 1);
+			TextRenderer(GameObject* _gameObject, Display* _display, string _string = "", Color _color = Color::White, int _characterSize = 1);
 			TextRenderer(const TextRenderer& that, GameObject* _gameObject);
 			~TextRenderer();
 
@@ -36,10 +36,11 @@ namespace alpha
 		protected:
 
 			Color color;
-			std::string string;
+			string string;
+			Font font;
 			Text text;
 
-			Display* display;
+			Display* display = nullptr;
 		};
 	}
 }
