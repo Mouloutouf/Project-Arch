@@ -39,5 +39,14 @@ namespace alpha
 		void Component::EventUpdate(Event& _event, float _elapsedTime)
 		{
 		}
+
+		void Component::SetActive(bool _value)
+		{
+			active = _value;
+		}
+		bool Component::IsActive()
+		{
+			return active;
+		}
 	}
 }

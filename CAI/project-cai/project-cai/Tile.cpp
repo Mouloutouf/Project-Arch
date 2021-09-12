@@ -9,8 +9,13 @@ namespace alpha
 		{
 		}
 		Tile::Tile(Biome* _biome)
-			: biome(_biome)
+			: biome(_biome), biomeType(biome->biomeType)
 		{
+		}
+		Tile::Tile(const Tile& that)
+			: biomeType(that.biomeType)
+		{
+			biome = new Biome(*that.biome);
 		}
 
 		Tile::~Tile()

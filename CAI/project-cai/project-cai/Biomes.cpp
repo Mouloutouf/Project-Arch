@@ -14,8 +14,10 @@ namespace alpha
 			allowBuild = true;
 			terrain = NORMAL_TERRAIN;
 
-			buildingsForResourceExploitation.insert({ RawResourceType::CROPS, BuildingType::Farm });
-			buildingsForResourceExploitation.insert({ RawResourceType::HERBS, BuildingType::Farm });
+			canExploitBiomeBuildings.insert({ RawResourceType::CROPS, BuildingType::Farm });
+			canExploitBiomeBuildings.insert({ RawResourceType::HERBS, BuildingType::Farm });
+
+			resourceIcons.insert({ RawResourceType::CROPS, "Crops Resource Icon" });
 
 			resourcesProvisions.insert({ RawResourceType::CROPS, Resource(RawResourceType::CROPS) });
 			resourcesProvisions.insert({ RawResourceType::HERBS, Resource(RawResourceType::HERBS) });
@@ -72,7 +74,9 @@ namespace alpha
 			allowBuild = true;
 			terrain = HARD_TERRAIN;
 
-			buildingsForResourceExploitation.insert({ CoreResourceType::OXYGEN, BuildingType::OxygenExcavator });
+			canExploitBiomeBuildings.insert({ CoreResourceType::OXYGEN, BuildingType::OxygenExcavator });
+
+			resourceIcons.insert({ CoreResourceType::OXYGEN, "Oxygen Resource Icon" });
 
 			resourcesProvisions.insert({ CoreResourceType::OXYGEN, Resource(CoreResourceType::OXYGEN) });
 
@@ -102,7 +106,9 @@ namespace alpha
 
 			allowBuild = false;
 
-			buildingsForResourceExploitation.insert({ RawResourceType::WATER, BuildingType::WaterExtractor });
+			canExploitBiomeBuildings.insert({ RawResourceType::WATER, BuildingType::WaterExtractor });
+
+			resourceIcons.insert({ RawResourceType::WATER, "Water Resource Icon" });
 
 			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER) });
 
@@ -132,9 +138,12 @@ namespace alpha
 			allowBuild = true;
 			terrain = NORMAL_TERRAIN;
 
-			buildingsForResourceExploitation.insert({ CoreResourceType::OXYGEN, BuildingType::OxygenGatherer });
-			buildingsForResourceExploitation.insert({ RawResourceType::MEAT, BuildingType::HuntCamp });
-			buildingsForResourceExploitation.insert({ RawResourceType::HERBS, BuildingType::HuntCamp });
+			canExploitBiomeBuildings.insert({ CoreResourceType::OXYGEN, BuildingType::OxygenGatherer });
+			canExploitBiomeBuildings.insert({ RawResourceType::MEAT, BuildingType::HuntCamp });
+			canExploitBiomeBuildings.insert({ RawResourceType::HERBS, BuildingType::HuntCamp });
+
+			resourceIcons.insert({ CoreResourceType::OXYGEN, "Oxygen Resource Icon" });
+			resourceIcons.insert({ RawResourceType::MEAT, "Meat Resource Icon" });
 
 			resourcesProvisions.insert({ CoreResourceType::OXYGEN, Resource(CoreResourceType::OXYGEN) });
 			resourcesProvisions.insert({ RawResourceType::MEAT, Resource(RawResourceType::MEAT) });
@@ -190,9 +199,13 @@ namespace alpha
 
 			allowBuild = false;
 
-			buildingsForResourceExploitation.insert({ RawResourceType::WATER, BuildingType::WaterPurifier });
+			canExploitBiomeBuildings.insert({ RawResourceType::WATER, BuildingType::WaterPurifier });
+
+			resourceIcons.insert({ RawResourceType::WATER, "Water Resource Icon" });
 
 			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER) });
+
+			GenerateSeaBiome();
 		}
 		SeaBiome::SeaBiome(int _waterResources)
 			: SeaBiome()

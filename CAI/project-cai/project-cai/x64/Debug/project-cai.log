@@ -1,3 +1,2 @@
-﻿  GameObject.cpp
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameObject.cpp(124,30): warning C4267: 'return' : conversion de 'size_t' en 'int', perte possible de données
+﻿  Grid.cpp
   project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe

@@ -175,6 +175,7 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="SceneView.cpp" />
     <ClCompile Include="ScriptBehaviour.cpp" />
@@ -210,14 +211,18 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="AssetView.h" />
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="Layers.h" />
+    <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneView.h" />
     <ClInclude Include="ScriptBehaviour.h" />
+    <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="TemplateHeader.h" />
     <ClInclude Include="TemplateGameScript.h" />
+    <ClInclude Include="TextObject.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileObject.h" />

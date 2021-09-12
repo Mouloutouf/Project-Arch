@@ -28,9 +28,17 @@ namespace alpha
 			void Start() override;
 			void Update(float _elapsedTime) override;
 
-			Tile* tile;
+			void SetupTile(int x, int y);
 
-			SpriteRenderer* spriteRenderer;
+			Tile* tile;
+			Biome* biome;
+
+			SpriteRenderer* biomeDisplay;
+
+			GameObject* exploitationDisplayPrefab;
+
+			SpriteRenderer* exploitationSquareDisplay;
+			SpriteRenderer* resourceIcon;
 		};
 	}
 }

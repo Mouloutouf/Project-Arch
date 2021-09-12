@@ -20,6 +20,7 @@ namespace alpha
 		public:
 			Tile();
 			Tile(Biome* _biome);
+			Tile(const Tile& that);
 			~Tile();
 
 			BiomeType biomeType = BiomeType::None;

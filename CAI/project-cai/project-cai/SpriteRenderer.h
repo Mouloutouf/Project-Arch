@@ -10,6 +10,7 @@
 
 ///\
 
+#include "RenderObject.h"
 #include "Display.h"
 
 namespace alpha
@@ -27,20 +28,25 @@ namespace alpha
 
 			SpriteRenderer* Clone(GameObject* _gameObject) override;
 
+			void SetActive(bool _value) override;
+
 			void AddToRender();
 
-			Vector2f GetSize();
 			Sprite* GetSprite();
 			void SetSprite(string _spritePath);
 
-			int pixelsPerUnit = 1;
+			Vector2f GetSize();
+			string GetSpritePath();
+
+			void SetLayer(__Layer _layer);
+			__Layer GetLayer();
+
+			void SetOrderInLayer(int _order);
+			int GetOrderInLayer();
 
 		protected:
 
-			string spritePath;
-
-			Sprite sprite;
-			Texture texture;
+			SpriteObject* spriteObject = nullptr;
 
 			Display* display = nullptr;
 		};

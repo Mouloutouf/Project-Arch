@@ -12,8 +12,9 @@ namespace alpha
 		{
 		}
 		BuildingObject::BuildingObject(const BuildingObject& that, GameObject* _gameObject)
-			: ScriptBehaviour(that, _gameObject), building(that.building), spriteRenderer(that.spriteRenderer)
+			: ScriptBehaviour(that, _gameObject), building(that.building)
 		{
+			spriteRenderer = gameObject->GetComponent<SpriteRenderer>();
 		}
 
 		BuildingObject::~BuildingObject()

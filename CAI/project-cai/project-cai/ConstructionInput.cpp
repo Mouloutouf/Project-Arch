@@ -20,6 +20,8 @@ namespace alpha
 
 		void ConstructionInput::Init()
 		{
+			hoveredSquarePrefab = AssetManager::LoadAsset("Hovered Square");
+
 			archBuildings = vector<pair<BuildingType, ArchBuilding>>
 			{
 				{ BuildingType::DroneBay, DRONE_BAY_BUILDING },
@@ -41,14 +43,16 @@ namespace alpha
 
 		void ConstructionInput::Start()
 		{
-			buildingPreviewObject = AssetManager::InstantiateAsset(GameObject("Preview Building"));
-			buildingPreviewObject->AddComponent(new SpriteRenderer(buildingPreviewObject, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
+			buildingPreview = AssetManager::InstantiateAsset(GameObject("Preview Building"));
+			buildingPreview->AddComponent(new SpriteRenderer(buildingPreview, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
 			Color transparent = Color(255, 255, 255, 204);
-			buildingPreviewObject->GetComponent<SpriteRenderer>()->GetSprite()->setColor(transparent);
+			buildingPreview->GetComponent<SpriteRenderer>()->GetSprite()->setColor(transparent);
 
-			buildingSelectedObject = AssetManager::InstantiateAsset(GameObject("Selected Building"));
-			buildingSelectedObject->AddComponent(new SpriteRenderer(buildingSelectedObject, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
-			buildingSelectedObject->transform.localScale /= 2.0f;
+			buildingIcon = AssetManager::InstantiateAsset(GameObject("Icon Building"));
+			buildingIcon->AddComponent(new SpriteRenderer(buildingIcon, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
+			buildingIcon->transform.localScale /= 2.0f;
+
+			hoveredSquare = AssetManager::InstantiateAsset(*hoveredSquarePrefab);
 		}
 		void ConstructionInput::Update(float _elapsedTime)
 		{
@@ -56,16 +60,23 @@ namespace alpha
 
 			currentMousePosition = display.MousePositionToWorld();
 
-			Vector2f buildingSelectedPos = currentMousePosition + offsetFromMouse;
-			buildingSelectedObject->transform.localPosition = buildingSelectedPos;
+			Vector2f iconPos = currentMousePosition + offsetFromMouse;
+			buildingIcon->transform.localPosition = iconPos;
 
-			Vector2f buildingPreviewPos = Vector2f(round(currentMousePosition.x), round(currentMousePosition.y));
-			buildingPreviewObject->transform.localPosition = buildingPreviewPos;
+			Vector2f tileMousePos = Vector2f(round(currentMousePosition.x), round(currentMousePosition.y));
+			buildingPreview->transform.localPosition = tileMousePos;
+			hoveredSquare->transform.localPosition = tileMousePos;
 
-			hoveredTile = grid->GetTile(buildingPreviewPos.x, buildingPreviewPos.y);
+			auto hoveredTile = grid->GetTile((int)tileMousePos.x, (int)tileMousePos.y);
 
-			// Display available and unavailable tiles, potential exploited tiles, and potential structures destruction
+			if (hoveredTile != currentHoveredTile)
+			{
+				// Disable all previous displays relative to the current hovered tile
 
+				currentHoveredTile = hoveredTile; // Set the current tile as the new hovered tile
+
+				// Display available and unavailable tiles, potential exploited tiles, and potential structures destruction, for the new hovered tile
+			}
 		}
 		void ConstructionInput::EventUpdate(Event& _event, float _elapsedTime)
 		{
@@ -78,21 +89,23 @@ namespace alpha
 					if (selected < 0) selected = 0;
 					if (selected >= archBuildings.size()) selected = (int)archBuildings.size() - 1;
 					
-					buildingSelectedObject->GetComponent<SpriteRenderer>()->SetSprite(SelectedBuildingSprite());
-					buildingPreviewObject->GetComponent<SpriteRenderer>()->SetSprite(SelectedBuildingSprite());
+					buildingIcon->GetComponent<SpriteRenderer>()->SetSprite(SelectedBuildingSprite());
+					buildingPreview->GetComponent<SpriteRenderer>()->SetSprite(SelectedBuildingSprite());
 				}
 			}
 
 			if (_event.type == Event::MouseButtonPressed) {
 				if (_event.mouseButton.button == sf::Mouse::Left) {
 
-					if (hoveredTile == nullptr) return;
+					if (currentHoveredTile == nullptr) return;
 					//Temp
-					auto bgo = AssetManager::InstantiateAsset(*buildingPrefab, buildingPreviewObject->transform.localPosition);
+					auto bgo = AssetManager::InstantiateAsset(*buildingPrefab, nullptr, buildingPreview->transform.localPosition);
 					auto bo = bgo->GetComponent<BuildingObject>();
-					bo->building = Construction::ConstructBuilding(hoveredTile->tile, archBuildings[selected].first);
+					bo->building = Construction::ConstructBuilding(currentHoveredTile->tile, archBuildings[selected].first);
 
-					if (Utility::Contains(currentValidTiles, hoveredTile->tile))
+					bgo->GetComponent<SpriteRenderer>()->SetSprite(Utility::spritePath(bo->building->archBuilding.sprite));
+
+					if (Utility::Contains(currentValidTiles, currentHoveredTile->tile))
 					{
 						// Construct Building
 					}

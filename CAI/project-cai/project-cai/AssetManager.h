@@ -20,7 +20,7 @@ namespace alpha
 			static void UserInit();
 
 			static GameObject* LoadAsset(string _gameObjectName);
-			static GameObject* InstantiateAsset(const GameObject& _gameObject, Vector2f _position = Vector2f(0, 0), float _rotation = 0, GameObject* _parent = nullptr);
+			static GameObject* InstantiateAsset(const GameObject& _gameObject, GameObject* _parent = nullptr, Vector2f _position = Vector2f(0, 0), float _rotation = 0);
 
 			static Display* currentSceneDisplay;
 		};

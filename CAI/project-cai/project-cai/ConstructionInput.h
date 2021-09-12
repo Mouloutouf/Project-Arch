@@ -45,8 +45,11 @@ namespace alpha
 			vector<pair<BuildingType, ArchBuilding>> archBuildings;
 
 			Vector2f offsetFromMouse;
-			GameObject* buildingSelectedObject = nullptr;
-			GameObject* buildingPreviewObject = nullptr;
+			GameObject* buildingIcon = nullptr;
+			GameObject* buildingPreview = nullptr;
+
+			GameObject* hoveredSquarePrefab;
+			GameObject* hoveredSquare = nullptr;
 
 			int selected = 0;
 			bool scrollThroughBuildings = false;
@@ -54,7 +57,7 @@ namespace alpha
 			Vector2f currentMousePosition;
 
 			string SelectedBuildingSprite() { return ASSETS_FOLDER + archBuildings[selected].second.sprite + ".png"; }
-			TileObject* hoveredTile = nullptr;
+			TileObject* currentHoveredTile = nullptr;
 
 			vector<Tile*> currentValidTiles = vector<Tile*>();
 		};

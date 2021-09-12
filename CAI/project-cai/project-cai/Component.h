@@ -30,7 +30,14 @@ namespace alpha
 			virtual void Update(float _elapsedTime);
 			virtual void EventUpdate(Event& _event, float _elapsedTime);
 
+			virtual void SetActive(bool _value);
+			bool IsActive();
+
 			GameObject* gameObject;
+
+		protected:
+
+			bool active = true;
 		};
 	}
 }

@@ -44,6 +44,8 @@ namespace alpha
 		{
 		public:
 
+			static string spritePath(string _sprite) { return ASSETS_FOLDER + _sprite + ".png"; }
+
 #pragma region MATH
 
 			static Vector2f Clamp(Vector2f _vec, float _radius) {

@@ -19,11 +19,16 @@ namespace alpha
         }
 
 #pragma region Core Methods
-        GameObject* SceneView::CreateGameObject(string _name, Transform2D _transform, GameObject* _parent, Layer _layer, vector<Tag> _tags)
+        GameObject* SceneView::CreateGameObject(string _name, GameObject* _parent, Transform2D _transform, Layer _layer, vector<Tag> _tags)
         {
-            gameObjects.push_back(new GameObject(_name, _transform, _parent, _layer, _tags));
+            gameObjects.push_back(new GameObject(_name, _parent, _transform, _layer, _tags));
             auto go = gameObjects.back();
             go->index = (int)gameObjects.size() - 1;
+
+            if (inPlay) {
+                go->Init();
+                go->Start();
+            }
 
             return go;
         }
@@ -37,6 +42,16 @@ namespace alpha
             for (auto& ch : *go->GetChildren()) {
                 gameObjects.push_back(ch);
                 ch->index = (int)gameObjects.size() - 1;
+
+                if (inPlay) {
+                    ch->Init();
+                    ch->Start();
+                }
+            }
+
+            if (inPlay) {
+                go->Init();
+                go->Start();
             }
 
             return go;
@@ -66,7 +81,7 @@ namespace alpha
         {
             GameObject* cameraObject = CreateGameObject("Main Camera");
             cameraObject->AddTag(Tag::Main_Camera);
-            cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution, 10));
+            cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution, 5));
 
             mainCamera = GetMainCamera();
             currentDisplay.camera = mainCamera;
@@ -79,7 +94,7 @@ namespace alpha
             CreateSpriteObject("Fire", ASSETS_FOLDER + "Fire Orb.png", 14, Vector2f(-6, -2));
 
             GameObject* gridObject = CreateGameObject("Grid");
-            gridObject->AddComponent(new Grid(40, 40));
+            gridObject->AddComponent(new Grid(8, 8));
 
             GameObject* constructionInputObject = CreateGameObject("Construction Input");
             constructionInputObject->AddComponent(new ConstructionInput(currentDisplay, gridObject->GetComponent<Grid>()));
@@ -87,6 +102,8 @@ namespace alpha
 
         void SceneView::Play()
         {
+            inPlay = true;
+
             for (int i = 0; i < gameObjects.size(); ++i)
                 if (gameObjects[i] != nullptr) gameObjects[i]->Init();
 

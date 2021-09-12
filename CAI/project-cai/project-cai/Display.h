@@ -8,30 +8,29 @@
 ///\
 
 #include "Utility.h"
-
 #include "GameWindow.h"
 
 #include "Camera.h"
+
+#include "RenderObject.h"
 
 namespace alpha
 {
 	namespace core
 	{
-		class RenderedObject
+		class DisplayedObject
 		{
 		public:
 
-			RenderedObject(GameObject* _gameObject, Sprite* _sprite, int _ppu, Camera* _cam, Vector2f _origin);
-			RenderedObject(GameObject* _gameObject, Text* _text, int _ppu, Camera* _cam, Vector2f _origin);
-			~RenderedObject();
+			DisplayedObject(GameObject* _gameObject, RenderObject* _renderObject, Camera* _cam, Vector2f _origin);
+			~DisplayedObject();
 
 			void CalculateDraw();
 
-			GameObject* objectToRender;
+			GameObject* gameObjectToRender;
 
-			Sprite* spriteToRender = nullptr;
-			bool hasText;
-			Text* textToRender = nullptr;
+			RenderObject* objectToRender = nullptr;
+			bool isText;
 
 			int ppu;
 			Camera* cam;
@@ -50,14 +49,13 @@ namespace alpha
 			Display(int resX, int resY, GameWindow* _gameWindow);
 			~Display();
 
-			void AddTextToRender(GameObject* _gameObject, Text* _text, int _ppu);
-			void AddSpriteToRender(GameObject* _gameObject, Sprite* _sprite, int _ppu);
-			void RemoveObjectToRender(GameObject* _gameObject);
+			void AddObjectToRender(GameObject* _gameObject, RenderObject* _renderObject);
+			void RemoveObjectToRender(RenderObject* _renderObject);
 
 			void Render();
-			void Draw(Drawable* _drawable);
+			void Draw(Drawable* _drawable, DisplayedObject* _d);
 
-			void DebugDraw(RenderedObject* _rd);
+			void DebugDraw(DisplayedObject* _rd);
 
 			void DrawBackground();
 
@@ -75,13 +73,13 @@ namespace alpha
 
 		private:
 
-			vector<GameObject*> objectsToRender;
-			
-			vector<RenderedObject*> renderedObjects;
-			vector<RenderedObject*> spriteRenderedObjects;
-			vector<RenderedObject*> textRenderedObjects;
+			map<int, int> entries;
 
-			int ContainsObjectToRender(GameObject* _gameObject);
+			vector<DisplayedObject*> displayedObjects;
+
+			int FindClosestKey(int _key);
+
+			int ContainsObjectToRender(RenderObject* _renderObject);
 
 			Vector2f worldOrigin() {
 				Vector2f origin = -(camera->gameObject->transform.position());

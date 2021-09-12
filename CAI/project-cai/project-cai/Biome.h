@@ -31,6 +31,7 @@ namespace alpha
 		public:
 			Biome();
 			Biome(vector<Resource> _heldResources, vector<Structure*> _structures);
+			Biome(const Biome& that);
 			~Biome();
 
 			int RetrieveResourceProvision(__ResourceType _resourceType);
@@ -50,12 +51,11 @@ namespace alpha
 			vector<string> sprites;
 			vector<string> spritesWithStructures;
 
-		protected:
-			
+			map<__ResourceType, BuildingType> canExploitBiomeBuildings;
+			map<__ResourceType, string> resourceIcons;
+
 			bool allowBuild = true;
 			Terrain terrain = NORMAL_TERRAIN;
-
-			map<__ResourceType, BuildingType> buildingsForResourceExploitation;
 
 			map<__ResourceType, Resource> resourcesProvisions;
 

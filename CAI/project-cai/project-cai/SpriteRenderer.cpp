@@ -8,25 +8,23 @@ namespace alpha
 		{
 		}
 		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath, int _ppu)
-			: Component(_gameObject), spritePath(_spritePath), pixelsPerUnit(_ppu), display(_display)
+			: Component(_gameObject), display(_display)
 		{
-			texture = Texture();
-			sprite = Sprite();
-
-			SetSprite(_spritePath);
+			spriteObject = new SpriteObject(_ppu, _spritePath);
 
 			AddToRender();
 		}
 		SpriteRenderer::SpriteRenderer(const SpriteRenderer& that, GameObject* _gameObject)
-			: Component(that, _gameObject), sprite(that.sprite), texture(that.texture), spritePath(that.spritePath), pixelsPerUnit(that.pixelsPerUnit), display(that.display)
+			: Component(that, _gameObject), display(that.display)
 		{
-			sprite.setTexture(texture);
+			spriteObject = new SpriteObject(*that.spriteObject);
 
 			AddToRender();
 		}
 
 		SpriteRenderer::~SpriteRenderer()
 		{
+			delete spriteObject;
 		}
 
 		void SpriteRenderer::AddToRender()
@@ -35,7 +33,7 @@ namespace alpha
 			for (int i = 0; i < tags.size(); i++) {
 				if (tags[i] == Tag::Prefab)
 					return;
-			} display->AddSpriteToRender(gameObject, &sprite, pixelsPerUnit);
+			} display->AddObjectToRender(gameObject, spriteObject);
 		}
 
 		SpriteRenderer* SpriteRenderer::Clone(GameObject* _gameObject)
@@ -43,23 +41,23 @@ namespace alpha
 			return new SpriteRenderer(*this, _gameObject);
 		}
 
-		Vector2f SpriteRenderer::GetSize()
+		void SpriteRenderer::SetActive(bool _value)
 		{
-			return Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y);
+			Component::SetActive(_value);
+			spriteObject->render = _value;
 		}
 
-		Sprite* SpriteRenderer::GetSprite()
-		{
-			return &sprite;
-		}
+		Vector2f SpriteRenderer::GetSize() { return spriteObject->GetSize(); }
 
-		void SpriteRenderer::SetSprite(string _spritePath)
-		{
-			if (!_spritePath.empty())
-			{
-				texture.loadFromFile(_spritePath);
-				sprite.setTexture(texture);
-			}
-		}
+		void SpriteRenderer::SetLayer(__Layer _layer) { spriteObject->layer = _layer; }
+		__Layer SpriteRenderer::GetLayer() { return spriteObject->layer; }
+
+		void SpriteRenderer::SetOrderInLayer(int _order) { spriteObject->orderInLayer = clamp(_order, 0, 9999); }
+		int SpriteRenderer::GetOrderInLayer() { return spriteObject->orderInLayer; }
+
+		string SpriteRenderer::GetSpritePath() { return spriteObject->spritePath; }
+
+		void SpriteRenderer::SetSprite(string _spritePath) { spriteObject->SetSprite(_spritePath); }
+		Sprite* SpriteRenderer::GetSprite() { return &spriteObject->sprite; }
 	}
 }

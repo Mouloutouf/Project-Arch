@@ -15,6 +15,9 @@ namespace alpha
 				resourcesProvisions.insert({ r.getResourceType(), r });
 			}
 		}
+		Biome::Biome(const Biome& that)
+		{
+		}
 
 		Biome::~Biome()
 		{
@@ -30,7 +33,7 @@ namespace alpha
 
 		int Biome::RetrieveResourceProvision(__ResourceType _resourceType)
 		{
-			if (resourcesProvisions.count(_resourceType) == 0) return -1;
+			if (resourcesProvisions.count(_resourceType) == 0) return 0;
 			return resourcesProvisions[_resourceType].GetQuantity();
 		}
 		void Biome::SetResource(__ResourceType _resourceType, unsigned int _amount)

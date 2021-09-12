@@ -8,31 +8,23 @@ namespace alpha
 		{
 		}
 		TextRenderer::TextRenderer(GameObject* _gameObject, Display* _display, std::string _string, Color _color, int _characterSize)
-			: Component(_gameObject), string(_string), color(_color), characterSize(_characterSize), display(_display)
+			: Component(_gameObject), display(_display)
 		{
-			font.loadFromFile(TEXT_FONT);
-			text = Text(_string, font, characterSize);
-			text.setFillColor(_color);
+			textObject = new TextObject(_characterSize, _string, _color);
 
 			AddToRender();
 		}
 		TextRenderer::TextRenderer(const TextRenderer& that, GameObject* _gameObject)
-			: Component(that, _gameObject), text(that.text), string(that.string), color(that.color), characterSize(that.characterSize), display(that.display)
+			: Component(that, _gameObject), display(that.display)
 		{
-			text.setString(string);
-			text.setCharacterSize(characterSize);
-			text.setFillColor(color);
+			textObject = new TextObject(*that.textObject);
 
 			AddToRender();
 		}
 
 		TextRenderer::~TextRenderer()
 		{
-		}
-
-		TextRenderer* TextRenderer::Clone(GameObject* _gameObject)
-		{
-			return new TextRenderer(*this, _gameObject);
+			delete textObject;
 		}
 
 		void TextRenderer::AddToRender()
@@ -41,7 +33,29 @@ namespace alpha
 			for (int i = 0; i < tags.size(); i++) {
 				if (tags[i] == Tag::Prefab)
 					return;
-			} display->AddTextToRender(gameObject, &text, characterSize);
+			} display->AddObjectToRender(gameObject, textObject);
 		}
+
+		void TextRenderer::SetString(string _string)
+		{
+			textObject->string = _string; textObject->text.setString(textObject->string);
+		}
+
+		TextRenderer* TextRenderer::Clone(GameObject* _gameObject)
+		{
+			return new TextRenderer(*this, _gameObject);
+		}
+
+		void TextRenderer::SetActive(bool _value)
+		{
+			Component::SetActive(_value);
+			textObject->render = _value;
+		}
+
+		void TextRenderer::SetLayer(__Layer _layer) { textObject->layer = _layer; }
+		__Layer TextRenderer::GetLayer() { return textObject->layer; }
+
+		void TextRenderer::SetOrderInLayer(int _order) { textObject->orderInLayer = clamp(_order, 0, 9999); }
+		int TextRenderer::GetOrderInLayer() { return textObject->orderInLayer; }
 	}
 }

@@ -40,9 +40,9 @@ namespace alpha
 		{
 		public:
 
-			GameObject(string _name = "New Game Object", Transform2D _transform = Transform2D(), GameObject* _parent = nullptr,
+			GameObject(string _name = "New Game Object", GameObject* _parent = nullptr, Transform2D _transform = Transform2D(),
 				Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default });
-			GameObject(const GameObject& that);
+			GameObject(const GameObject& that, GameObject* _parent = nullptr);
 
 			~GameObject();
 
@@ -69,7 +69,7 @@ namespace alpha
 
 #pragma region Children
 			GameObject* CreateChild(GameObject* _gameObject);
-			int AddChild(GameObject* _gameObject);
+			void AddChild(GameObject* _gameObject);
 			void RemoveChild(GameObject* _gameObject);
 
 			GameObject* GetChild(int _index);
@@ -91,6 +91,9 @@ namespace alpha
 			int ContainsTag(Tag _tag);
 #pragma endregion
 
+			void SetActive(bool _value);
+			bool IsActive();
+
 			void Init();
 
 			void Start();
@@ -105,6 +108,8 @@ namespace alpha
 			int index = 0;
 
 		private:
+
+			bool active = true;
 
 			int childIndex = -1;
 

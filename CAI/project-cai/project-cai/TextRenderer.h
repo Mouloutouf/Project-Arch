@@ -10,6 +10,7 @@
 
 ///\
 
+#include "RenderObject.h"
 #include "Display.h"
 
 namespace alpha
@@ -27,18 +28,21 @@ namespace alpha
 
 			TextRenderer* Clone(GameObject* _gameObject) override;
 
+			void SetActive(bool _value) override;
+
 			void AddToRender();
 
-			void setString(string _string) { string = _string; }
+			void SetString(string _string);
 
-			int characterSize = 1; // ppu
+			void SetLayer(__Layer _layer);
+			__Layer GetLayer();
+
+			void SetOrderInLayer(int _order);
+			int GetOrderInLayer();
 
 		protected:
 
-			Color color;
-			string string;
-			Font font;
-			Text text;
+			TextObject* textObject = nullptr;
 
 			Display* display = nullptr;
 		};

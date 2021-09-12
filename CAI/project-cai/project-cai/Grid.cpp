@@ -24,13 +24,13 @@ namespace alpha
 		{
 			tilePrefab = AssetManager::LoadAsset("Tile");
 
-			biomesFillValues.insert({ BiomeType::Desert, 2 });
-			biomesFillValues.insert({ BiomeType::Field, 2 });
-			biomesFillValues.insert({ BiomeType::Forest, 6 });
+			biomesFillValues.insert({ BiomeType::Desert, 2.0f });
+			biomesFillValues.insert({ BiomeType::Field, 2.0f });
+			biomesFillValues.insert({ BiomeType::Forest, 6.0f });
 
-			biomesFillValues.insert({ BiomeType::Sea, 4 });
-			biomesFillValues.insert({ BiomeType::Lake, 0 });
-			biomesFillValues.insert({ BiomeType::Mountain, 1 });
+			biomesFillValues.insert({ BiomeType::Sea, 4.0f });
+			biomesFillValues.insert({ BiomeType::Lake, 0.0f });
+			biomesFillValues.insert({ BiomeType::Mountain, 1.0f });
 		}
 
 		Grid* Grid::Clone(GameObject* _gameObject)
@@ -90,14 +90,14 @@ namespace alpha
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++)
 				{
-					if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+					/*if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
 						CreateTile(x, y, BiomeType::None);
 						continue;
 					}
 					if (x == 1 || x == width - 2 || y == 1 || y == height - 2) {
 						CreateTile(x, y, BiomeType::Sea);
 						continue;
-					}
+					}*/
 
 					/*int randomPercent = rand() % 100;
 					cout << randomPercent << endl;*/
@@ -117,7 +117,7 @@ namespace alpha
 
 		void Grid::CreateTile(int x, int y, BiomeType _b)
 		{
-			GameObject* tGo = AssetManager::InstantiateAsset(*tilePrefab, Vector2f((float)x, (float)y), 0, gameObject);
+			GameObject* tGo = AssetManager::InstantiateAsset(*tilePrefab, gameObject, Vector2f((float)x, (float)y));
 			TileObject* tObject = tGo->GetComponent<TileObject>();
 
 			tObject->tile->biomeType = _b;
@@ -132,16 +132,20 @@ namespace alpha
 				default: break;
 			}
 
-			string biomeSprite;
-			if (_b != BiomeType::None) biomeSprite = Utility::GetRandomElementFromContainer(tObject->tile->getBiome()->sprites);
-			else biomeSprite = "Tile None";
-			string biomeSpritePath = ASSETS_FOLDER + biomeSprite + ".png";
-			tGo->GetComponent<SpriteRenderer>()->SetSprite(biomeSpritePath);
+			if (_b == BiomeType::None) {
+				string biomeSprite = "Tile None";
+				tGo->GetComponent<SpriteRenderer>()->SetSprite(Utility::spritePath(biomeSprite));
+				string indexName = " (" + to_string(x) + "," + to_string(y) + ")";
+				tGo->name = biomeSprite + indexName;
+			}
+			else {
+				tObject->SetupTile(x, y);
+			}
 
-			string indexName = " (" + to_string(x) + ", " + to_string(y) + ")";
-			tGo->name = biomeSprite + indexName;
-
-			tGo->GetChild("Text")->GetComponent<TextRenderer>()->setString(indexName);
+			//if (_b != BiomeType::None) {
+			//	string containedResource = to_string(tObject->tile->getBiome()->RetrieveResourceProvision(RawResourceType::HERBS));
+			//	//tGo->GetChild("Text")->GetComponent<TextRenderer>()->setString(containedResource);
+			//}
 
 			tiles.push_back(tObject);
 		}
