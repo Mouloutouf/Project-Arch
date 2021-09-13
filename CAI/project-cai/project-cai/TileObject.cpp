@@ -57,14 +57,15 @@ namespace alpha
 			string indexName = " (" + to_string(x) + "," + to_string(y) + ")";
 			gameObject->name = biomeSprite + indexName;
 
-			exploitationDisplayPrefab = AssetManager::LoadAsset("Tile Display");
+			tileDisplayPrefab = AssetManager::LoadAsset("Tile Display");
 
 			for (auto& b : biome->canExploitBiomeBuildings)
 			{
-				if (biome->resourceIcons.count(b.first)) {
-					auto tileDisplay = AssetManager::InstantiateAsset(*exploitationDisplayPrefab, gameObject);
+				auto resourceType = b.first;
+				if (biome->resourceIcons.count(resourceType)) {
+					auto tileDisplay = AssetManager::InstantiateAsset(*tileDisplayPrefab, gameObject);
 					resourceIcon = tileDisplay->GetChild("Resource Icon")->GetComponent<SpriteRenderer>();
-					resourceIcon->SetSprite(Utility::spritePath(biome->resourceIcons[b.first]));
+					resourceIcon->SetSprite(Utility::spritePath(biome->resourceIcons[resourceType]));
 
 					//tileDisplay->GetChild("Excavation Icon")->SetActive(false);
 				}

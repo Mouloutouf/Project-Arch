@@ -20,7 +20,7 @@ namespace alpha
 		{
 		public:
 			FieldBiome();
-			FieldBiome(int _cropResources, int _herbResources, Structure* _shipStructure);
+			FieldBiome(int _cropResources, int _herbResources, Structure _shipStructure);
 
 			void GenerateFieldBiome();
 		};
@@ -29,7 +29,7 @@ namespace alpha
 		{
 		public:
 			DesertBiome();
-			DesertBiome(Structure* _shipStructure);
+			DesertBiome(Structure _shipStructure);
 
 			void GenerateDesertBiome();
 		};
@@ -38,7 +38,7 @@ namespace alpha
 		{
 		public:
 			MountainBiome();
-			MountainBiome(int _oxygenResources, Structure* _shipStructure);
+			MountainBiome(int _oxygenResources, Structure _shipStructure);
 
 			void GenerateMountainBiome();
 		};
@@ -56,7 +56,7 @@ namespace alpha
 		{
 		public:
 			ForestBiome();
-			ForestBiome(int _oxygenResources, int _meatResources, int _herbResources, Structure* _shipStructure);
+			ForestBiome(int _oxygenResources, int _meatResources, int _herbResources, Structure _shipStructure);
 
 			void GenerateForestBiome();
 			void GenerateForestResources();

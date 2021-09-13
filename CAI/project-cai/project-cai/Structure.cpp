@@ -21,7 +21,7 @@ namespace alpha
 		{
 		}
 
-		Structure* Structure::CreateShipStructure()
+		Structure Structure::CreateShipStructure()
 		{
 			int minMat = 480, maxMat = 1640;
 			int materials = Utility::GetRandomNumberInRange(minMat, maxMat);
@@ -34,21 +34,21 @@ namespace alpha
 
 			return Structure::CreateShipStructure(cstrMat, electrMat);
 		}
-		Structure* Structure::CreateShipStructure(int _constructionResources, int _electronicsResources)
+		Structure Structure::CreateShipStructure(int _constructionResources, int _electronicsResources)
 		{
-			return new Structure(vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, _constructionResources), Resource(CoreResourceType::ELECTRONICS, _electronicsResources)});
+			return Structure(vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, _constructionResources), Resource(CoreResourceType::ELECTRONICS, _electronicsResources)});
 		}
 
-		Structure* Structure::CreateForestStructure()
+		Structure Structure::CreateForestStructure()
 		{
 			int minCstrMat = 5, maxCstrMat = 25;
 			int cstrMat = Utility::GetRandomNumberInRange(minCstrMat, maxCstrMat);
 
 			return Structure::CreateForestStructure(cstrMat);
 		}
-		Structure* Structure::CreateForestStructure(int _constructionResources)
+		Structure Structure::CreateForestStructure(int _constructionResources)
 		{
-			return new Structure(vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, _constructionResources)});
+			return Structure(vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, _constructionResources)});
 		}
 	}
 }

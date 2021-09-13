@@ -30,7 +30,7 @@ namespace alpha
 		{
 		public:
 			Biome();
-			Biome(vector<Resource> _heldResources, vector<Structure*> _structures);
+			Biome(vector<Resource> _heldResources, vector<Structure> _structures);
 			Biome(const Biome& that);
 			~Biome();
 
@@ -40,7 +40,7 @@ namespace alpha
 			void DestroyResources();
 
 			bool hasStructures() { return structures.size() == 0; }
-			void AddStructure(Structure* _structure);
+			void AddStructure(Structure _structure);
 			void RemoveStructure(Structure* _structure);
 			void RemoveAllStructures();
 
@@ -59,7 +59,7 @@ namespace alpha
 
 			map<__ResourceType, Resource> resourcesProvisions;
 
-			vector<Structure*> structures;
+			vector<Structure> structures;
 		};
 	}
 }

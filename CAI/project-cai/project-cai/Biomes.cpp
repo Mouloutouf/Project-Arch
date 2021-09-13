@@ -24,7 +24,7 @@ namespace alpha
 
 			GenerateFieldBiome();
 		}
-		FieldBiome::FieldBiome(int _cropResources, int _herbResources, Structure* _shipStructure)
+		FieldBiome::FieldBiome(int _cropResources, int _herbResources, Structure _shipStructure)
 			: FieldBiome()
 		{
 			resourcesProvisions[RawResourceType::CROPS].SetQuantity(_cropResources);
@@ -53,7 +53,7 @@ namespace alpha
 
 			GenerateDesertBiome();
 		}
-		DesertBiome::DesertBiome(Structure* _shipStructure)
+		DesertBiome::DesertBiome(Structure _shipStructure)
 			: DesertBiome()
 		{
 			structures.push_back(_shipStructure);
@@ -82,7 +82,7 @@ namespace alpha
 
 			GenerateMountainBiome();
 		}
-		MountainBiome::MountainBiome(int _oxygenResources, Structure* _shipStructure)
+		MountainBiome::MountainBiome(int _oxygenResources, Structure _shipStructure)
 			: MountainBiome()
 		{
 			resourcesProvisions[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);
@@ -151,7 +151,7 @@ namespace alpha
 
 			GenerateForestBiome();
 		}
-		ForestBiome::ForestBiome(int _oxygenResources, int _meatResources, int _herbResources, Structure* _shipStructure)
+		ForestBiome::ForestBiome(int _oxygenResources, int _meatResources, int _herbResources, Structure _shipStructure)
 			: ForestBiome()
 		{
 			resourcesProvisions[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);

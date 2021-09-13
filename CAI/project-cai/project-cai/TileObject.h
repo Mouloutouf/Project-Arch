@@ -35,7 +35,7 @@ namespace alpha
 
 			SpriteRenderer* biomeDisplay;
 
-			GameObject* exploitationDisplayPrefab;
+			GameObject* tileDisplayPrefab;
 
 			SpriteRenderer* exploitationSquareDisplay;
 			SpriteRenderer* resourceIcon;

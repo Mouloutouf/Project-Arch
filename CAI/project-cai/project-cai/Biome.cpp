@@ -7,7 +7,7 @@ namespace alpha
 		Biome::Biome()
 		{
 		}
-		Biome::Biome(vector<Resource> _heldResources, vector<Structure*> _structures)
+		Biome::Biome(vector<Resource> _heldResources, vector<Structure> _structures)
 			: structures(_structures)
 		{
 			for (auto& r : _heldResources) {
@@ -15,14 +15,9 @@ namespace alpha
 				resourcesProvisions.insert({ r.getResourceType(), r });
 			}
 		}
-		Biome::Biome(const Biome& that)
-		{
-		}
 
 		Biome::~Biome()
 		{
-			for (auto& s : structures)
-				delete s;
 		}
 
 		void Biome::GenerateResources(__ResourceType _resourceType, int min, int max)
@@ -53,14 +48,14 @@ namespace alpha
 			}
 		}
 
-		void Biome::AddStructure(Structure* _structure)
+		void Biome::AddStructure(Structure _structure)
 		{
 			structures.push_back(_structure);
 		}
 		void Biome::RemoveStructure(Structure* _structure)
 		{
 			for (int i = 0; i < structures.size(); i++) {
-				if (structures[i] == _structure)
+				if (&structures[i] == _structure)
 					structures.erase(structures.begin() + i);
 			}
 		}
