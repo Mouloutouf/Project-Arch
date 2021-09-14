@@ -99,9 +99,6 @@ namespace alpha
 						continue;
 					}*/
 
-					/*int randomPercent = rand() % 100;
-					cout << randomPercent << endl;*/
-					
 					int randomPercent = dist(mt);
 
 					for (auto& bPercent : biomesFillPercent) {

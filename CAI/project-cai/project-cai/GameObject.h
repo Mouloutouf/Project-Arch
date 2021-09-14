@@ -6,6 +6,8 @@
 #include <typeinfo>
 #include "Alpha.h"
 
+#include "Utility.h"
+
 #include "Component.h"
 
 ///\
@@ -47,8 +49,14 @@ namespace alpha
 			~GameObject();
 
 #pragma region Components
-			void AddComponent(Component* _component); /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
+			//void AddComponent(Component* _component); /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
 			void RemoveComponent(Component* _component);
+
+			template <typename T = Component> T* AddComponent(T* _component) {
+				components.push_back(_component);
+				_component->gameObject = this;
+				return _component;
+			}
 
 			template <typename T = Component> T* GetComponent() {
 				for (auto& c : components) {

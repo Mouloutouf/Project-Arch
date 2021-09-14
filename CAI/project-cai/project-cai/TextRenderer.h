@@ -22,7 +22,8 @@ namespace alpha
 		public:
 
 			TextRenderer();
-			TextRenderer(GameObject* _gameObject, Display* _display, string _string = "", Color _color = Color::White, int _characterSize = 1);
+			TextRenderer(GameObject* _gameObject, Display* _display, string _string = "", Color _color = Color::White, 
+				int _characterSize = 1, __Layer _layer = Layers::DEFAULT_LAYER);
 			TextRenderer(const TextRenderer& that, GameObject* _gameObject);
 			~TextRenderer();
 

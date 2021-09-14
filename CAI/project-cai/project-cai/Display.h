@@ -73,13 +73,12 @@ namespace alpha
 
 		private:
 
-			map<int, int> entries;
+			vector<int> entries;
+			map<int, vector<DisplayedObject*>> displayedObjects;
 
-			vector<DisplayedObject*> displayedObjects;
+			int FindKeyPosition(int _newKey);
 
-			int FindClosestKey(int _key);
-
-			int ContainsObjectToRender(RenderObject* _renderObject);
+			pair<int, int> ContainsObjectToRender(RenderObject* _renderObject);
 
 			Vector2f worldOrigin() {
 				Vector2f origin = -(camera->gameObject->transform.position());
@@ -87,6 +86,9 @@ namespace alpha
 				origin = Vector2f(displayOrigin().x + origin.x, displayOrigin().y - origin.y);
 				return origin;
 			}
+
+			/// DEBUG
+			bool print = true;
 		};
 	}
 }

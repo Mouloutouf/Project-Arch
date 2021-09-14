@@ -59,7 +59,7 @@ namespace alpha
 			}
 		}
 		GameObject::GameObject(const GameObject& that, GameObject* _parent)
-			: transform(that.transform), parent(that.parent), name(that.name), layer(that.layer), tags(that.tags)
+			: transform(that.transform), parent(that.parent), name(that.name), layer(that.layer), tags(that.tags), active(that.active)
 		{
 			// Transform
 			transform.gameObject = this;
@@ -97,11 +97,11 @@ namespace alpha
 #pragma region Components
 		vector<Component*>* GameObject::GetComponentsList() { return &components; }
 
-		void GameObject::AddComponent(Component* _component)
+		/*void GameObject::AddComponent(Component* _component)
 		{
 			components.push_back(_component);
 			_component->gameObject = this;
-		}
+		}*/
 
 		void GameObject::RemoveComponent(Component* _component)
 		{

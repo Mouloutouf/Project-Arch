@@ -79,70 +79,58 @@ namespace alpha
 
 		Display::~Display()
 		{
-			for (auto& d : displayedObjects)
-				delete d;
+			for (auto& dpair : displayedObjects) {
+				for (auto& d : dpair.second)
+					delete d;
+			}
 		}
 
 #pragma region Setup
 
 		void Display::AddObjectToRender(GameObject* _gameObject, RenderObject* _renderObject)
 		{
-			if (ContainsObjectToRender(_renderObject) >= 0) return;
+			if (ContainsObjectToRender(_renderObject).first >= 0) return;
 
 			int key = _renderObject->layer + _renderObject->orderInLayer;
-			if (!entries.count(key))
-			{
-				int cKey = FindClosestKey(key);
-				auto d = new DisplayedObject(_gameObject, _renderObject, camera, displayOrigin());
 
-				if (entries.empty()) {
-					displayedObjects.push_back(d);
-					entries.insert({ key, 1 });
-				}
-				else {
-					displayedObjects.insert(displayedObjects.begin() + entries[cKey], d);
-					entries.insert({ key, entries[cKey] + 1 });
-				}
+			if (!displayedObjects.count(key)) {
+				int k = FindKeyPosition(key);
+				entries.insert(entries.begin() + k, key);
+				displayedObjects.insert({ key, vector<DisplayedObject*>() });
 			}
-			else
-			{
-				auto d = new DisplayedObject(_gameObject, _renderObject, camera, displayOrigin());
-				displayedObjects.insert(displayedObjects.begin() + entries[key], d);
-				entries[key]++;
-			}
-			for (auto& e : entries)
-			{
-				if (e.second > entries[key])
-					e.second++;
-			}
+			auto d = new DisplayedObject(_gameObject, _renderObject, camera, displayOrigin());
+			displayedObjects[key].push_back(d);
 		}
-		int Display::FindClosestKey(int _key)
+		int Display::FindKeyPosition(int _newKey)
 		{
-			int cKey = 0;
-			for (auto& e : entries) {
-				if (e.first > _key) continue;
-				if (e.first > cKey)
-					cKey = e.first;
+			for (int i = 0; i < entries.size(); i++)
+			{
+				if (entries[i] > _newKey) {
+					return i;
+				}
 			}
-			return cKey;
 		}
 
 		void Display::RemoveObjectToRender(RenderObject* _renderObject)
 		{
-			int _i = ContainsObjectToRender(_renderObject);
-			if (_i >= 0)
+			pair<int, int> p = ContainsObjectToRender(_renderObject);
+			auto key = p.first;
+			auto index = p.second;
+			if (key >= 0)
 			{
-				delete displayedObjects[_i];
-				displayedObjects.erase(displayedObjects.begin() + _i);
+				delete displayedObjects[key][index];
+				displayedObjects[key].erase(displayedObjects[key].begin() + index);
 			}
 		}
 
-		int Display::ContainsObjectToRender(RenderObject* _renderObject)
+		pair<int, int> Display::ContainsObjectToRender(RenderObject* _renderObject)
 		{
-			for (int i = 0; i < displayedObjects.size(); ++i) {
-				if (displayedObjects[i]->objectToRender == _renderObject)
-					return i;
-			} return -1;
+			for (auto& dpair : displayedObjects) {
+				for (int i = 0; i < dpair.second.size(); ++i) {
+					if (dpair.second[i]->objectToRender == _renderObject)
+						return { dpair.first, i };
+				}
+			} return { -1, -1 };
 		}
 #pragma endregion
 
@@ -151,11 +139,13 @@ namespace alpha
 			DrawBackground();
 			//DrawGrid();
 
-			for (auto& d : displayedObjects) {
-				if (d->objectToRender->render == false) continue;
-				d->CalculateDraw();
-				Draw(d->objectToRender->drawable, d);
-				//DebugDraw(r);
+			for (int i = 0; i < entries.size(); i++) {
+				for (auto& d : displayedObjects[entries[i]]) {
+					if (d->objectToRender->render == false) continue;
+					d->CalculateDraw();
+					Draw(d->objectToRender->drawable, d);
+					//DebugDraw(d);
+				}
 			}
 		}
 

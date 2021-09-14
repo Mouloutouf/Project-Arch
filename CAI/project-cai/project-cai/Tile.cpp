@@ -9,8 +9,9 @@ namespace alpha
 		{
 		}
 		Tile::Tile(Biome* _biome)
-			: biome(_biome), biomeType(biome->biomeType)
+			: biome(_biome)
 		{
+			biomeType = biome->biomeType;
 		}
 		Tile::Tile(const Tile& that)
 			: biomeType(that.biomeType)

@@ -7,10 +7,11 @@ namespace alpha
 		TextRenderer::TextRenderer()
 		{
 		}
-		TextRenderer::TextRenderer(GameObject* _gameObject, Display* _display, std::string _string, Color _color, int _characterSize)
+		TextRenderer::TextRenderer(GameObject* _gameObject, Display* _display, std::string _string, Color _color, int _characterSize, __Layer _layer)
 			: Component(_gameObject), display(_display)
 		{
 			textObject = new TextObject(_characterSize, _string, _color);
+			textObject->layer = _layer;
 
 			AddToRender();
 		}
@@ -52,7 +53,13 @@ namespace alpha
 			textObject->render = _value;
 		}
 
-		void TextRenderer::SetLayer(__Layer _layer) { textObject->layer = _layer; }
+		void TextRenderer::SetLayer(__Layer _layer)
+		{
+			textObject->layer = _layer;
+
+			display->RemoveObjectToRender(textObject);
+			AddToRender();
+		}
 		__Layer TextRenderer::GetLayer() { return textObject->layer; }
 
 		void TextRenderer::SetOrderInLayer(int _order) { textObject->orderInLayer = clamp(_order, 0, 9999); }

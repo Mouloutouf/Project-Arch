@@ -299,5 +299,8 @@
     <ClInclude Include="RenderObject.h">
       <Filter>Fichiers d%27en-tête\Core\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Fichiers d%27en-tête\Core\Views</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

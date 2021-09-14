@@ -78,6 +78,8 @@ namespace alpha
 
 #pragma endregion
 			
+#pragma region RANDOM
+
 			template<typename I>
 			static I GetRandomIterator(I _begin, I _end)
 			{
@@ -95,7 +97,7 @@ namespace alpha
 			static T GetRandomElementFromContainer(const vector<T>& _container)
 			{
 				vector<T> result;
-				sample( _container.begin(), _container.end(), back_inserter(result), 1, mt19937 { random_device {}() });
+				sample(_container.begin(), _container.end(), back_inserter(result), 1, mt19937{ random_device {}() });
 				return result.front();
 			}
 
@@ -107,6 +109,8 @@ namespace alpha
 				uniform_int_distribution dist(_min, _max);
 				return dist(mt) + _min;
 			}
+
+#pragma endregion
 
 			template<typename T>
 			static bool Contains(const vector<T>& _vector, const T& _value)

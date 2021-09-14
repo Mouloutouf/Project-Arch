@@ -214,6 +214,7 @@
     <ClInclude Include="Layers.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneView.h" />
     <ClInclude Include="ScriptBehaviour.h" />
     <ClInclude Include="SpriteObject.h" />

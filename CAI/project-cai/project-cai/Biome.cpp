@@ -11,8 +11,8 @@ namespace alpha
 			: structures(_structures)
 		{
 			for (auto& r : _heldResources) {
-				if (resourcesProvisions.count(r.getResourceType()) > 0) continue;
-				resourcesProvisions.insert({ r.getResourceType(), r });
+				if (exploitationResources.count(r.getResourceType()) > 0) continue;
+				exploitationResources.insert({ r.getResourceType(), r });
 			}
 		}
 
@@ -23,28 +23,28 @@ namespace alpha
 		void Biome::GenerateResources(__ResourceType _resourceType, int min, int max)
 		{
 			int qty = Utility::GetRandomNumberInRange(min, max);
-			resourcesProvisions[_resourceType].SetQuantity(qty);
+			exploitationResources[_resourceType].SetQuantity(qty);
 		}
 
-		int Biome::RetrieveResourceProvision(__ResourceType _resourceType)
+		int Biome::ExploitResource(__ResourceType _resourceType)
 		{
-			if (resourcesProvisions.count(_resourceType) == 0) return 0;
-			return resourcesProvisions[_resourceType].GetQuantity();
+			if (exploitationResources.count(_resourceType) == 0) return 0;
+			return exploitationResources[_resourceType].GetQuantity();
 		}
 		void Biome::SetResource(__ResourceType _resourceType, unsigned int _amount)
 		{
-			if (resourcesProvisions.count(_resourceType) == 0) return;
-			resourcesProvisions[_resourceType].SetQuantity(_amount);
+			if (exploitationResources.count(_resourceType) == 0) return;
+			exploitationResources[_resourceType].SetQuantity(_amount);
 		}
 		void Biome::DestroyResource(__ResourceType _resourceType)
 		{
-			if (resourcesProvisions.count(_resourceType) == 0) return;
-			resourcesProvisions.erase(_resourceType);
+			if (exploitationResources.count(_resourceType) == 0) return;
+			exploitationResources.erase(_resourceType);
 		}
 		void Biome::DestroyResources()
 		{
-			for (auto& hr : resourcesProvisions) {
-				resourcesProvisions.erase(hr.first);
+			for (auto& hr : exploitationResources) {
+				exploitationResources.erase(hr.first);
 			}
 		}
 

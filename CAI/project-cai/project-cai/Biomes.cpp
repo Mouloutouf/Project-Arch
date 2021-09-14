@@ -19,19 +19,20 @@ namespace alpha
 
 			resourceIcons.insert({ RawResourceType::CROPS, "Crops Resource Icon" });
 
-			resourcesProvisions.insert({ RawResourceType::CROPS, Resource(RawResourceType::CROPS) });
-			resourcesProvisions.insert({ RawResourceType::HERBS, Resource(RawResourceType::HERBS) });
+			exploitationResources.insert({ RawResourceType::CROPS, Resource(RawResourceType::CROPS) });
+			exploitationResources.insert({ RawResourceType::HERBS, Resource(RawResourceType::HERBS) });
 
 			GenerateFieldBiome();
 		}
 		FieldBiome::FieldBiome(int _cropResources, int _herbResources, Structure _shipStructure)
 			: FieldBiome()
 		{
-			resourcesProvisions[RawResourceType::CROPS].SetQuantity(_cropResources);
-			resourcesProvisions[RawResourceType::HERBS].SetQuantity(_herbResources);
+			exploitationResources[RawResourceType::CROPS].SetQuantity(_cropResources);
+			exploitationResources[RawResourceType::HERBS].SetQuantity(_herbResources);
 
 			structures.push_back(_shipStructure);
 		}
+
 		void FieldBiome::GenerateFieldBiome()
 		{
 			GenerateResources(RawResourceType::CROPS, 40, 60);
@@ -58,6 +59,7 @@ namespace alpha
 		{
 			structures.push_back(_shipStructure);
 		}
+
 		void DesertBiome::GenerateDesertBiome()
 		{
 			structures.push_back(Structure::CreateShipStructure());
@@ -78,17 +80,18 @@ namespace alpha
 
 			resourceIcons.insert({ CoreResourceType::OXYGEN, "Oxygen Resource Icon" });
 
-			resourcesProvisions.insert({ CoreResourceType::OXYGEN, Resource(CoreResourceType::OXYGEN) });
+			exploitationResources.insert({ CoreResourceType::OXYGEN, Resource(CoreResourceType::OXYGEN) });
 
 			GenerateMountainBiome();
 		}
 		MountainBiome::MountainBiome(int _oxygenResources, Structure _shipStructure)
 			: MountainBiome()
 		{
-			resourcesProvisions[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);
+			exploitationResources[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);
 
 			structures.push_back(_shipStructure);
 		}
+
 		void MountainBiome::GenerateMountainBiome()
 		{
 			GenerateResources(CoreResourceType::OXYGEN, 160, 280);
@@ -110,15 +113,16 @@ namespace alpha
 
 			resourceIcons.insert({ RawResourceType::WATER, "Water Resource Icon" });
 
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER) });
+			exploitationResources.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER) });
 
 			GenerateLakeBiome();
 		}
 		LakeBiome::LakeBiome(int _waterResources)
 			: LakeBiome()
 		{
-			resourcesProvisions[RawResourceType::WATER].SetQuantity(_waterResources);
+			exploitationResources[RawResourceType::WATER].SetQuantity(_waterResources);
 		}
+
 		void LakeBiome::GenerateLakeBiome()
 		{
 			GenerateResources(RawResourceType::WATER, 40, 70);
@@ -145,22 +149,23 @@ namespace alpha
 			resourceIcons.insert({ CoreResourceType::OXYGEN, "Oxygen Resource Icon" });
 			resourceIcons.insert({ RawResourceType::MEAT, "Meat Resource Icon" });
 
-			resourcesProvisions.insert({ CoreResourceType::OXYGEN, Resource(CoreResourceType::OXYGEN) });
-			resourcesProvisions.insert({ RawResourceType::MEAT, Resource(RawResourceType::MEAT) });
-			resourcesProvisions.insert({ RawResourceType::HERBS, Resource(RawResourceType::HERBS) });
+			exploitationResources.insert({ CoreResourceType::OXYGEN, Resource(CoreResourceType::OXYGEN) });
+			exploitationResources.insert({ RawResourceType::MEAT, Resource(RawResourceType::MEAT) });
+			exploitationResources.insert({ RawResourceType::HERBS, Resource(RawResourceType::HERBS) });
 
 			GenerateForestBiome();
 		}
 		ForestBiome::ForestBiome(int _oxygenResources, int _meatResources, int _herbResources, Structure _shipStructure)
 			: ForestBiome()
 		{
-			resourcesProvisions[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);
-			resourcesProvisions[RawResourceType::MEAT].SetQuantity(_meatResources);
-			resourcesProvisions[RawResourceType::HERBS].SetQuantity(_herbResources);
+			exploitationResources[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);
+			exploitationResources[RawResourceType::MEAT].SetQuantity(_meatResources);
+			exploitationResources[RawResourceType::HERBS].SetQuantity(_herbResources);
 
 			structures.push_back(_shipStructure);
 			structures.push_back(Structure::CreateForestStructure());
 		}
+
 		void ForestBiome::GenerateForestBiome()
 		{
 			GenerateForestResources();
@@ -183,8 +188,8 @@ namespace alpha
 			int oxygenMat = materials * (float)(percentages[i] / 100.0f);
 			int animalMat = materials * (float)((100 - percentages[i]) / 100.0f);
 
-			resourcesProvisions[CoreResourceType::OXYGEN].SetQuantity(oxygenMat);
-			resourcesProvisions[RawResourceType::MEAT].SetQuantity(animalMat);
+			exploitationResources[CoreResourceType::OXYGEN].SetQuantity(oxygenMat);
+			exploitationResources[RawResourceType::MEAT].SetQuantity(animalMat);
 
 			forestType = types[i];
 		}
@@ -203,15 +208,16 @@ namespace alpha
 
 			resourceIcons.insert({ RawResourceType::WATER, "Water Resource Icon" });
 
-			resourcesProvisions.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER) });
+			exploitationResources.insert({ RawResourceType::WATER, Resource(RawResourceType::WATER) });
 
 			GenerateSeaBiome();
 		}
 		SeaBiome::SeaBiome(int _waterResources)
 			: SeaBiome()
 		{
-			resourcesProvisions[RawResourceType::WATER].SetQuantity(_waterResources);
+			exploitationResources[RawResourceType::WATER].SetQuantity(_waterResources);
 		}
+
 		void SeaBiome::GenerateSeaBiome()
 		{
 			GenerateResources(RawResourceType::WATER, 80, 120);

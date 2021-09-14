@@ -44,15 +44,17 @@ namespace alpha
 		void ConstructionInput::Start()
 		{
 			buildingPreview = AssetManager::InstantiateAsset(GameObject("Preview Building"));
-			buildingPreview->AddComponent(new SpriteRenderer(buildingPreview, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
+			auto previewSr = buildingPreview->AddComponent(new SpriteRenderer(buildingPreview, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
+			previewSr->SetLayer(Layers::DETAILS_LAYER);
 			Color transparent = Color(255, 255, 255, 204);
 			buildingPreview->GetComponent<SpriteRenderer>()->GetSprite()->setColor(transparent);
 
-			buildingIcon = AssetManager::InstantiateAsset(GameObject("Icon Building"));
-			buildingIcon->AddComponent(new SpriteRenderer(buildingIcon, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
-			buildingIcon->transform.localScale /= 2.0f;
-
 			hoveredSquare = AssetManager::InstantiateAsset(*hoveredSquarePrefab);
+
+			buildingIcon = AssetManager::InstantiateAsset(GameObject("Icon Building"));
+			auto iconSr = buildingIcon->AddComponent(new SpriteRenderer(buildingIcon, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
+			iconSr->SetLayer(Layers::UI_LAYER);
+			buildingIcon->transform.localScale /= 2.0f;
 		}
 		void ConstructionInput::Update(float _elapsedTime)
 		{

@@ -7,10 +7,11 @@ namespace alpha
 		SpriteRenderer::SpriteRenderer()
 		{
 		}
-		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath, int _ppu)
+		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath, int _ppu, __Layer _layer)
 			: Component(_gameObject), display(_display)
 		{
 			spriteObject = new SpriteObject(_ppu, _spritePath);
+			spriteObject->layer = _layer;
 
 			AddToRender();
 		}
@@ -49,7 +50,13 @@ namespace alpha
 
 		Vector2f SpriteRenderer::GetSize() { return spriteObject->GetSize(); }
 
-		void SpriteRenderer::SetLayer(__Layer _layer) { spriteObject->layer = _layer; }
+		void SpriteRenderer::SetLayer(__Layer _layer)
+		{
+			spriteObject->layer = _layer;
+
+			display->RemoveObjectToRender(spriteObject);
+			AddToRender();
+		}
 		__Layer SpriteRenderer::GetLayer() { return spriteObject->layer; }
 
 		void SpriteRenderer::SetOrderInLayer(int _order) { spriteObject->orderInLayer = clamp(_order, 0, 9999); }

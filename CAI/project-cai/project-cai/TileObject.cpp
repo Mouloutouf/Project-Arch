@@ -62,12 +62,13 @@ namespace alpha
 			for (auto& b : biome->canExploitBiomeBuildings)
 			{
 				auto resourceType = b.first;
-				if (biome->resourceIcons.count(resourceType)) {
+				if (biome->resourceIcons.count(resourceType))
+				{
 					auto tileDisplay = AssetManager::InstantiateAsset(*tileDisplayPrefab, gameObject);
 					resourceIcon = tileDisplay->GetChild("Resource Icon")->GetComponent<SpriteRenderer>();
 					resourceIcon->SetSprite(Utility::spritePath(biome->resourceIcons[resourceType]));
 
-					//tileDisplay->GetChild("Excavation Icon")->SetActive(false);
+					//tileDisplay->SetActive(false);
 				}
 			}
 		}
