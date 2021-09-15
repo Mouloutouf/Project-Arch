@@ -34,6 +34,9 @@ namespace alpha
 			void Update(float _elapsedTime) override;
 			void EventUpdate(Event& _event, float _elapsedTime) override;
 
+			int SearchTileAndSurroundings(TileObject* _tileObject, ArchBuilding* _archBuilding, int _depth, bool _first);
+			int SetupTileAsExploited(TileObject* _tileObject, ArchBuilding* _selectedArchBuilding);
+
 		private:
 
 			Grid* grid;
@@ -53,13 +56,16 @@ namespace alpha
 
 			int selected = 0;
 			bool scrollThroughBuildings = false;
+			bool selectedBuildingChanged = false;
 
 			Vector2f currentMousePosition;
 
 			string SelectedBuildingSprite() { return ASSETS_FOLDER + archBuildings[selected].second.sprite + ".png"; }
 			TileObject* currentHoveredTile = nullptr;
+			vector<TileObject*> currentPotentialExploitedTiles = vector<TileObject*>();
 
-			vector<Tile*> currentValidTiles = vector<Tile*>();
+			bool currentBuildIsValid;
+			bool currentBuildExcavatesStructures;
 		};
 	}
 }

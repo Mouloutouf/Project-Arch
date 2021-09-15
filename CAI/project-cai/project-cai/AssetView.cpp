@@ -40,15 +40,7 @@ namespace alpha
 			auto areaSr = areaSquare->AddComponent(new SpriteRenderer(areaSquare, AssetView::currentScene->GetCurrentDisplay(), 
 				ASSETS_FOLDER + "Area Square" + ".png", 570));
 			areaSr->SetLayer(Layers::UI_LAYER);
-			//areaSquare->SetActive(false);
-
-			auto resourceIcon = AssetView::Prefab(new GameObject("Resource Icon", tileDisplay));
-			auto resourceSr = resourceIcon->AddComponent(new SpriteRenderer(resourceIcon, AssetView::currentScene->GetCurrentDisplay(), 
-				ASSETS_FOLDER + "Water Resource Icon" + ".png", 190));
-			resourceSr->SetLayer(Layers::UI_LAYER);
-			resourceIcon->transform.localScale = Vector2f(0.3f, 0.3f);
-			resourceIcon->transform.localPosition = Vector2f(0.3f, 0.3f);
-			//resourceIcon->SetActive(false);
+			areaSr->SetActive(false);
 
 			auto excavationIcon = AssetView::Prefab(new GameObject("Excavation Icon", tileDisplay));
 			auto excavationSr = excavationIcon->AddComponent(new SpriteRenderer(excavationIcon, AssetView::currentScene->GetCurrentDisplay(), 
@@ -56,9 +48,27 @@ namespace alpha
 			excavationSr->SetLayer(Layers::UI_LAYER);
 			excavationIcon->transform.localScale = Vector2f(0.4f, 0.4f);
 			excavationIcon->transform.localPosition = Vector2f(-0.25f, 0.25f);
-			//excavationIcon->SetActive(false);
+			excavationSr->SetActive(false);
+
+			auto invalidTile = AssetView::Prefab(new GameObject("Invalid Tile", tileDisplay));
+			auto invalidSr = invalidTile->AddComponent(new SpriteRenderer(invalidTile, AssetView::currentScene->GetCurrentDisplay(),
+				ASSETS_FOLDER + "Invalid Tile" + ".png", 570));
+			invalidSr->SetLayer(Layers::UI_LAYER);
+			invalidSr->SetActive(false);
 
 			AssetView::AddAsset(tileDisplay);
+
+			///\
+
+			auto resourceIcon = AssetView::Prefab(new GameObject("Resource Icon"));
+			auto resourceSr = resourceIcon->AddComponent(new SpriteRenderer(resourceIcon, AssetView::currentScene->GetCurrentDisplay(),
+				ASSETS_FOLDER + "Water Resource Icon" + ".png", 190));
+			resourceSr->SetLayer(Layers::UI_LAYER);
+			resourceIcon->transform.localScale = Vector2f(0.3f, 0.3f);
+			resourceIcon->transform.localPosition = Vector2f(0.3f, 0.3f);
+			resourceSr->SetActive(false);
+
+			AssetView::AddAsset(resourceIcon);
 
 			///\
 
@@ -88,8 +98,8 @@ namespace alpha
 
 			auto go = AssetView::currentScene->InstantiateGameObject(instance);
 
-			go->transform.localPosition = _position;
-			go->transform.localRotation = _rotation;
+			if (_position != Vector2f(0, 0)) go->transform.localPosition = _position;
+			if (_rotation != 0.0f) go->transform.localRotation = _rotation;
 			go->SetParent(_parent);
 
 			delete instance;

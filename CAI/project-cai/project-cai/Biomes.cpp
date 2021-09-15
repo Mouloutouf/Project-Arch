@@ -14,8 +14,7 @@ namespace alpha
 			allowBuild = true;
 			terrain = NORMAL_TERRAIN;
 
-			canExploitBiomeBuildings.insert({ RawResourceType::CROPS, BuildingType::Farm });
-			canExploitBiomeBuildings.insert({ RawResourceType::HERBS, BuildingType::Farm });
+			resourcesBuildingsCanExploit.insert({ BuildingType::Farm, vector<__ResourceType>{ RawResourceType::CROPS, RawResourceType::HERBS } });
 
 			resourceIcons.insert({ RawResourceType::CROPS, "Crops Resource Icon" });
 
@@ -30,7 +29,7 @@ namespace alpha
 			exploitationResources[RawResourceType::CROPS].SetQuantity(_cropResources);
 			exploitationResources[RawResourceType::HERBS].SetQuantity(_herbResources);
 
-			structures.push_back(_shipStructure);
+			structures.insert({ StructureType::ShipParts, _shipStructure });
 		}
 
 		void FieldBiome::GenerateFieldBiome()
@@ -38,7 +37,7 @@ namespace alpha
 			GenerateResources(RawResourceType::CROPS, 40, 60);
 			GenerateResources(RawResourceType::HERBS, 10, 20);
 
-			structures.push_back(Structure::CreateShipStructure());
+			//structures.insert({ StructureType::ShipParts, Structure::CreateShipStructure() });
 		}
 #pragma endregion
 
@@ -57,12 +56,12 @@ namespace alpha
 		DesertBiome::DesertBiome(Structure _shipStructure)
 			: DesertBiome()
 		{
-			structures.push_back(_shipStructure);
+			structures.insert({ StructureType::ShipParts, _shipStructure });
 		}
 
 		void DesertBiome::GenerateDesertBiome()
 		{
-			structures.push_back(Structure::CreateShipStructure());
+			//structures.insert({ StructureType::ShipParts, Structure::CreateShipStructure() });
 		}
 #pragma endregion
 
@@ -76,7 +75,7 @@ namespace alpha
 			allowBuild = true;
 			terrain = HARD_TERRAIN;
 
-			canExploitBiomeBuildings.insert({ CoreResourceType::OXYGEN, BuildingType::OxygenExcavator });
+			resourcesBuildingsCanExploit.insert({ BuildingType::OxygenExcavator, vector<__ResourceType>{ CoreResourceType::OXYGEN } });
 
 			resourceIcons.insert({ CoreResourceType::OXYGEN, "Oxygen Resource Icon" });
 
@@ -89,14 +88,14 @@ namespace alpha
 		{
 			exploitationResources[CoreResourceType::OXYGEN].SetQuantity(_oxygenResources);
 
-			structures.push_back(_shipStructure);
+			structures.insert({ StructureType::ShipParts, _shipStructure });
 		}
 
 		void MountainBiome::GenerateMountainBiome()
 		{
 			GenerateResources(CoreResourceType::OXYGEN, 160, 280);
 
-			structures.push_back(Structure::CreateShipStructure());
+			//structures.insert({ StructureType::ShipParts, Structure::CreateShipStructure() });
 		}
 #pragma endregion
 
@@ -109,7 +108,7 @@ namespace alpha
 
 			allowBuild = false;
 
-			canExploitBiomeBuildings.insert({ RawResourceType::WATER, BuildingType::WaterExtractor });
+			resourcesBuildingsCanExploit.insert({ BuildingType::WaterExtractor, vector<__ResourceType>{ RawResourceType::WATER } });
 
 			resourceIcons.insert({ RawResourceType::WATER, "Water Resource Icon" });
 
@@ -142,9 +141,8 @@ namespace alpha
 			allowBuild = true;
 			terrain = NORMAL_TERRAIN;
 
-			canExploitBiomeBuildings.insert({ CoreResourceType::OXYGEN, BuildingType::OxygenGatherer });
-			canExploitBiomeBuildings.insert({ RawResourceType::MEAT, BuildingType::HuntCamp });
-			canExploitBiomeBuildings.insert({ RawResourceType::HERBS, BuildingType::HuntCamp });
+			resourcesBuildingsCanExploit.insert({ BuildingType::OxygenGatherer, vector<__ResourceType>{ CoreResourceType::OXYGEN } });
+			resourcesBuildingsCanExploit.insert({ BuildingType::HuntCamp, vector<__ResourceType>{ RawResourceType::MEAT, RawResourceType::HERBS } });
 
 			resourceIcons.insert({ CoreResourceType::OXYGEN, "Oxygen Resource Icon" });
 			resourceIcons.insert({ RawResourceType::MEAT, "Meat Resource Icon" });
@@ -162,8 +160,8 @@ namespace alpha
 			exploitationResources[RawResourceType::MEAT].SetQuantity(_meatResources);
 			exploitationResources[RawResourceType::HERBS].SetQuantity(_herbResources);
 
-			structures.push_back(_shipStructure);
-			structures.push_back(Structure::CreateForestStructure());
+			structures.insert({ StructureType::ShipParts, _shipStructure });
+			structures.insert({ StructureType::Trees, Structure::CreateForestStructure() });
 		}
 
 		void ForestBiome::GenerateForestBiome()
@@ -172,8 +170,8 @@ namespace alpha
 			sprites = vector<string>(forestSprites[forestType]);
 			GenerateResources(RawResourceType::HERBS, 15, 30);
 
-			structures.push_back(Structure::CreateShipStructure());
-			structures.push_back(Structure::CreateForestStructure());
+			//structures.insert({ StructureType::ShipParts, Structure::CreateShipStructure() });
+			structures.insert({ StructureType::Trees, Structure::CreateForestStructure() });
 		}
 		void ForestBiome::GenerateForestResources()
 		{
@@ -204,7 +202,7 @@ namespace alpha
 
 			allowBuild = false;
 
-			canExploitBiomeBuildings.insert({ RawResourceType::WATER, BuildingType::WaterPurifier });
+			resourcesBuildingsCanExploit.insert({ BuildingType::WaterPurifier, vector<__ResourceType>{ RawResourceType::WATER } });
 
 			resourceIcons.insert({ RawResourceType::WATER, "Water Resource Icon" });
 

@@ -177,7 +177,7 @@ namespace alpha
 		void Display::DrawBackground()
 		{
 			RectangleShape rect = RectangleShape(Vector2f(resolution.x, resolution.y));
-			rect.setFillColor(BACKGROUND_COLOR);
+			rect.setFillColor(backgroundColor);
 			gameWindow->window->draw(rect);
 		}
 
@@ -260,5 +260,9 @@ namespace alpha
 			Vector2f mousePosition = (Vector2f)Mouse::getPosition(*gameWindow->window);
 			return ScreenToWorldPosition(mousePosition);
 		}
+
+		void Display::SetBackgroundColor(Color _color) { backgroundColor = _color; }
+
+		Color Display::BackgroundColor() { return backgroundColor; }
 	}
 }

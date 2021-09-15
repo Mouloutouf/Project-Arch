@@ -38,9 +38,9 @@ namespace alpha
 			void DestroyResource(__ResourceType _resourceType);
 			void DestroyResources();
 
-			bool hasStructures() { return structures.size() == 0; }
+			bool HasStructures();
 			void AddStructure(Structure _structure);
-			void RemoveStructure(Structure* _structure);
+			void RemoveStructure(StructureType _structureType);
 			void RemoveAllStructures();
 
 			void GenerateResources(__ResourceType _resourceType, int min, int max);
@@ -50,7 +50,7 @@ namespace alpha
 			vector<string> sprites;
 			vector<string> spritesWithStructures;
 
-			map<__ResourceType, BuildingType> canExploitBiomeBuildings;
+			map<BuildingType, vector<__ResourceType>> resourcesBuildingsCanExploit;
 			map<__ResourceType, string> resourceIcons;
 
 			bool allowBuild = true;
@@ -58,7 +58,7 @@ namespace alpha
 
 			map<__ResourceType, Resource> exploitationResources;
 
-			vector<Structure> structures;
+			map<StructureType, Structure> structures;
 		};
 	}
 }

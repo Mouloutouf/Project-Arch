@@ -7,7 +7,8 @@ namespace alpha
 		Structure::Structure()
 		{
 		}
-		Structure::Structure(vector<Resource> _heldResources)
+		Structure::Structure(StructureType _structureType, vector<Resource> _heldResources)
+			: structureType(_structureType)
 		{
 			for (auto& r : _heldResources) {
 				if (heldResources.count(r.getResourceType()) > 0) continue;
@@ -36,7 +37,8 @@ namespace alpha
 		}
 		Structure Structure::CreateShipStructure(int _constructionResources, int _electronicsResources)
 		{
-			return Structure(vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, _constructionResources), Resource(CoreResourceType::ELECTRONICS, _electronicsResources)});
+			return Structure(StructureType::ShipParts,
+				vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, _constructionResources), Resource(CoreResourceType::ELECTRONICS, _electronicsResources)});
 		}
 
 		Structure Structure::CreateForestStructure()
@@ -48,7 +50,8 @@ namespace alpha
 		}
 		Structure Structure::CreateForestStructure(int _constructionResources)
 		{
-			return Structure(vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, _constructionResources)});
+			return Structure(StructureType::Trees,
+				vector<Resource>{Resource(CoreResourceType::CONSTRUCTION, _constructionResources)});
 		}
 	}
 }

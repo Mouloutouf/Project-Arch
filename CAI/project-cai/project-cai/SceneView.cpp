@@ -94,7 +94,8 @@ namespace alpha
             CreateSpriteObject("Fire", ASSETS_FOLDER + "Fire Orb.png", 14, Vector2f(-6, -2));
 
             GameObject* gridObject = CreateGameObject("Grid");
-            gridObject->AddComponent(new Grid(8, 8));
+            auto grid = gridObject->AddComponent(new Grid(20, 20));
+            grid->camera = mainCamera;
 
             GameObject* constructionInputObject = CreateGameObject("Construction Input");
             constructionInputObject->AddComponent(new ConstructionInput(currentDisplay, gridObject->GetComponent<Grid>()));

@@ -6,10 +6,11 @@ namespace alpha
 	{
 #pragma region Oxygen
 		OxygenGathererBuilding::OxygenGathererBuilding()
+			: ProductionBuilding()
 		{
-			buildingType = BuildingType::OxygenGatherer;
-
 			archBuilding = OXYGEN_GATHERER_BUILDING;
+
+			SetHeldResources();
 		}
 		OxygenGathererBuilding::OxygenGathererBuilding(Tile* _positionTile, vector<Tile*> _exploitedTiles)
 			: OxygenGathererBuilding()
@@ -22,10 +23,11 @@ namespace alpha
 		}
 
 		OxygenExcavatorBuilding::OxygenExcavatorBuilding()
+			: ProductionBuilding()
 		{
-			buildingType = BuildingType::OxygenExcavator;
-
 			archBuilding = OXYGEN_EXCAVATOR_BUILDING;
+
+			SetHeldResources();
 		}
 		OxygenExcavatorBuilding::OxygenExcavatorBuilding(Tile* _positionTile, vector<Tile*> _exploitedTiles)
 			: OxygenExcavatorBuilding()
@@ -41,10 +43,11 @@ namespace alpha
 
 #pragma region Water
 		WaterExtractorBuilding::WaterExtractorBuilding()
+			: ProductionBuilding()
 		{
-			buildingType = BuildingType::WaterExtractor;
-
 			archBuilding = WATER_EXTRACTOR_BUILDING;
+
+			SetHeldResources();
 		}
 		WaterExtractorBuilding::WaterExtractorBuilding(Tile* _positionTile, vector<Tile*> _exploitedTiles)
 			: WaterExtractorBuilding()
@@ -57,10 +60,11 @@ namespace alpha
 		}
 
 		WaterPurifierBuilding::WaterPurifierBuilding()
+			: ProductionBuilding()
 		{
-			buildingType = BuildingType::WaterPurifier;
-
 			archBuilding = WATER_PURIFIER_BUILDING;
+
+			SetHeldResources();
 		}
 		WaterPurifierBuilding::WaterPurifierBuilding(Tile* _positionTile, vector<Tile*> _exploitedTiles)
 			: WaterPurifierBuilding()
@@ -76,10 +80,11 @@ namespace alpha
 
 #pragma region Food
 		FarmBuilding::FarmBuilding()
+			: ProductionBuilding()
 		{
-			buildingType = BuildingType::Farm;
-
 			archBuilding = FARM_BUILDING;
+
+			SetHeldResources();
 		}
 		FarmBuilding::FarmBuilding(Tile* _positionTile, vector<Tile*> _exploitedTiles)
 			: FarmBuilding()
@@ -92,10 +97,11 @@ namespace alpha
 		}
 
 		HuntCampBuilding::HuntCampBuilding()
+			: ProductionBuilding()
 		{
-			buildingType = BuildingType::HuntCamp;
-
 			archBuilding = HUNT_CAMP_BUILDING;
+
+			SetHeldResources();
 		}
 		HuntCampBuilding::HuntCampBuilding(Tile* _positionTile, vector<Tile*> _exploitedTiles)
 			: HuntCampBuilding()
@@ -108,10 +114,11 @@ namespace alpha
 		}
 
 		CookeryBuilding::CookeryBuilding()
+			: StoringBuilding()
 		{
-			buildingType = BuildingType::Cookery;
-
 			archBuilding = COOKERY_BUILDING;
+
+			SetHeldResources();
 		}
 		CookeryBuilding::CookeryBuilding(Tile* _positionTile)
 			: CookeryBuilding()
@@ -126,10 +133,11 @@ namespace alpha
 
 #pragma region Storage
 		ShedBuilding::ShedBuilding()
+			: StoringBuilding()
 		{
-			buildingType = BuildingType::Shed;
-
 			archBuilding = SHED_BUILDING;
+
+			SetHeldResources();
 		}
 		ShedBuilding::ShedBuilding(Tile* _positionTile)
 			: ShedBuilding()
@@ -141,10 +149,11 @@ namespace alpha
 		}
 
 		StorageBuilding::StorageBuilding()
+			: StoringBuilding()
 		{
-			buildingType = BuildingType::Storage;
-
 			archBuilding = STORAGE_BUILDING;
+
+			SetHeldResources();
 		}
 		StorageBuilding::StorageBuilding(Tile* _positionTile)
 			: StorageBuilding()
@@ -159,10 +168,11 @@ namespace alpha
 
 #pragma region Crew
 		PrefabsBuilding::PrefabsBuilding()
+			: Building()
 		{
-			buildingType = BuildingType::Prefabs;
-
 			archBuilding = PREFABS_BUILDING;
+
+			SetHeldResources();
 		}
 		PrefabsBuilding::PrefabsBuilding(Tile* _positionTile)
 			: PrefabsBuilding()
@@ -174,10 +184,11 @@ namespace alpha
 		}
 
 		PharmacyBuilding::PharmacyBuilding()
+			: StoringBuilding()
 		{
-			buildingType = BuildingType::Pharmacy;
-
 			archBuilding = PHARMACY_BUILDING;
+
+			SetHeldResources();
 		}
 		PharmacyBuilding::PharmacyBuilding(Tile* _positionTile)
 			: PharmacyBuilding()
@@ -189,10 +200,11 @@ namespace alpha
 		}
 
 		DroneBayBuilding::DroneBayBuilding()
+			: Building()
 		{
-			buildingType = BuildingType::DroneBay;
-
 			archBuilding = DRONE_BAY_BUILDING;
+
+			SetHeldResources();
 		}
 		DroneBayBuilding::DroneBayBuilding(Tile* _positionTile)
 			: DroneBayBuilding()
@@ -207,10 +219,11 @@ namespace alpha
 
 #pragma region Excavation
 		ExcavationGroundsBuilding::ExcavationGroundsBuilding()
+			: StoringBuilding()
 		{
-			buildingType = BuildingType::ExcavationGrounds;
-
 			archBuilding = EXCAVATION_GROUNDS_BUILDING;
+
+			SetHeldResources();
 		}
 		ExcavationGroundsBuilding::ExcavationGroundsBuilding(Tile* _positionTile)
 			: ExcavationGroundsBuilding()

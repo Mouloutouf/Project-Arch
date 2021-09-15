@@ -65,6 +65,9 @@ namespace alpha
 			Vector2f WorldToScreenPosition(Vector2f _worldPosition);
 			Vector2f MousePositionToWorld();
 
+			void SetBackgroundColor(Color _color);
+			Color BackgroundColor();
+
 			Vector2f resolution;
 			Vector2f displayOrigin() { return resolution / 2.0f; }
 
@@ -87,8 +90,7 @@ namespace alpha
 				return origin;
 			}
 
-			/// DEBUG
-			bool print = true;
+			Color backgroundColor = BACKGROUND_COLOR;
 		};
 	}
 }

@@ -19,26 +19,31 @@ namespace alpha
 	{
 		class Tile;
 
-		enum class BiomeElementStatus { KeepIntactAll, Destroy, KeepIntactExploited };
+		enum class ebStatus { Preserve, Destroy };
 
 		struct ArchBuilding
 		{
 			ArchBuilding();
-			ArchBuilding(string _sprite, int _cstrCost, int _electrCost = 0, int _oxygenCost = 0, int _aoE = 0, 
-				BiomeType _biome = BiomeType::None, BiomeType _adjacentBiome = BiomeType::None);
+			ArchBuilding(BuildingType _buildingType, string _sprite, int _maxCrew,
+				int _extraOxygen, int _extraRations,
+				ebStatus _exploitedBiomeResourcesStatus, ebStatus _treesStatus,
+				int _cstrCost, int _electrCost = 0, int _oxygenCost = 0, 
+				int _aoE = 0, BiomeType _biome = BiomeType::None, __ResourceType _requiredResource = 0);
+
+			BuildingType buildingType;
 
 			map<__ResourceType, int> constructionCosts;
 
 			int areaOfEffect; /// 0 means 0-tile deep, meaning only the positionTile.
 
-			BiomeType requiredAdjacentBiome;
 			BiomeType requiredBiome;
+			__ResourceType requiredResource;
 
 			/// Add parameters to the Constructor
-			map<__ResourceType, int> resourcesConsumption;
+			map<__ResourceType, int> extraResourcesConsumption;
 
-			BiomeElementStatus resourcesStatus;
-			BiomeElementStatus structuresStatus;
+			ebStatus exploitedBiomeResourcesStatus;
+			ebStatus treesStatus;
 
 			int maxCrewAssignees;
 
@@ -51,12 +56,14 @@ namespace alpha
 			Building();
 			Building(Tile* _positionTile);
 
+			void SetHeldResources();
+
 			int ResourceConsumption(__ResourceType _resourceType);
 
 			virtual void Process(float _elapsedTime) = 0;
 
 			ArchBuilding archBuilding;
-			BuildingType buildingType;
+			BuildingType buildingType() { return archBuilding.buildingType; }
 
 			vector<CrewMember*> assignedCrewMembers;
 

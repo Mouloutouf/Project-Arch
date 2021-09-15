@@ -16,11 +16,13 @@ namespace alpha
 
 	namespace game
 	{
+		enum class StructureType { Trees, ShipParts, Building };
+
 		class Structure
 		{
 		public:
 			Structure();
-			Structure(vector<Resource> _heldResources);
+			Structure(StructureType _structureType, vector<Resource> _heldResources);
 
 			void ExtractResourcesFromStructure();
 			void DestroyStructure();
@@ -31,7 +33,9 @@ namespace alpha
 			static Structure CreateForestStructure();
 			static Structure CreateForestStructure(int _constructionResources);
 
-		private:
+			StructureType structureType;
+
+		protected:
 			map<__ResourceType, Resource> heldResources;
 		};
 	}

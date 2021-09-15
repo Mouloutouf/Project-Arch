@@ -21,7 +21,7 @@ namespace alpha
 		public:
 
 			Camera();
-			Camera(Display* _display, Vector2f _resolution, float _size, Color _backgroundColor = BACKGROUND_COLOR);
+			Camera(Display* _display, Vector2f _resolution, float _size);
 			Camera(const Camera& that, GameObject* _gameObject);
 			~Camera();
 
@@ -32,12 +32,9 @@ namespace alpha
 
 			int pixelsPerUnit() { return (int)(displayResolution.y / (size * 2)); }
 
-			Color backgroundColor;
-
 		private:
 
 			float size = 1;
-
 			Vector2f displayResolution;
 		};
 

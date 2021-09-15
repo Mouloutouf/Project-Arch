@@ -14,24 +14,70 @@ namespace alpha
 {
 	namespace game
 	{
-		static ArchBuilding OXYGEN_GATHERER_BUILDING = ArchBuilding("Building Oxygen Gatherer", 10, 5, 5, 2, BiomeType::Forest);
-		static ArchBuilding OXYGEN_EXCAVATOR_BUILDING = ArchBuilding("Building Oxygen Excavator", 40, 15, 10, 0, BiomeType::Mountain);
+		static ArchBuilding OXYGEN_GATHERER_BUILDING = ArchBuilding(BuildingType::OxygenGatherer, "Building Oxygen Gatherer", 2, 
+			0, 10,						// Consumption
+			ebStatus::Preserve, ebStatus::Preserve, // Resource Status, Trees Status
+			10, 5, 5,					// Costs
+			2, BiomeType::Forest, CoreResourceType::OXYGEN);	// Exploitation
+		static ArchBuilding OXYGEN_EXCAVATOR_BUILDING = ArchBuilding(BuildingType::OxygenExcavator, "Building Oxygen Excavator", 2,
+			0, 20,						// Consumption
+			ebStatus::Preserve, ebStatus::Destroy, // Resource Status, Trees Status
+			40, 15, 10, 				// Costs
+			0, BiomeType::Mountain, CoreResourceType::OXYGEN);	// Exploitation
 		
-		static ArchBuilding WATER_EXTRACTOR_BUILDING = ArchBuilding("Building Water Extractor", 15, 10, 0, 1, BiomeType::None, BiomeType::Lake);
-		static ArchBuilding WATER_PURIFIER_BUILDING = ArchBuilding("Building Water Purifier", 40, 20, 0, 0, BiomeType::None, BiomeType::Sea);
+		static ArchBuilding WATER_EXTRACTOR_BUILDING = ArchBuilding(BuildingType::WaterExtractor, "Building Water Extractor", 2,
+			10, 10,									// Consumption
+			ebStatus::Destroy, ebStatus::Destroy,	// Resource Status, Trees Status
+			15, 10, 0, 								// Costs
+			/// WARNING   v   replace Sea with Lake /!\ /
+			2, BiomeType::Sea, RawResourceType::WATER);		// Exploitation
+		static ArchBuilding WATER_PURIFIER_BUILDING = ArchBuilding(BuildingType::WaterPurifier, "Building Water Purifier", 2,
+			20, 20,									// Consumption
+			ebStatus::Destroy, ebStatus::Destroy,	// Resource Status, Trees Status
+			40, 20, 0, 								// Costs
+			1, BiomeType::Sea, RawResourceType::WATER);		// Exploitation
 		
-		static ArchBuilding FARM_BUILDING = ArchBuilding("Building Farm", 20, 5, 0, 2, BiomeType::Field);
-		static ArchBuilding HUNT_CAMP_BUILDING = ArchBuilding("Building Hunt Camp", 15, 5, 0, 1, BiomeType::Forest);
-		static ArchBuilding COOKERY_BUILDING = ArchBuilding("Building Cookery", 20, 15, 5, 0);
+		static ArchBuilding FARM_BUILDING = ArchBuilding(BuildingType::Farm, "Building Farm", 2,
+			15, 0,					// Consumption
+			ebStatus::Preserve, ebStatus::Destroy, // Resource Status, Trees Status
+			20, 5, 0, 				// Costs
+			2, BiomeType::Field, RawResourceType::CROPS);	// Exploitation
+		static ArchBuilding HUNT_CAMP_BUILDING = ArchBuilding(BuildingType::HuntCamp, "Building Hunt Camp", 2,
+			15, 0,					// Consumption
+			ebStatus::Preserve, ebStatus::Preserve, // Resource Status, Trees Status
+			15, 5, 0, 				// Costs
+			1, BiomeType::Forest, RawResourceType::MEAT);	// Exploitation
+		static ArchBuilding COOKERY_BUILDING = ArchBuilding(BuildingType::Cookery, "Building Cookery", 2,
+			25, 0,			// Consumption
+			ebStatus::Destroy, ebStatus::Destroy, // Resource Status, Trees Status
+			20, 15, 5);		// Costs
 		
-		static ArchBuilding SHED_BUILDING = ArchBuilding("Building Shed", 10, 5, 5, 0);
-		static ArchBuilding STORAGE_BUILDING = ArchBuilding("Building Storage", 25, 10, 10, 0);
+		static ArchBuilding SHED_BUILDING = ArchBuilding(BuildingType::Shed, "Building Shed", 0,
+			0, 0,			// Consumption
+			ebStatus::Destroy, ebStatus::Destroy, // Resource Status, Trees Status
+			10, 5, 5);		// Costs
+		static ArchBuilding STORAGE_BUILDING = ArchBuilding(BuildingType::Storage, "Building Storage", 0,
+			0, 0,			// Consumption
+			ebStatus::Destroy, ebStatus::Destroy, // Resource Status, Trees Status
+			25, 10, 10);	// Costs
 		
-		static ArchBuilding PREFABS_BUILDING = ArchBuilding("Building Prefabs", 15, 10, 20, 0);
-		static ArchBuilding PHARMACY_BUILDING = ArchBuilding("Building Pharmacy", 25, 10, 5, 0);
-		static ArchBuilding DRONE_BAY_BUILDING = ArchBuilding("Building Drone Bay", 40, 20, 10, 0);
+		static ArchBuilding PREFABS_BUILDING = ArchBuilding(BuildingType::Prefabs, "Building Prefabs", 4,
+			10, 10,			// Consumption
+			ebStatus::Destroy, ebStatus::Destroy, // Resource Status, Trees Status
+			15, 10, 20);	// Costs
+		static ArchBuilding PHARMACY_BUILDING = ArchBuilding(BuildingType::Pharmacy, "Building Pharmacy", 3,
+			15, 15,			// Consumption
+			ebStatus::Destroy, ebStatus::Destroy, // Resource Status, Trees Status
+			25, 10, 5);		// Costs
+		static ArchBuilding DRONE_BAY_BUILDING = ArchBuilding(BuildingType::DroneBay, "Building Drone Bay", 3,
+			25, 5,			// Consumption
+			ebStatus::Destroy, ebStatus::Destroy, // Resource Status, Trees Status
+			40, 20, 10);	// Costs
 		
-		static ArchBuilding EXCAVATION_GROUNDS_BUILDING = ArchBuilding("", 5, 0, 0, 0);
+		static ArchBuilding EXCAVATION_GROUNDS_BUILDING = ArchBuilding(BuildingType::ExcavationGrounds, "", 4,
+			40, 40,		// Consumption
+			ebStatus::Preserve, ebStatus::Preserve, // Resource Status, Trees Status
+			5, 0, 0);	// Costs
 		
 		static map<BuildingType, ArchBuilding> ARCH_BUILDINGS
 		{

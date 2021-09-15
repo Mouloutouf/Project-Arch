@@ -36,36 +36,5 @@ namespace alpha
 
 			return b;
 		}
-
-		//template<typename T>
-		//Building* Builder<T>::Construct(Tile* _tile)
-		//{
-		//	if (_tile->hasBuilding()) return;
-
-		//	auto btp = GetArchBuilding();
-
-		//	for (auto& cc : btp.constructionCosts) {
-		//		// Check for global storage to check if resources match the cost
-		//	}
-		//	if (btp.requiredBiome != BiomeType::None) {
-		//		if (btp.areaOfEffect > 0) {
-		//			// Algortihm to check surrounding tiles
-		//		}
-		//		else if (_tile->getBiome()->biomeType != btp.requiredBiome) return;
-		//	}
-		//	if (btp.requiredAdjacentBiome != BiomeType::None) {
-		//		// Algorithm to check surrounding tiles
-		//	}
-
-		//	if (btp.resourcesStatus == BiomeElementStatus::Destroy) {
-		//		_tile->getBiome()->DestroyResources();
-		//	}
-		//	if (btp.structuresStatus == BiomeElementStatus::Destroy) {
-		//		if (_tile->getBiome()->hasStructures()) return;
-		//	}
-
-		//	auto newBuilding = new T(_tile);
-		//	return newBuilding;
-		//}
 	}
 }

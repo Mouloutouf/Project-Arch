@@ -22,15 +22,21 @@ namespace alpha
 
 		void Grid::Init()
 		{
+			backgroundColor = Color(1, 9, 12);
+
 			tilePrefab = AssetManager::LoadAsset("Tile");
 
 			biomesFillValues.insert({ BiomeType::Desert, 2.0f });
 			biomesFillValues.insert({ BiomeType::Field, 2.0f });
-			biomesFillValues.insert({ BiomeType::Forest, 6.0f });
+			biomesFillValues.insert({ BiomeType::Forest, 5.0f });
 
-			biomesFillValues.insert({ BiomeType::Sea, 4.0f });
+			biomesFillValues.insert({ BiomeType::Sea, 2.0f });
 			biomesFillValues.insert({ BiomeType::Lake, 0.0f });
 			biomesFillValues.insert({ BiomeType::Mountain, 1.0f });
+
+			if (camera != nullptr) {
+				camera->display->SetBackgroundColor(backgroundColor);
+			}
 		}
 
 		Grid* Grid::Clone(GameObject* _gameObject)
@@ -87,17 +93,17 @@ namespace alpha
 
 			uniform_int_distribution dist(0, 99);
 
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++)
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++)
 				{
-					/*if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+					if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
 						CreateTile(x, y, BiomeType::None);
 						continue;
 					}
 					if (x == 1 || x == width - 2 || y == 1 || y == height - 2) {
 						CreateTile(x, y, BiomeType::Sea);
 						continue;
-					}*/
+					}
 
 					int randomPercent = dist(mt);
 
@@ -116,6 +122,9 @@ namespace alpha
 		{
 			GameObject* tGo = AssetManager::InstantiateAsset(*tilePrefab, gameObject, Vector2f((float)x, (float)y));
 			TileObject* tObject = tGo->GetComponent<TileObject>();
+
+			tObject->tile->x = x;
+			tObject->tile->y = y;
 
 			tObject->tile->biomeType = _b;
 			switch (tObject->tile->biomeType) {

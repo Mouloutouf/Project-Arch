@@ -38,8 +38,10 @@ namespace alpha
 			TileObject* GetTile(int x, int y);
 
 			GameObject* tilePrefab = nullptr;
-
 			vector<TileObject*> tiles;
+
+			Color backgroundColor;
+			Camera* camera;
 
 		private:
 

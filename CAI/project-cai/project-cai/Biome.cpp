@@ -8,11 +8,14 @@ namespace alpha
 		{
 		}
 		Biome::Biome(vector<Resource> _heldResources, vector<Structure> _structures)
-			: structures(_structures)
 		{
 			for (auto& r : _heldResources) {
 				if (exploitationResources.count(r.getResourceType()) > 0) continue;
 				exploitationResources.insert({ r.getResourceType(), r });
+			}
+			for (auto& s : _structures) {
+				if (structures.count(s.structureType) > 0) continue;
+				structures.insert({ s.structureType, s });
 			}
 		}
 
@@ -43,21 +46,20 @@ namespace alpha
 		}
 		void Biome::DestroyResources()
 		{
-			for (auto& hr : exploitationResources) {
-				exploitationResources.erase(hr.first);
-			}
+			exploitationResources.clear();
 		}
+
+		bool Biome::HasStructures() { return structures.size() > 0; }
 
 		void Biome::AddStructure(Structure _structure)
 		{
-			structures.push_back(_structure);
+			if (structures.count(_structure.structureType) > 0) return;
+			structures.insert({ _structure.structureType, _structure });
 		}
-		void Biome::RemoveStructure(Structure* _structure)
+		void Biome::RemoveStructure(StructureType _structureType)
 		{
-			for (int i = 0; i < structures.size(); i++) {
-				if (&structures[i] == _structure)
-					structures.erase(structures.begin() + i);
-			}
+			if (structures.count(_structureType) == 0) return;
+			structures.erase(_structureType);
 		}
 		void Biome::RemoveAllStructures()
 		{

@@ -8,8 +8,8 @@ namespace alpha
 		Camera::Camera()
 		{
 		}
-		Camera::Camera(Display* _display, Vector2f _resolution, float _size, Color _backgroundColor)
-			: display(_display), displayResolution(_resolution), size(_size), backgroundColor(_backgroundColor)
+		Camera::Camera(Display* _display, Vector2f _resolution, float _size)
+			: display(_display), displayResolution(_resolution), size(_size)
 		{
 		}
 		Camera::Camera(const Camera& that, GameObject* _gameObject)

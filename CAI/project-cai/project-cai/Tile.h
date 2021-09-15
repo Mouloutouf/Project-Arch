@@ -31,6 +31,8 @@ namespace alpha
 			Building* getBuilding() { return building; }
 			bool hasBuilding() { return building != nullptr; }
 
+			int x, y;
+
 		private:
 			Biome* biome;
 			Building* building = nullptr;

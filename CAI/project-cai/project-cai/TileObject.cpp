@@ -58,17 +58,25 @@ namespace alpha
 			gameObject->name = biomeSprite + indexName;
 
 			tileDisplayPrefab = AssetManager::LoadAsset("Tile Display");
+			tileDisplay = AssetManager::InstantiateAsset(*tileDisplayPrefab, gameObject);
 
-			for (auto& b : biome->canExploitBiomeBuildings)
+			excavationIcon = tileDisplay->GetChild("Excavation Icon")->GetComponent<SpriteRenderer>();
+			areaSquare = tileDisplay->GetChild("Area Square")->GetComponent<SpriteRenderer>();
+			invalidTile = tileDisplay->GetChild("Invalid Tile")->GetComponent<SpriteRenderer>();
+
+			for (auto& br : biome->resourcesBuildingsCanExploit)
 			{
-				auto resourceType = b.first;
-				if (biome->resourceIcons.count(resourceType))
+				auto resources = br.second;
+				for (int i = 0; i < resources.size(); i++)
 				{
-					auto tileDisplay = AssetManager::InstantiateAsset(*tileDisplayPrefab, gameObject);
-					resourceIcon = tileDisplay->GetChild("Resource Icon")->GetComponent<SpriteRenderer>();
-					resourceIcon->SetSprite(Utility::spritePath(biome->resourceIcons[resourceType]));
-
-					//tileDisplay->SetActive(false);
+					if (biome->resourceIcons.count(resources[i])) {
+						auto resourceIconPrefab = AssetManager::LoadAsset("Resource Icon");
+						auto resourceIcon = AssetManager::InstantiateAsset(*resourceIconPrefab, tileDisplay);
+						/*resourceIcon->transform.localScale = Vector2f(0.3f, 0.3f);
+						resourceIcon->transform.localPosition = Vector2f(0.3f, 0.3f);*/
+						resourceIconsSpriteRenderers.insert({ resources[i], resourceIcon->GetComponent<SpriteRenderer>() });
+						resourceIconsSpriteRenderers[resources[i]]->SetSprite(Utility::spritePath(biome->resourceIcons[resources[i]]));
+					}
 				}
 			}
 		}
