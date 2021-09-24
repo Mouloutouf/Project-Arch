@@ -24,10 +24,10 @@ namespace alpha
 			~Tile();
 
 			BiomeType biomeType = BiomeType::None;
-			void setBiome(Biome* _biome) { biome = _biome; }
+			void setBiome(Biome* _biome) { if (biome != nullptr) delete biome; biome = _biome; }
 			Biome* getBiome() { return biome; }
 
-			void setBuilding(Building* _building) { building = _building; }
+			void setBuilding(Building* _building) { if (building != nullptr) delete building; building = _building; }
 			Building* getBuilding() { return building; }
 			bool hasBuilding() { return building != nullptr; }
 

@@ -41,7 +41,6 @@ namespace alpha
 			SpriteRenderer* areaSquare;
 			map<__ResourceType, SpriteRenderer*> resourceIconsSpriteRenderers;
 			SpriteRenderer* excavationIcon;
-			SpriteRenderer* invalidTile;
 		};
 	}
 }

@@ -44,15 +44,21 @@ namespace alpha
 		void ConstructionInput::Start()
 		{
 			buildingPreview = AssetManager::InstantiateAsset(GameObject("Preview Building"));
-			auto previewSr = buildingPreview->AddComponent(new SpriteRenderer(buildingPreview, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
+			auto previewSr = buildingPreview->AddComponent(new SpriteRenderer(buildingPreview, AssetManager::currentSceneDisplay, 
+				Utility::spritePath(archBuildings[selected].second.sprite), 16));
 			previewSr->SetLayer(Layers::DETAILS_LAYER);
 			Color transparent = Color(255, 255, 255, 204);
-			buildingPreview->GetComponent<SpriteRenderer>()->GetSprite()->setColor(transparent);
+			previewSr->GetSprite()->setColor(transparent);
 
 			hoveredSquare = AssetManager::InstantiateAsset(*hoveredSquarePrefab);
 
+			auto invalidTilePrefab = AssetManager::LoadAsset("Invalid Tile");
+			invalidTile = AssetManager::InstantiateAsset(*invalidTilePrefab, buildingPreview);
+			invalidTileSr = invalidTile->GetComponent<SpriteRenderer>();
+
 			buildingIcon = AssetManager::InstantiateAsset(GameObject("Icon Building"));
-			auto iconSr = buildingIcon->AddComponent(new SpriteRenderer(buildingIcon, AssetManager::currentSceneDisplay, SelectedBuildingSprite(), 16));
+			auto iconSr = buildingIcon->AddComponent(new SpriteRenderer(buildingIcon, AssetManager::currentSceneDisplay, 
+				Utility::spritePath(archBuildings[selected].second.sprite), 16));
 			iconSr->SetLayer(Layers::UI_LAYER);
 			buildingIcon->transform.localScale /= 2.0f;
 		}
@@ -84,7 +90,7 @@ namespace alpha
 						ri.second->SetActive(false);
 					currentHoveredTile->excavationIcon->SetActive(false);
 					currentHoveredTile->areaSquare->SetActive(false);
-					currentHoveredTile->invalidTile->SetActive(false);
+					invalidTileSr->SetActive(false);
 
 					for (auto& t : currentPotentialExploitedTiles) {
 						for (auto& ri : t->resourceIconsSpriteRenderers)
@@ -100,25 +106,29 @@ namespace alpha
 
 				currentHoveredTile = hoveredTile;
 
-				if (currentHoveredTile == nullptr || currentHoveredTile->tile->biomeType == BiomeType::None) return;
-
-				auto currentTile = currentHoveredTile->tile;
-				auto currentBiome = currentTile->getBiome();
-
 				currentBuildIsValid = true;
+
+				if (currentHoveredTile == nullptr || currentHoveredTile->tile->biomeType == BiomeType::None) {
+					invalidTileSr->SetActive(true);
+					currentBuildIsValid = false;
+					return;
+				}
 					///
 
 				///
 				/// Display potential exploited tiles, and potential structures destruction, and if the tile is invalid or not, for the new hovered tile
 
+				auto currentTile = currentHoveredTile->tile;
+				auto currentBiome = currentTile->getBiome();
+
 				if (!currentBiome->allowBuild) {
-					currentHoveredTile->invalidTile->SetActive(true);
+					invalidTileSr->SetActive(true);
 					currentBuildIsValid = false;
 					return;
 				}
 
 				if (currentTile->hasBuilding()) {
-					currentHoveredTile->invalidTile->SetActive(true);
+					invalidTileSr->SetActive(true);
 					currentBuildIsValid = false;
 					return;
 				}
@@ -133,7 +143,7 @@ namespace alpha
 				{
 					auto result = SearchTileAndSurroundings(currentHoveredTile, &selectedArchBuilding, selectedArchBuilding.areaOfEffect, true);
 					if (result <= 0) {
-						currentHoveredTile->invalidTile->SetActive(true);
+						invalidTileSr->SetActive(true);
 						currentBuildIsValid = false;
 						return;
 					}
@@ -182,6 +192,8 @@ namespace alpha
 		}
 		int ConstructionInput::SetupTileAsExploited(TileObject* _tileObject, ArchBuilding* _selectedArchBuilding)
 		{
+			if (Utility::Contains(currentPotentialExploitedTiles, _tileObject)) return 0;
+
 			auto tile = _tileObject->tile;
 			auto biome = tile->getBiome();
 
@@ -194,11 +206,11 @@ namespace alpha
 				{
 					_tileObject->resourceIconsSpriteRenderers[resource]->SetActive(true);
 					_tileObject->areaSquare->SetActive(true);
+
+					currentPotentialExploitedTiles.push_back(_tileObject);
+
+					return 1;
 				}
-
-				currentPotentialExploitedTiles.push_back(_tileObject);
-
-				return 1;
 			}
 			return 0;
 		}
@@ -214,8 +226,8 @@ namespace alpha
 					if (selected < 0) selected = 0;
 					if (selected >= archBuildings.size()) selected = (int)archBuildings.size() - 1;
 					
-					buildingIcon->GetComponent<SpriteRenderer>()->SetSprite(SelectedBuildingSprite());
-					buildingPreview->GetComponent<SpriteRenderer>()->SetSprite(SelectedBuildingSprite());
+					buildingIcon->GetComponent<SpriteRenderer>()->SetSprite(Utility::spritePath(archBuildings[selected].second.sprite));
+					buildingPreview->GetComponent<SpriteRenderer>()->SetSprite(Utility::spritePath(archBuildings[selected].second.sprite));
 
 					selectedBuildingChanged = true;
 				}

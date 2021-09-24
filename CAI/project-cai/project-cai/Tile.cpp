@@ -16,7 +16,8 @@ namespace alpha
 		Tile::Tile(const Tile& that)
 			: biomeType(that.biomeType)
 		{
-			biome = new Biome(*that.biome);
+			if (that.biome != nullptr)
+				biome = new Biome(*that.biome);
 		}
 
 		Tile::~Tile()

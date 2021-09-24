@@ -81,7 +81,7 @@ namespace alpha
         {
             GameObject* cameraObject = CreateGameObject("Main Camera");
             cameraObject->AddTag(Tag::Main_Camera);
-            cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution, 5));
+            cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution, 12));
 
             mainCamera = GetMainCamera();
             currentDisplay.camera = mainCamera;
@@ -94,7 +94,7 @@ namespace alpha
             CreateSpriteObject("Fire", ASSETS_FOLDER + "Fire Orb.png", 14, Vector2f(-6, -2));
 
             GameObject* gridObject = CreateGameObject("Grid");
-            auto grid = gridObject->AddComponent(new Grid(20, 20));
+            auto grid = gridObject->AddComponent(new Grid(40, 24));
             grid->camera = mainCamera;
 
             GameObject* constructionInputObject = CreateGameObject("Construction Input");

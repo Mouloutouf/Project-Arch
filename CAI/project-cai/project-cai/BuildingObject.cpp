@@ -35,6 +35,7 @@ namespace alpha
 		}
 		void BuildingObject::Update(float _elapsedTime)
 		{
+			building->Process(_elapsedTime);
 		}
 		void BuildingObject::EventUpdate(Event& _event, float _elapsedTime)
 		{

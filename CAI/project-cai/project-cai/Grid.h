@@ -33,9 +33,9 @@ namespace alpha
 			void Update(float _elapsedTime) override;
 
 			int width = 2, height = 2;
-			int index(int x, int y) const { return x + width * y; }
+			int index(int _x, int _y) const { return _x + width * _y; }
 
-			TileObject* GetTile(int x, int y);
+			TileObject* GetTile(int _x, int _y);
 
 			GameObject* tilePrefab = nullptr;
 			vector<TileObject*> tiles;
@@ -45,10 +45,35 @@ namespace alpha
 
 		private:
 
+			void GenerateMap();
+
+			void GenerateSpace();
+			void GenerateIsland();
 			void CalculateBiomes();
+			void GenerateBiomes();
+			void CreateMap();
+
+			void SmoothArea(map<pair<int, int>, int> _area);
+			int GetSurroundingTiles(int _x, int _y, map<pair<int, int>, int> _area);
+
+			void CreateSeaAndLakeRegions();
+
+			int randomSpacePercent;
+			map<pair<int, int>, int> spaceTiles;
+
+			int randomFillPercent;
+			map<pair<int, int>, int> baseTiles;
+
+			vector<BiomeType> preTiles;
 
 			void GenerateRandomMap();
-			void CreateTile(int x, int y, BiomeType _b);
+			void SetWaterRegions();
+			void NaturalizeMap();
+			void TurnTileWithStrength(int _x, int _y);
+			
+			map<pair<int, int>, BiomeType> seaBorderTiles;
+
+			void CreateTile(int _x, int _y, BiomeType _b);
 
 			map<BiomeType, float> biomesFillValues;
 			map<BiomeType, float> biomesFillPercent;

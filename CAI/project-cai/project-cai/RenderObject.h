@@ -53,6 +53,7 @@ namespace alpha
 		public:
 
 			SpriteObject(int _ppu, string _spritePath);
+			SpriteObject(int _ppu, Texture _texture);
 			SpriteObject(const SpriteObject& that);
 
 			string spritePath;

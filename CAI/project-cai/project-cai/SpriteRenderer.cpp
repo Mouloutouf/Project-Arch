@@ -15,6 +15,14 @@ namespace alpha
 
 			AddToRender();
 		}
+		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, int _ppu, __Layer _layer)
+			: Component(_gameObject), display(_display)
+		{
+			spriteObject = new SpriteObject(_ppu, _texture);
+			spriteObject->layer = _layer;
+
+			AddToRender();
+		}
 		SpriteRenderer::SpriteRenderer(const SpriteRenderer& that, GameObject* _gameObject)
 			: Component(that, _gameObject), display(that.display)
 		{

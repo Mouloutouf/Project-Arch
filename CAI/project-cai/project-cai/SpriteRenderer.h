@@ -23,6 +23,7 @@ namespace alpha
 
 			SpriteRenderer();
 			SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath = nullptr, int _ppu = 1, __Layer _layer = Layers::DEFAULT_LAYER);
+			SpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, int _ppu = 1, __Layer _layer = Layers::DEFAULT_LAYER);
 			SpriteRenderer(const SpriteRenderer& that, GameObject* _gameObject);
 			~SpriteRenderer();
 

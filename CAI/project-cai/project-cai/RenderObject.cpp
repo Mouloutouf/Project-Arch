@@ -34,6 +34,13 @@ namespace alpha
 
 			drawable = &sprite;
 		}
+		SpriteObject::SpriteObject(int _ppu, Texture _texture)
+			: RenderObject(_ppu), texture(_texture)
+		{
+			sprite.setTexture(texture);
+
+			drawable = &sprite;
+		}
 		SpriteObject::SpriteObject(const SpriteObject& that)
 			: RenderObject(that), spritePath(that.spritePath), texture(that.texture), sprite(that.sprite)
 		{

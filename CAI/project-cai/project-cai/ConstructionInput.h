@@ -39,17 +39,20 @@ namespace alpha
 
 		private:
 
-			Grid* grid;
-
 			Display& display;
 
-			GameObject* buildingPrefab = nullptr;
+			Grid* grid;
 
 			vector<pair<BuildingType, ArchBuilding>> archBuildings;
 
-			Vector2f offsetFromMouse;
+			GameObject* buildingPrefab = nullptr;
+
 			GameObject* buildingIcon = nullptr;
+			Vector2f offsetFromMouse;
 			GameObject* buildingPreview = nullptr;
+
+			GameObject* invalidTile = nullptr;
+			SpriteRenderer* invalidTileSr = nullptr;
 
 			GameObject* hoveredSquarePrefab;
 			GameObject* hoveredSquare = nullptr;
@@ -60,7 +63,6 @@ namespace alpha
 
 			Vector2f currentMousePosition;
 
-			string SelectedBuildingSprite() { return ASSETS_FOLDER + archBuildings[selected].second.sprite + ".png"; }
 			TileObject* currentHoveredTile = nullptr;
 			vector<TileObject*> currentPotentialExploitedTiles = vector<TileObject*>();
 
