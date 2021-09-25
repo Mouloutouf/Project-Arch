@@ -58,7 +58,7 @@ namespace alpha
 			if (_event.type == Event::MouseWheelScrolled) {
 				if (Keyboard::isKeyPressed(Keyboard::LShift)) return;
 				float ticks = _event.mouseWheelScroll.delta;
-				camera->setSize(camera->getSize() - (ticks * _elapsedTime * scrollSpeed));
+				SetCameraSize(camera->getSize() - (ticks * _elapsedTime * scrollSpeed));
 			}
 
 			if (_event.type == Event::MouseButtonPressed) {
@@ -75,6 +75,12 @@ namespace alpha
 					isDrag = false;
 				}
 			}
+		}
+		void CameraInput::SetCameraSize(float _value)
+		{
+			if (_value <= minCamSize) _value = minCamSize;
+			if (_value >= maxCamSize) _value = maxCamSize;
+			camera->setSize(_value);
 		}
 	}
 }

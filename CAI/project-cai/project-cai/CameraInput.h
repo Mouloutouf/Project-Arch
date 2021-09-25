@@ -27,14 +27,19 @@ namespace alpha
 			void Update(float _elapsedTime) override;
 			void EventUpdate(Event& _event, float _elapsedTime) override;
 
+			void SetCameraSize(float _value);
+
 		private:
 
 			Camera* camera;
 
 			RenderWindow& window;
 
-			float scrollSpeed = 7;
+			float scrollSpeed = 14;
 			float moveSpeed = 0.4f;
+
+			float minCamSize = 4.0f, maxCamSize = 12.0f;
+
 			bool isDrag = false;
 			Vector2f capturedMousePos;
 		};

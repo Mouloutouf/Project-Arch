@@ -81,17 +81,12 @@ namespace alpha
         {
             GameObject* cameraObject = CreateGameObject("Main Camera");
             cameraObject->AddTag(Tag::Main_Camera);
-            cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution, 12));
+            cameraObject->AddComponent(new Camera(&currentDisplay, currentDisplay.resolution, 7));
 
             mainCamera = GetMainCamera();
             currentDisplay.camera = mainCamera;
 
             cameraObject->AddComponent(new CameraInput(mainCamera, *gameWindow->window));
-
-            auto dmy = CreateSpriteObject("Dummy", ASSETS_FOLDER + "Dummy.png", 24, Vector2f(-4, 0));
-            auto kst = CreateSpriteObject("Kastelan", ASSETS_FOLDER + "Kastelan Robot.png", 60, Vector2f(-2, -6));
-            kst->SetParent(dmy);
-            CreateSpriteObject("Fire", ASSETS_FOLDER + "Fire Orb.png", 14, Vector2f(-6, -2));
 
             GameObject* gridObject = CreateGameObject("Grid");
             auto grid = gridObject->AddComponent(new Grid(40, 24));

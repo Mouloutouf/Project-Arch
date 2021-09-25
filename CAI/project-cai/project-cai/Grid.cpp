@@ -26,13 +26,14 @@ namespace alpha
 
 			tilePrefab = AssetManager::LoadAsset("Tile");
 
-			randomFillPercent = 42;
+			randomTerritoryPercent = 67; // Amount of Sea (Territory)
+			randomIslandPercent = 67; // Amount of Land (Island)
 
-			biomesFillValues.insert({ BiomeType::Desert, 2.0f });
-			biomesFillValues.insert({ BiomeType::Field, 2.0f });
-			biomesFillValues.insert({ BiomeType::Forest, 5.0f });
-			biomesFillValues.insert({ BiomeType::Mountain, 1.0f });
-			biomesFillValues.insert({ BiomeType::Lake, 0.5f });
+			biomesFillValues.insert({ BiomeType::Desert, 2.5f });
+			biomesFillValues.insert({ BiomeType::Field, 2.5f });
+			biomesFillValues.insert({ BiomeType::Forest, 4.0f });
+			biomesFillValues.insert({ BiomeType::Mountain, 2.0f });
+			biomesFillValues.insert({ BiomeType::Lake, 2.0f });
 
 			if (camera != nullptr) {
 				camera->display->SetBackgroundColor(backgroundColor);
@@ -61,7 +62,7 @@ namespace alpha
 
 		void Grid::GenerateMap()
 		{
-			//GenerateSpace();
+			GenerateTerritory();
 
 			GenerateIsland();
 
@@ -72,7 +73,7 @@ namespace alpha
 			CreateMap();
 		}
 
-		void Grid::GenerateSpace()
+		void Grid::GenerateTerritory()
 		{
 			random_device rd;
 			mt19937 mt(rd());
@@ -83,18 +84,18 @@ namespace alpha
 				for (int x = 0; x < width; x++)
 				{
 					if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
-						spaceTiles[{x, y}] = 0;
+						territoryTiles[{x, y}] = 0;
 						continue;
 					}
 
 					int randomPercent = dist(mt);
-					spaceTiles[{x, y}] = randomPercent > randomFillPercent ? 1 : 0;
+					territoryTiles[{x, y}] = randomPercent > randomTerritoryPercent ? 0 : 1;
 				}
 			}
 
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 2; i++)
 			{
-				SmoothArea(spaceTiles);
+				territoryTiles = SmoothArea(territoryTiles);
 			}
 		}
 
@@ -107,38 +108,60 @@ namespace alpha
 
 			preTiles = vector<BiomeType>((size_t)width * height);
 
-			for (auto& st : spaceTiles)
+			for (auto& st : territoryTiles)
 			{
-				int sx = st.first.first, int sy = st.first.second;
+				int sx = st.first.first, sy = st.first.second;
 
 				if (st.second == 0) {
 					preTiles[index(sx, sy)] = BiomeType::None;
 					continue;
 				}
 				else {
-					if (GetSurroundingTiles(sx, sy, spaceTiles) < 8) {
-						baseTiles[{sx, sy}] = 0;
+					if (GetSurroundingTiles(sx, sy, territoryTiles) < 8) {
+						islandTiles[{sx, sy}] = 0;
 						continue;
 					}
 
 					int randomPercent = dist(mt);
 
-					baseTiles[{sx, sy}] = randomPercent > randomFillPercent ? 1 : 0;
+					islandTiles[{sx, sy}] = randomPercent > randomIslandPercent ? 0 : 1;
 				}
 			}
 
 			for (int i = 0; i < 4; i++)
 			{
-				SmoothArea(baseTiles);
+				islandTiles = SmoothArea(islandTiles);
 			}
 		}
 
-		void Grid::SmoothArea(map<pair<int, int>, int> _area)
+		map<pair<int, int>, int> Grid::SmoothArea(map<pair<int, int>, int>& _inputArea)
 		{
-			for (auto& at : _area)
+			map<pair<int, int>, int> outputArea = _inputArea;
+
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++)
+				{
+					if (_inputArea.count({ x, y }))
+					{
+						int surroundingTiles = GetSurroundingTiles(x, y, _inputArea);
+
+						if (surroundingTiles > 4) {
+							outputArea[{x, y}] = 1;
+						}
+						else if (surroundingTiles < 4) {
+							outputArea[{x, y}] = 0;
+						}
+					}
+				}
+			}
+
+			return outputArea;
+
+			/*for (auto& at : _inputArea)
 			{
-				int ax = at.first.first, int ay = at.first.second;
-				int surroundingTiles = GetSurroundingTiles(ax, ay, _area);
+				int ax = at.first.first, ay = at.first.second;
+
+				int surroundingTiles = GetSurroundingTiles(ax, ay, _inputArea);
 
 				if (surroundingTiles > 4) {
 					at.second = 1;
@@ -146,9 +169,9 @@ namespace alpha
 				else if (surroundingTiles < 4) {
 					at.second = 0;
 				}
-			}
+			}*/
 		}
-		int Grid::GetSurroundingTiles(int _x, int _y, map<pair<int, int>, int> _area)
+		int Grid::GetSurroundingTiles(int _x, int _y, map<pair<int, int>, int>& _area)
 		{
 			int landCount = 0;
 
@@ -192,169 +215,63 @@ namespace alpha
 
 			uniform_int_distribution dist(0, 99);
 
-			for (int y = 1; y < height - 1; y++) {
-				for (int x = 1; x < width - 1; x++)
-				{
-					if (baseTiles[index(x, y)] == 0) {
-						preTiles[index(x, y)] = BiomeType::Sea;
-					}
-					else {
-						int randomPercent = dist(mt);
+			for (auto lt : islandTiles) {
 
-						for (auto& bPercent : biomesFillPercent) {
-							if (randomPercent < bPercent.second)
-							{
-								preTiles[index(x, y)] = bPercent.first;
-								break;
-							}
-						}
-					}
+				int lx = lt.first.first, ly = lt.first.second;
+
+				if (lt.second == 0) {
+					preTiles[index(lx, ly)] = BiomeType::Sea;
 				}
-			}
-
-			CreateSeaAndLakeRegions();
-		}
-
-		void Grid::CreateMap()
-		{
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++)
-				{
-					CreateTile(x, y, preTiles[index(x, y)]);
-				}
-			}
-		}
-
-		void Grid::GenerateRandomMap()
-		{
-			/*if (useRandomSeed)
-				seed = to_string(_TIME);
-			srand((unsigned int)hash<string>()(seed));*/
-
-			random_device rd;
-			mt19937 mt(rd());
-
-			uniform_int_distribution dist(0, 99);
-
-			preTiles = vector<BiomeType>((size_t)width * height);
-
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++)
-				{
-					if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
-						preTiles[index(x, y)] = BiomeType::None;
-						//CreateTile(x, y, BiomeType::None);
-						continue;
-					}
-					if (x == 1 || x == width - 2 || y == 1 || y == height - 2) {
-						preTiles[index(x, y)] = BiomeType::Sea;
-						seaBorderTiles.insert({ {x, y}, BiomeType::Sea });
-						//CreateTile(x, y, BiomeType::Sea);
-						continue;
-					}
-
+				else {
 					int randomPercent = dist(mt);
 
 					for (auto& bPercent : biomesFillPercent) {
 						if (randomPercent < bPercent.second)
 						{
-							preTiles[index(x, y)] = bPercent.first;
-							//CreateTile(x, y, bPercent.first);
+							preTiles[index(lx, ly)] = bPercent.first;
 							break;
 						}
 					}
 				}
 			}
 
-			// for x passes
-				// for x, y in grid
-				// 
-				// Calculate all tiles strengths, by checking surrounding tiles -> O8 * size or O4 * size
-				// Check all tiles to determine if they need to change or not (check the strength), and if they do, check the surrounding tiles -> O8 * lesser size
-				// 
-				// Check Tile
-					// Check surrounding tiles / Calculate strength for each, depending on their own surrounding tiles -> O64
-					// If not enough tiles
-						// Turn tile into strongest tile biome out of all the surrounding tiles
-				// Check if Tile is Sea and is inland
-					// Turn tile into lake
-						// Select the right sprite depending on the surrounding tiles -> O8
-
-			if (width >= 5 && height >= 5)
+			for (int i = 0; i < 1; i++)
 			{
-				CreateSeaAndLakeRegions();
-
-				for (int i = 0; i < 4; i++)
-				{
-					NaturalizeMap();
-				}
+				SmoothBiomes();
 			}
 
+			//CreateSeaAndLakeRegions();
+		}
+
+		void Grid::SmoothBiomes()
+		{
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++)
 				{
-					CreateTile(x, y, preTiles[index(x, y)]);
-				}
-			}
-		}
-
-		void Grid::NaturalizeMap()
-		{
-			for (int y = 2; y < height - 2; y++) {
-				for (int x = 2; x < width - 2; x++)
-				{
-					TurnTileWithStrength(x, y);
-				}
-			}
-
-			CreateSeaAndLakeRegions();
-		}
-
-		void Grid::SetWaterRegions()
-		{
-			map<pair<int, int>, BiomeType> seaRegionTiles = map<pair<int, int>, BiomeType>(seaBorderTiles);
-
-			for (int y = 2; y < height - 2; y++) {
-				for (int x = 2; x < width - 2; x++)
-				{
-					if (preTiles[index(x, y)] == BiomeType::Sea || preTiles[index(x, y)] == BiomeType::Lake) {
-						if (preTiles[index(x - 1, y)] == BiomeType::Sea || preTiles[index(x - 1, y)] == BiomeType::Lake) {
-							seaRegionTiles.insert({ { x, y }, BiomeType::Sea });
-							preTiles[index(x, y)] = BiomeType::Sea;
-							continue;
-						}
-						if (preTiles[index(x, y - 1)] == BiomeType::Sea || preTiles[index(x, y - 1)] == BiomeType::Lake) {
-							seaRegionTiles.insert({ { x, y }, BiomeType::Sea });
-							preTiles[index(x, y)] = BiomeType::Sea;
-							continue;
-						}
-						if (preTiles[index(x + 1, y)] == BiomeType::Sea || preTiles[index(x + 1, y)] == BiomeType::Lake) {
-							seaRegionTiles.insert({ { x, y }, BiomeType::Sea });
-							preTiles[index(x, y)] = BiomeType::Sea;
-							continue;
-						}
-						if (preTiles[index(x, y + 1)] == BiomeType::Sea || preTiles[index(x, y + 1)] == BiomeType::Lake) {
-							seaRegionTiles.insert({ { x, y }, BiomeType::Sea });
-							preTiles[index(x, y)] = BiomeType::Sea;
-							continue;
-						}
-						preTiles[index(x, y)] = BiomeType::Lake;
+					if (preTiles[index(x, y)] != BiomeType::None && preTiles[index(x, y)] != BiomeType::Sea)
+					{
+						CheckBiome(x, y);
 					}
 				}
 			}
 		}
-
-		void Grid::TurnTileWithStrength(int _x, int _y)
+		void Grid::CheckBiome(int _x, int _y)
 		{
 			map<BiomeType, float> biomesStrengths;
 
-			for (int nx = _x - 1; nx < _x + 1; nx++) {
-				for (int ny = _y - 1; ny < _y + 1; ny++)
+			for (int nx = _x - 1; nx <= _x + 1; nx++) {
+				for (int ny = _y - 1; ny <= _y + 1; ny++)
 				{
-					if (nx == _x && ny == _y) {
-						biomesStrengths[preTiles[index(nx, ny)]] += 2.0f;
+					if (nx >= 0 && nx < width && ny >= 0 && ny < height)
+					{
+						if (preTiles[index(nx, ny)] == BiomeType::None || preTiles[index(nx, ny)] == BiomeType::Sea)
+							continue;
+
+						if (nx == _x && ny == _y) {
+							biomesStrengths[preTiles[index(nx, ny)]] += 2.0f;
+						}
+						biomesStrengths[preTiles[index(nx, ny)]] += 1.0f;
 					}
-					biomesStrengths[preTiles[index(nx, ny)]] += 1.0f;
 				}
 			}
 
@@ -373,8 +290,8 @@ namespace alpha
 
 			int nextLabel = 1;
 
-			for (int y = height - 2; y > 0; y--) {
-				for (int x = 1; x < width - 1; x++)
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++)
 				{
 					auto tileBiome = preTiles[index(x, y)];
 					if (tileBiome != BiomeType::Sea && tileBiome != BiomeType::Lake) {
@@ -382,10 +299,10 @@ namespace alpha
 					}
 					else {
 						auto leftTileBiome = preTiles[index(x - 1, y)];
-						auto aboveTileBiome = preTiles[index(x, y + 1)];
+						auto aboveTileBiome = preTiles[index(x, y - 1)];
 
 						int leftLabel = labels[{x - 1, y}];
-						int aboveLabel = labels[{x, y + 1}];
+						int aboveLabel = labels[{x, y - 1}];
 
 						if (leftTileBiome == BiomeType::Sea || leftTileBiome == BiomeType::Lake) {
 							labels.insert({ {x, y}, leftLabel });
@@ -415,8 +332,8 @@ namespace alpha
 					}
 				}
 			}
-			for (int y = height - 2; y > 0; y--) {
-				for (int x = 1; x < width - 1; x++)
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++)
 				{
 					auto& label = labels[{x, y}];
 					if (label != 0) {
@@ -427,8 +344,8 @@ namespace alpha
 				}
 			}
 
-			for (int y = height - 2; y > 0; y--) {
-				for (int x = 1; x < width - 1; x++)
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++)
 				{
 					auto& label = labels[{x, y}];
 					if (label == 1) {
@@ -437,6 +354,16 @@ namespace alpha
 					if (label > 1) {
 						preTiles[index(x, y)] = BiomeType::Lake;
 					}
+				}
+			}
+		}
+
+		void Grid::CreateMap()
+		{
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++)
+				{
+					CreateTile(x, y, preTiles[index(x, y)]);
 				}
 			}
 		}

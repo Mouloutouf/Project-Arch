@@ -30,7 +30,7 @@ namespace alpha
 			ebStatus::Destroy, ebStatus::Destroy,	// Resource Status, Trees Status
 			15, 10, 0, 								// Costs
 			/// WARNING   v   replace Sea with Lake /!\ /
-			2, BiomeType::Sea, RawResourceType::WATER);		// Exploitation
+			2, BiomeType::Lake, RawResourceType::WATER);		// Exploitation
 		static ArchBuilding WATER_PURIFIER_BUILDING = ArchBuilding(BuildingType::WaterPurifier, "Building Water Purifier", 2,
 			20, 20,									// Consumption
 			ebStatus::Destroy, ebStatus::Destroy,	// Resource Status, Trees Status

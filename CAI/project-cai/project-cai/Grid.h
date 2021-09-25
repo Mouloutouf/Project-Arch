@@ -47,33 +47,29 @@ namespace alpha
 
 			void GenerateMap();
 
-			void GenerateSpace();
+			void GenerateTerritory();
 			void GenerateIsland();
 			void CalculateBiomes();
 			void GenerateBiomes();
 			void CreateMap();
 
-			void SmoothArea(map<pair<int, int>, int> _area);
-			int GetSurroundingTiles(int _x, int _y, map<pair<int, int>, int> _area);
+			map<pair<int, int>, int> SmoothArea(map<pair<int, int>, int>& _area);
+			int GetSurroundingTiles(int _x, int _y, map<pair<int, int>, int>& _area);
+
+			void SmoothBiomes();
+			void CheckBiome(int _x, int _y);
 
 			void CreateSeaAndLakeRegions();
 
-			int randomSpacePercent;
-			map<pair<int, int>, int> spaceTiles;
+			void CreateTile(int _x, int _y, BiomeType _b);
 
-			int randomFillPercent;
-			map<pair<int, int>, int> baseTiles;
+			int randomTerritoryPercent;
+			map<pair<int, int>, int> territoryTiles;
+
+			int randomIslandPercent;
+			map<pair<int, int>, int> islandTiles;
 
 			vector<BiomeType> preTiles;
-
-			void GenerateRandomMap();
-			void SetWaterRegions();
-			void NaturalizeMap();
-			void TurnTileWithStrength(int _x, int _y);
-			
-			map<pair<int, int>, BiomeType> seaBorderTiles;
-
-			void CreateTile(int _x, int _y, BiomeType _b);
 
 			map<BiomeType, float> biomesFillValues;
 			map<BiomeType, float> biomesFillPercent;
