@@ -84,7 +84,7 @@ namespace alpha
 			pair<int, int> ContainsObjectToRender(RenderObject* _renderObject);
 
 			Vector2f worldOrigin() {
-				Vector2f origin = -(camera->gameObject->transform.position());
+				Vector2f origin = -(camera->gameObject->transform->position());
 				origin *= (float)camera->pixelsPerUnit();
 				origin = Vector2f(displayOrigin().x + origin.x, displayOrigin().y - origin.y);
 				return origin;

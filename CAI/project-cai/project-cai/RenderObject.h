@@ -22,7 +22,7 @@ namespace alpha
 
 			int ppu = 100; // ppu
 
-			Drawable* drawable = nullptr;
+			vector<Drawable*> drawables;
 
 			__Layer layer = Layers::DEFAULT_LAYER;
 			int orderInLayer = 0;
@@ -56,6 +56,8 @@ namespace alpha
 			SpriteObject(int _ppu, Texture _texture);
 			SpriteObject(const SpriteObject& that);
 
+			/*virtual void Create(int _ppu, string _spritePath);*/
+
 			string spritePath;
 
 			Texture texture;
@@ -63,6 +65,23 @@ namespace alpha
 
 			void SetSprite(string _spritePath);
 			Vector2f GetSize();
+		};
+
+		class UISpriteObject : public SpriteObject
+		{
+		public:
+
+			UISpriteObject(int _ppu, string _spritePath);
+			UISpriteObject(int _ppu, Texture _texture);
+			UISpriteObject(const UISpriteObject& that);
+
+			RectangleShape shape;
+
+			float outlineThickness = 0.0f;
+			Color outlineColor = Color::White;
+
+			void SetOutline(float _thickness, Color _color);
+			bool HasOutline();
 		};
 	}
 }

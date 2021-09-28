@@ -50,8 +50,8 @@ namespace alpha
 			auto excavationSr = excavationIcon->AddComponent(new SpriteRenderer(excavationIcon, AssetView::currentScene->GetCurrentDisplay(), 
 				ASSETS_FOLDER + "Excavation Icon" + ".png", 400));
 			excavationSr->SetLayer(Layers::UI_LAYER);
-			excavationIcon->transform.localScale = Vector2f(0.4f, 0.4f);
-			excavationIcon->transform.localPosition = Vector2f(-0.25f, 0.25f);
+			excavationIcon->transform->localScale = Vector2f(0.4f, 0.4f);
+			excavationIcon->transform->localPosition = Vector2f(-0.25f, 0.25f);
 			excavationSr->SetActive(false);
 
 			AssetView::AddAsset(tileDisplay);
@@ -72,8 +72,8 @@ namespace alpha
 			auto resourceSr = resourceIcon->AddComponent(new SpriteRenderer(resourceIcon, AssetView::currentScene->GetCurrentDisplay(),
 				ASSETS_FOLDER + "Water Resource Icon" + ".png", 190));
 			resourceSr->SetLayer(Layers::UI_LAYER);
-			resourceIcon->transform.localScale = Vector2f(0.3f, 0.3f);
-			resourceIcon->transform.localPosition = Vector2f(0.3f, 0.3f);
+			resourceIcon->transform->localScale = Vector2f(0.3f, 0.3f);
+			resourceIcon->transform->localPosition = Vector2f(0.3f, 0.3f);
 			resourceSr->SetActive(false);
 
 			AssetView::AddAsset(resourceIcon);
@@ -95,6 +95,14 @@ namespace alpha
 			selectedSr->SetLayer(Layers::UI_LAYER);
 
 			AssetView::AddAsset(selectedSquare);
+
+			///\
+
+			auto canvasPrefab = AssetView::Prefab(new GameObject("Canvas", nullptr, new UITransform()));
+			auto canvas = canvasPrefab->AddComponent(new Canvas());
+
+			auto topBar = AssetView::Prefab(new GameObject("Top Bar", nullptr, new UITransform()));
+			//auto topBarUISr = topBar->AddComponent(new UIElementRenderer());
 		}
 
 		GameObject* AssetManager::InstantiateAsset(const GameObject& _gameObject, GameObject* _parent, Vector2f _position, float _rotation)
@@ -106,8 +114,8 @@ namespace alpha
 
 			auto go = AssetView::currentScene->InstantiateGameObject(instance);
 
-			if (_position != Vector2f(0, 0)) go->transform.localPosition = _position;
-			if (_rotation != 0.0f) go->transform.localRotation = _rotation;
+			if (_position != Vector2f(0, 0)) go->transform->localPosition = _position;
+			if (_rotation != 0.0f) go->transform->localRotation = _rotation;
 			go->SetParent(_parent);
 
 			delete instance;

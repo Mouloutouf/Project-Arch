@@ -19,7 +19,7 @@ namespace alpha
         }
 
 #pragma region Core Methods
-        GameObject* SceneView::CreateGameObject(string _name, GameObject* _parent, Transform2D _transform, Layer _layer, vector<Tag> _tags)
+        GameObject* SceneView::CreateGameObject(string _name, GameObject* _parent, Transform2D* _transform, Layer _layer, vector<Tag> _tags)
         {
             gameObjects.push_back(new GameObject(_name, _parent, _transform, _layer, _tags));
             auto go = gameObjects.back();
@@ -155,7 +155,7 @@ namespace alpha
         {
             GameObject* sgo = CreateGameObject(_name);
             sgo->AddComponent(new SpriteRenderer(sgo, &currentDisplay, _sprite, _ppu));
-            sgo->transform.localPosition = _position;
+            sgo->transform->localPosition = _position;
             return sgo;
         }
 #pragma endregion

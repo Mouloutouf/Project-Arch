@@ -60,7 +60,7 @@ namespace alpha
 			auto iconSr = buildingIcon->AddComponent(new SpriteRenderer(buildingIcon, AssetManager::currentSceneDisplay, 
 				Utility::spritePath(archBuildings[selected].second.sprite), 16));
 			iconSr->SetLayer(Layers::UI_LAYER);
-			buildingIcon->transform.localScale /= 2.0f;
+			buildingIcon->transform->localScale /= 2.0f;
 		}
 		void ConstructionInput::Update(float _elapsedTime)
 		{
@@ -69,11 +69,11 @@ namespace alpha
 			currentMousePosition = display.MousePositionToWorld();
 
 			Vector2f iconPos = currentMousePosition + offsetFromMouse;
-			buildingIcon->transform.localPosition = iconPos;
+			buildingIcon->transform->localPosition = iconPos;
 
 			Vector2f tileMousePos = Vector2f(round(currentMousePosition.x), round(currentMousePosition.y));
-			buildingPreview->transform.localPosition = tileMousePos;
-			hoveredSquare->transform.localPosition = tileMousePos;
+			buildingPreview->transform->localPosition = tileMousePos;
+			hoveredSquare->transform->localPosition = tileMousePos;
 
 			auto hoveredTile = grid->GetTile((int)tileMousePos.x, (int)tileMousePos.y);
 
@@ -246,7 +246,7 @@ namespace alpha
 							exploitedTiles.push_back(to->tile);
 
 						// Construct Building
-						auto bgo = AssetManager::InstantiateAsset(*buildingPrefab, nullptr, buildingPreview->transform.localPosition);
+						auto bgo = AssetManager::InstantiateAsset(*buildingPrefab, nullptr, buildingPreview->transform->localPosition);
 						auto bo = bgo->GetComponent<BuildingObject>();
 
 						bo->building = Construction::ConstructBuilding(currentHoveredTile->tile, archBuildings[selected].first, exploitedTiles);

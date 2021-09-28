@@ -35,12 +35,13 @@ namespace alpha
 
 			SpriteRenderer* biomeDisplay;
 
-			GameObject* tileDisplayPrefab;
-			GameObject* tileDisplay;
+			GameObject* tileDisplayPrefab = nullptr;
+			GameObject* tileDisplay = nullptr;
 
-			SpriteRenderer* areaSquare;
+			SpriteRenderer* areaSquare = nullptr;
+			SpriteRenderer* excavationIcon = nullptr;
+
 			map<__ResourceType, SpriteRenderer*> resourceIconsSpriteRenderers;
-			SpriteRenderer* excavationIcon;
 		};
 	}
 }

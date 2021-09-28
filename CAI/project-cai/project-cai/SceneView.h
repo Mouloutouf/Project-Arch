@@ -26,7 +26,7 @@ namespace alpha
 			SceneView(GameWindow* _gameWindow, string _name = "New Scene");
 			~SceneView();
 
-			GameObject* CreateGameObject(string _name = "New Game Object", GameObject* _parent = nullptr, Transform2D _transform = Transform2D(),
+			GameObject* CreateGameObject(string _name = "New Game Object", GameObject* _parent = nullptr, Transform2D* _transform = new Transform2D(),
 				 Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default });
 			GameObject* InstantiateGameObject(GameObject* _gameObject);
 			void DestroyGameObject(GameObject* _gameObject);
@@ -47,7 +47,7 @@ namespace alpha
 			void UserInit();
 
 			void Play();
-			bool inPlay;
+			bool inPlay = false;
 
 			void Update(float _elapsedTime);
 			void EventUpdate(Event& _event, float _elapsedTime);

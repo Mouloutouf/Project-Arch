@@ -195,6 +195,7 @@
     <ClInclude Include="Buildings.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraInput.h" />
+    <ClInclude Include="Canvas.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Construction.h" />

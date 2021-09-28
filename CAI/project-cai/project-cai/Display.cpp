@@ -10,7 +10,12 @@ namespace alpha
 		DisplayedObject::DisplayedObject(GameObject* _gameObject, RenderObject* _renderObject, Camera* _cam, Vector2f _origin)
 			: gameObjectToRender(_gameObject), objectToRender(_renderObject), ppu(_renderObject->ppu), cam(_cam), origin(_origin)
 		{
-			isText = typeid(*_renderObject->drawable) == typeid(Text);
+			for (auto& d : _renderObject->drawables) {
+				if (typeid(*d) == typeid(Text)) {
+					isText = true;
+					break;
+				}
+			}
 		}
 
 		DisplayedObject::~DisplayedObject()
@@ -21,7 +26,7 @@ namespace alpha
 		{
 			/// Position
 			Vector2f pos;
-			pos = gameObjectToRender->transform.position() - cam->gameObject->transform.position(); // Calculate the position of the displayed object relative to the camera
+			pos = gameObjectToRender->transform->position() - cam->gameObject->transform->position(); // Calculate the position of the displayed object relative to the camera
 			pos *= (float)cam->pixelsPerUnit(); // Convert the position from units to pixels
 			pos = Vector2f(origin.x + pos.x, origin.y - pos.y); // Calculate the position relative to the origin (center) of the display (and not the top left corner)
 
@@ -29,7 +34,7 @@ namespace alpha
 
 			/// Scale
 			Vector2f scale;
-			scale = gameObjectToRender->transform.scale() * ((float)cam->pixelsPerUnit() / (float)ppu); // Calculate the scale of the displayed object using the ratio
+			scale = gameObjectToRender->transform->scale() * ((float)cam->pixelsPerUnit() / (float)ppu); // Calculate the scale of the displayed object using the ratio
 																										// between the camera's ppu and the displayed object's ppu
 			cachedDisplayScale = scale;
 
@@ -140,11 +145,12 @@ namespace alpha
 			//DrawGrid();
 
 			for (int i = 0; i < entries.size(); i++) {
-				for (auto& d : displayedObjects[entries[i]]) {
+				for (auto& d : displayedObjects[entries[i]])
+				{
 					if (d->objectToRender->render == false) continue;
 					d->CalculateDraw();
-					Draw(d->objectToRender->drawable, d);
-					//DebugDraw(d);
+					for (auto& dw : d->objectToRender->drawables)
+						Draw(dw, d);
 				}
 			}
 		}
@@ -188,7 +194,7 @@ namespace alpha
 			const int step = 1000;
 
 			/// Camera Dimensions
-			Vector2f camPosition = camera->gameObject->transform.position();
+			Vector2f camPosition = camera->gameObject->transform->position();
 			Vector2f cachedCamOffset = Vector2f((resolution.x / 2) / camPPU, (resolution.y / 2) / camPPU);
 			Vector2f minCamPos = camPosition - cachedCamOffset;
 			Vector2f maxCamPos = camPosition + cachedCamOffset;
@@ -244,12 +250,12 @@ namespace alpha
 		{
 			_screenPosition = Vector2f(_screenPosition.x - displayOrigin().x, displayOrigin().y - _screenPosition.y);
 			_screenPosition /= (float)camera->pixelsPerUnit();
-			_screenPosition += camera->gameObject->transform.position();
+			_screenPosition += camera->gameObject->transform->position();
 			return _screenPosition;
 		}
 		Vector2f Display::WorldToScreenPosition(Vector2f _worldPosition)
 		{
-			_worldPosition -= camera->gameObject->transform.position();
+			_worldPosition -= camera->gameObject->transform->position();
 			_worldPosition *= (float)camera->pixelsPerUnit();
 			_worldPosition = Vector2f(displayOrigin().x + _worldPosition.x, displayOrigin().y - _worldPosition.y);
 			return _worldPosition;

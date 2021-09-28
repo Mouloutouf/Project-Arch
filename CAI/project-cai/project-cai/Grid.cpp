@@ -26,8 +26,8 @@ namespace alpha
 
 			tilePrefab = AssetManager::LoadAsset("Tile");
 
-			randomTerritoryPercent = 67; // Amount of Sea (Territory)
-			randomIslandPercent = 67; // Amount of Land (Island)
+			randomTerritoryPercent = 70; // Amount of Sea (Territory)
+			randomIslandPercent = 70; // Amount of Land (Island)
 
 			biomesFillValues.insert({ BiomeType::Desert, 2.5f });
 			biomesFillValues.insert({ BiomeType::Field, 2.5f });
@@ -235,7 +235,7 @@ namespace alpha
 				}
 			}
 
-			for (int i = 0; i < 1; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				SmoothBiomes();
 			}

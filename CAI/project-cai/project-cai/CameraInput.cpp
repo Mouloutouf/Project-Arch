@@ -25,16 +25,16 @@ namespace alpha
 		void CameraInput::Update(float _elapsedTime)
 		{
 			if (Keyboard::isKeyPressed(Keyboard::Z)) {
-				camera->gameObject->transform.localPosition.y += _elapsedTime * moveSpeed;
+				camera->gameObject->transform->localPosition.y += _elapsedTime * moveSpeed;
 			}
 			if (Keyboard::isKeyPressed(Keyboard::S)) {
-				camera->gameObject->transform.localPosition.y -= _elapsedTime * moveSpeed;
+				camera->gameObject->transform->localPosition.y -= _elapsedTime * moveSpeed;
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Q)) {
-				camera->gameObject->transform.localPosition.x -= _elapsedTime * moveSpeed;
+				camera->gameObject->transform->localPosition.x -= _elapsedTime * moveSpeed;
 			}
 			if (Keyboard::isKeyPressed(Keyboard::D)) {
-				camera->gameObject->transform.localPosition.x += _elapsedTime * moveSpeed;
+				camera->gameObject->transform->localPosition.x += _elapsedTime * moveSpeed;
 			}
 
 			if (isDrag) {
@@ -45,9 +45,9 @@ namespace alpha
 				currentMousePos /= (float)camera->pixelsPerUnit();
 
 				Vector2f mouseMoveOffset = capturedMousePos - currentMousePos;
-				dragPos = camera->gameObject->transform.localPosition + mouseMoveOffset;
+				dragPos = camera->gameObject->transform->localPosition + mouseMoveOffset;
 
-				camera->gameObject->transform.localPosition = dragPos;
+				camera->gameObject->transform->localPosition = dragPos;
 
 				capturedMousePos = currentMousePos;
 			}

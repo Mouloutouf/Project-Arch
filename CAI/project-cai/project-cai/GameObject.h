@@ -36,27 +36,27 @@ namespace alpha
 			Vector2f localPosition = Vector2f(0, 0);
 			float localRotation = 0.0f;
 			Vector2f localScale = Vector2f(1, 1);
+
+			virtual Transform2D* Clone();
 		};
 
 		class GameObject
 		{
 		public:
 
-			GameObject(string _name = "New Game Object", GameObject* _parent = nullptr, Transform2D _transform = Transform2D(),
+			GameObject(string _name = "New Game Object", GameObject* _parent = nullptr, Transform2D* _transform = new Transform2D(),
 				Layer _layer = Layer::Default, vector<Tag> _tags = { Tag::Default });
 			GameObject(const GameObject& that, GameObject* _parent = nullptr);
 
 			~GameObject();
 
 #pragma region Components
-			//void AddComponent(Component* _component); /* Add Component should be made into a T template method, to retrieve the Component, after creating it. */
-			void RemoveComponent(Component* _component);
-
 			template <typename T = Component> T* AddComponent(T* _component) {
 				components.push_back(_component);
 				_component->gameObject = this;
 				return _component;
 			}
+			void RemoveComponent(Component* _component);
 
 			template <typename T = Component> T* GetComponent() {
 				for (auto& c : components) {
@@ -108,7 +108,7 @@ namespace alpha
 			void Update(float _elapsedTime);
 			void EventUpdate(Event& _event, float _elapsedTime);
 
-			Transform2D transform;
+			Transform2D* transform;
 
 			string name;
 			Layer layer;

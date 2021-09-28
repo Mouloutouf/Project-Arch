@@ -14,4 +14,6 @@
 #include "Camera.h"
 #include "ScriptBehaviour.h"
 
+#include "Canvas.h"
+
 #endif // !CORE_H

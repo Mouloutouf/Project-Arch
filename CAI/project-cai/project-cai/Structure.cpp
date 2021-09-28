@@ -5,6 +5,7 @@ namespace alpha
 	namespace game
 	{
 		Structure::Structure()
+			: structureType(StructureType::ShipParts)
 		{
 		}
 		Structure::Structure(StructureType _structureType, vector<Resource> _heldResources)

@@ -302,5 +302,8 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Fichiers d%27en-tête\Core\Views</Filter>
     </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Fichiers d%27en-tête\Core\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
