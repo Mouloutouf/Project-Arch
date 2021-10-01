@@ -32,8 +32,12 @@ namespace alpha
 
 			UISpriteRenderer* Clone(GameObject* _gameObject) override;
 
-			void CreateRenderObject(string _spritePath, int _ppu, __Layer _layer) override;
-			void CreateRenderObject(Texture _texture, int _ppu, __Layer _layer) override;
+			void SetOutline(float _thickness, Color _color);
+			bool HasOutline();
+
+		private:
+
+			UISpriteObject* uiSpriteObject;
 		};
 	}
 }

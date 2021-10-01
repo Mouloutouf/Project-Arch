@@ -1,3 +1,394 @@
-﻿  Display.cpp
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Display.cpp(112): warning C4715: 'alpha::core::Display::FindKeyPosition' : les chemins de contrôle ne retournent pas tous une valeur
-  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe
+﻿  AssetView.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameObject.h(55,1): error C2243: 'cast de type' : la conversion de 'T *' en '_Ty' existe, mais n'est pas accessible
+          with
+          [
+              T=alpha::core::Canvas
+          ]
+          and
+          [
+              _Ty=alpha::core::Component *
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\AssetView.cpp(102): message : voir la référence à l'instanciation de la fonction modèle 'T *alpha::core::GameObject::AddComponent<alpha::core::Canvas>(T *)' en cours de compilation
+          with
+          [
+              T=alpha::core::Canvas
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\GameObject.h(56,15): error C2247: 'alpha::core::Component::gameObject' non accessible, car 'alpha::core::Canvas' utilise 'private' pour hériter de 'alpha::core::Component'
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Component.h(36): message : voir la déclaration de 'alpha::core::Component::gameObject'
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(106): message : voir la déclaration de 'alpha::core::Canvas'
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Component.h(16): message : voir la déclaration de 'alpha::core::Component'
+  Biome.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  Building.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  BuildingObject.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  Buildings.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  CameraInput.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  Canvas.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  Collider.cpp
+  Construction.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  ConstructionInput.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  Display.cpp
+  Biomes.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Biomes.cpp(186,18): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Biomes.cpp(187,18): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+  GameEngine.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  Grid.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  main.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  RenderObject.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\RenderObject.cpp(71,42): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\RenderObject.cpp(71,37): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\RenderObject.cpp(91,42): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\RenderObject.cpp(91,37): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+  Resource.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  SceneView.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  ScriptBehaviour.cpp
+  SpriteRenderer.cpp
+  Génération de code en cours...
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Display.cpp(117): warning C4715: 'alpha::core::Display::FindKeyPosition' : les chemins de contrôle ne retournent pas tous une valeur
+  Compilation en cours...
+  Storage.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  Structure.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Structure.cpp(34,18): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Structure.cpp(35,16): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+  TemplateGameScript.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  TextRenderer.cpp
+  Tile.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  TileObject.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(47,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(51,19): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(56,12): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(63,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(70,13): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(77,14): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,19): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Canvas.h(89,48): warning C4244: 'initialisation' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=int
+          ]
+  UIElementRenderer.cpp
+  Génération de code en cours...
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\UIElementRenderer.cpp(60): error C4716: 'alpha::core::UISpriteRenderer::HasOutline' : doit retourner une valeur

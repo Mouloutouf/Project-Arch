@@ -7,27 +7,28 @@ namespace alpha
 		SpriteRenderer::SpriteRenderer()
 		{
 		}
-		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, Display* _display)
-			: Component(_gameObject), display(_display)
-		{
-		}
 		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath, int _ppu, __Layer _layer)
 			: Component(_gameObject), display(_display)
 		{
-			CreateRenderObject(_spritePath, _ppu, _layer);
+			spriteObject = new SpriteObject(_ppu, _spritePath);
+			spriteObject->layer = _layer;
+
+			AddToRender();
 		}
 		SpriteRenderer::SpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, int _ppu, __Layer _layer)
 			: Component(_gameObject), display(_display)
 		{
-			CreateRenderObject(_texture, _ppu, _layer);
+			spriteObject = new SpriteObject(_ppu, _texture);
+			spriteObject->layer = _layer;
+
+			AddToRender();
 		}
 		SpriteRenderer::SpriteRenderer(const SpriteRenderer& that, GameObject* _gameObject)
 			: Component(that, _gameObject), display(that.display)
 		{
-			// Will not work for when passing a UISpriteObject* as a SpriteObject*
-			// The substitued T type will still be a SpriteObject*
-			// Polymorphims and templates do not mix. Which is a great fucking shame.
-			CreateRenderObject(that.spriteObject);
+			spriteObject = new SpriteObject(*that.spriteObject);
+
+			AddToRender();
 		}
 
 		SpriteRenderer::~SpriteRenderer()
@@ -47,21 +48,6 @@ namespace alpha
 		SpriteRenderer* SpriteRenderer::Clone(GameObject* _gameObject)
 		{
 			return new SpriteRenderer(*this, _gameObject);
-		}
-
-		void SpriteRenderer::CreateRenderObject(string _spritePath, int _ppu, __Layer _layer)
-		{
-			spriteObject = new SpriteObject(_ppu, _spritePath);
-			spriteObject->layer = _layer;
-
-			AddToRender();
-		}
-		void SpriteRenderer::CreateRenderObject(Texture _texture, int _ppu, __Layer _layer)
-		{
-			spriteObject = new SpriteObject(_ppu, _texture);
-			spriteObject->layer = _layer;
-
-			AddToRender();
 		}
 
 		void SpriteRenderer::SetActive(bool _value)

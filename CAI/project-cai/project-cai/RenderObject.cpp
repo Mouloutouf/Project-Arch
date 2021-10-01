@@ -34,8 +34,6 @@ namespace alpha
 			: RenderObject(_ppu), spritePath(_spritePath)
 		{
 			SetSprite(_spritePath);
-
-			drawables.push_back(&sprite);
 		}
 		SpriteObject::SpriteObject(int _ppu, Texture _texture)
 			: RenderObject(_ppu), texture(_texture)
@@ -55,6 +53,8 @@ namespace alpha
 				spritePath = _spritePath;
 				texture.loadFromFile(_spritePath);
 				sprite.setTexture(texture);
+
+				drawables.push_back(&sprite);
 			}
 		}
 		Vector2f SpriteObject::GetSize()

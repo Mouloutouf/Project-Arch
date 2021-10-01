@@ -56,7 +56,11 @@ namespace alpha
 			SpriteObject(int _ppu, Texture _texture);
 			SpriteObject(const SpriteObject& that);
 
-			/*virtual void Create(int _ppu, string _spritePath);*/
+			virtual void Create(int _ppu, string _spritePath) {
+				ppu = _ppu;
+				spritePath = _spritePath;
+				SetSprite(_spritePath);
+			}
 
 			string spritePath;
 
