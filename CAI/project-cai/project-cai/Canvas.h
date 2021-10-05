@@ -3,6 +3,7 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
+#include <algorithm>
 #include "Alpha.h"
 
 #include "GameObject.h"
@@ -42,37 +43,37 @@ namespace alpha
 				else transform->localPosition.y = origin().y + _y;
 			}
 
-			void setWidth(int _width) {
+			void setWidth(float _width) {
 				if (anchor.stretch.x > 0) width = parent->width - right - left;
 				else width = _width;
 			}
-			void setHeight(int _height) {
+			void setHeight(float _height) {
 				if (anchor.stretch.y > 0) height = parent->height - top - bottom;
 				else height = _height;
 			}
 
-			void setTop(int _top) {
+			void setTop(float _top) {
 				if (anchor.stretch.y > 0) {
 					top = _top;
 					height = parent->height - top - bottom;
 					transform->localPosition.y = parent->posY() - (top / 2) + (bottom / 2);
 				}
 			}
-			void setBottom(int _bottom) {
+			void setBottom(float _bottom) {
 				if (anchor.stretch.y > 0) {
 					bottom = _bottom;
 					height = parent->height - top - bottom;
 					transform->localPosition.y = parent->posY() - (top / 2) + (bottom / 2);
 				}
 			}
-			void setLeft(int _left) {
+			void setLeft(float _left) {
 				if (anchor.stretch.x > 0) {
 					left = _left;
 					width = parent->width - right - left;
 					transform->localPosition.x = parent->posX() - (right / 2) + (left / 2);
 				}
 			}
-			void setRight(int _right) {
+			void setRight(float _right) {
 				if (anchor.stretch.x > 0) {
 					right = _right;
 					width = parent->width - right - left;
@@ -86,7 +87,7 @@ namespace alpha
 			float posY() { return transform->localPosition.y; }
 
 			Vector2f origin() {
-				float anchorX = anchor.position.x, anchorY = anchor.position.y;
+				float anchorX = (float)anchor.position.x, anchorY = (float)anchor.position.y;
 				if (anchor.stretch.x > 0) anchorX = 0;
 				if (anchor.stretch.y > 0) anchorY = 0;
 				return Vector2f((parent->width / 2) * anchorX, (parent->height / 2) * anchorY);
@@ -103,7 +104,7 @@ namespace alpha
 			Transform2D* transform;
 		};
 
-		class Canvas : Component
+		class Canvas : public Component
 		{
 		public:
 

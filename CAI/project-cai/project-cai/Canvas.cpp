@@ -12,6 +12,10 @@ namespace alpha
 		Canvas::Canvas()
 		{
 		}
+
+		Canvas::~Canvas()
+		{
+		}
 		
 	}
 }

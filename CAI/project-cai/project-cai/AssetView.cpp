@@ -101,7 +101,7 @@ namespace alpha
 			auto canvasPrefab = AssetView::Prefab(new GameObject("Canvas", nullptr, new UITransform()));
 			auto canvas = canvasPrefab->AddComponent(new Canvas());
 
-			auto topBar = AssetView::Prefab(new GameObject("Top Bar", nullptr, new UITransform()));
+			auto topBar = AssetView::Prefab(new GameObject("Top Bar", canvasPrefab, new UITransform()));
 			//auto topBarUISr = topBar->AddComponent(new UIElementRenderer());
 		}
 
