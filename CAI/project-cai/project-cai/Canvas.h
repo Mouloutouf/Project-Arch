@@ -13,12 +13,6 @@ namespace alpha
 {
 	namespace core
 	{
-		enum class AnchorType {
-			Center, Right, TopRight, Top, TopLeft, Left, BottomLeft, Bottom, BottomRight, 
-			TopStretchWidth, CenterStretchWidth, BottomStretchWidth,
-			RightStretchHeight, CenterStretchHeight, LeftStretchHeight,
-			Stretch
-		};
 		enum class AnchorX { Center, Right, Left };
 		enum class AnchorY { Center, Top, Bottom };
 		enum class AnchorStretch { None, Width, Height, Stretch };
@@ -33,15 +27,6 @@ namespace alpha
 		{
 			Anchor getAnchor() { return anchor; }
 
-			void setAnchor(AnchorX _anchorX, AnchorY _anchorY, AnchorStretch _anchorStretch)
-			{
-				int aX = _anchorX == AnchorX::Right ? 1 : _anchorX == AnchorX::Left ? -1 : 0;
-				int aY = _anchorY == AnchorY::Top ? 1 : _anchorY == AnchorY::Bottom ? -1 : 0;
-				anchor.position = Vector2i(aX, aY);
-
-				// Find another solution for the Anchor. This is not practical enough.
-			}
-
 			void setAnchor(int _posX, int _posY, int _stretchX, int _stretchY)
 			{ 
 				_posX = clamp(_posX, -1, 1);
@@ -52,75 +37,63 @@ namespace alpha
 				_stretchY = clamp(_stretchY, 0, 1);
 				anchor.stretch = Vector2i(_stretchX, _stretchY);
 			}
-
-			void setPosX(float _x) {
-				if (anchor.stretch.x > 0) transform->localPosition.x = 0;
-				else transform->localPosition.x = origin().x + _x;
+			
+			void setSize(float _width, float _height)
+			{
+				width = _width;
+				height = _height;
 			}
-			void setPosY(float _y) {
-				if (anchor.stretch.y > 0) transform->localPosition.y = 0;
-				else transform->localPosition.y = origin().y + _y;
-			}
-
-			void setWidth(float _width) {
-				if (anchor.stretch.x > 0) width = parent->width - right - left;
-				else width = _width;
-			}
-			void setHeight(float _height) {
-				if (anchor.stretch.y > 0) height = parent->height - top - bottom;
-				else height = _height;
-			}
-
-			void setTop(float _top) {
-				if (anchor.stretch.y > 0) {
-					top = _top;
-					height = parent->height - top - bottom;
-					transform->localPosition.y = parent->posY() - (top / 2) + (bottom / 2);
-				}
-			}
-			void setBottom(float _bottom) {
-				if (anchor.stretch.y > 0) {
-					bottom = _bottom;
-					height = parent->height - top - bottom;
-					transform->localPosition.y = parent->posY() - (top / 2) + (bottom / 2);
-				}
-			}
-			void setLeft(float _left) {
-				if (anchor.stretch.x > 0) {
-					left = _left;
-					width = parent->width - right - left;
-					transform->localPosition.x = parent->posX() - (right / 2) + (left / 2);
-				}
-			}
-			void setRight(float _right) {
+			void setSize(float _right, float _left, float _height) {
 				if (anchor.stretch.x > 0) {
 					right = _right;
-					width = parent->width - right - left;
-					transform->localPosition.x = parent->posX() - (right / 2) + (left / 2);
+					left = _left;
+					localPosition.x = (_left / 2) - (_right / 2);
+				}
+				height = _height;
+			}
+			void setSize(float _top, float _bottom, float _width) {
+				if (anchor.stretch.y > 0) {
+					top = _top;
+					bottom = _bottom;
+					localPosition.y = (_bottom / 2) - (_top / 2);
+				}
+				width = _width;
+			}
+			void setSize(float _top, float _bottom, float _right, float _left) {
+				if (anchor.stretch.x > 0 && anchor.stretch.y > 0)
+				{
+					top = _top;
+					bottom = _bottom;
+					localPosition.y = (_bottom / 2) - (_top / 2);
+
+					right = _right;
+					left = _left;
+					localPosition.x = (_left / 2) - (_right / 2);
 				}
 			}
 
-			float top, bottom, right, left;
-			float width, height;
-			float posX() { return transform->localPosition.x; }
-			float posY() { return transform->localPosition.y; }
-
-			Vector2f origin() {
+			Vector2f pivot() {
 				float anchorX = (float)anchor.position.x, anchorY = (float)anchor.position.y;
 				if (anchor.stretch.x > 0) anchorX = 0;
 				if (anchor.stretch.y > 0) anchorY = 0;
-				return Vector2f((parent->width / 2) * anchorX, (parent->height / 2) * anchorY);
+
+				return Vector2f((parent->localScale.x / 2) * anchorX, (parent->localScale.y / 2) * anchorY);
 			}
 
 			UITransform* Clone() override;
+
+			Vector2f position() override;
+			float rotation() override;
+			Vector2f scale() override;
 
 		private:
 			Anchor anchor;
 
 			UITransform* parent;
-			Vector2f localSize;
 
-			Transform2D* transform;
+			float x, y;
+			float width, height;
+			float top, bottom, right, left;
 		};
 
 		class Canvas : public Component

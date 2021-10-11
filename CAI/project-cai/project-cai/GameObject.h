@@ -29,9 +29,9 @@ namespace alpha
 
 			GameObject* gameObject = nullptr;
 
-			Vector2f position();
-			float rotation();
-			Vector2f scale();
+			virtual Vector2f position();
+			virtual float rotation();
+			virtual Vector2f scale();
 
 			Vector2f localPosition = Vector2f(0, 0);
 			float localRotation = 0.0f;
