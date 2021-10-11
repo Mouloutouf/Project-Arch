@@ -13,6 +13,16 @@ namespace alpha
 {
 	namespace core
 	{
+		enum class AnchorType {
+			Center, Right, TopRight, Top, TopLeft, Left, BottomLeft, Bottom, BottomRight, 
+			TopStretchWidth, CenterStretchWidth, BottomStretchWidth,
+			RightStretchHeight, CenterStretchHeight, LeftStretchHeight,
+			Stretch
+		};
+		enum class AnchorX { Center, Right, Left };
+		enum class AnchorY { Center, Top, Bottom };
+		enum class AnchorStretch { None, Width, Height, Stretch };
+
 		struct Anchor
 		{
 			Vector2i position;
@@ -22,6 +32,15 @@ namespace alpha
 		struct UITransform : Transform2D
 		{
 			Anchor getAnchor() { return anchor; }
+
+			void setAnchor(AnchorX _anchorX, AnchorY _anchorY, AnchorStretch _anchorStretch)
+			{
+				int aX = _anchorX == AnchorX::Right ? 1 : _anchorX == AnchorX::Left ? -1 : 0;
+				int aY = _anchorY == AnchorY::Top ? 1 : _anchorY == AnchorY::Bottom ? -1 : 0;
+				anchor.position = Vector2i(aX, aY);
+
+				// Find another solution for the Anchor. This is not practical enough.
+			}
 
 			void setAnchor(int _posX, int _posY, int _stretchX, int _stretchY)
 			{ 
