@@ -35,7 +35,7 @@ namespace alpha
 			/// Scale
 			Vector2f scale;
 			scale = gameObjectToRender->transform->scale() * ((float)cam->pixelsPerUnit() / (float)ppu); // Calculate the scale of the displayed object using the ratio
-																										// between the camera's ppu and the displayed object's ppu
+																										 // between the camera's ppu and the displayed object's ppu
 			cachedDisplayScale = scale;
 
 			/// Apply

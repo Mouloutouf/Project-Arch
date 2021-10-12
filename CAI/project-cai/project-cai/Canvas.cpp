@@ -23,6 +23,7 @@ namespace alpha
 			Vector2f scale;
 			scale.x = anchor.stretch.x > 0 ? parent->localScale.x - right - left : width;
 			scale.y = anchor.stretch.y > 0 ? parent->localScale.y - top - bottom : height;
+			return scale;
 		}
 
 		Canvas::Canvas()
