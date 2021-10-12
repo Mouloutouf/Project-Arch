@@ -96,6 +96,8 @@ namespace alpha
 			float top, bottom, right, left;
 		};
 
+		enum class RenderSpace { ScreenSpace, WorldSpace };
+
 		class Canvas : public Component
 		{
 		public:
@@ -105,9 +107,11 @@ namespace alpha
 
 			vector<UITransform*> uiTransforms;
 
+			RenderSpace renderSpace;
+
 		private:
 
-			UITransform uiTransform;
+			UITransform* transform;
 		};
 	}
 }
