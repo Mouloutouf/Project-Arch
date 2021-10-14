@@ -99,7 +99,7 @@ namespace alpha
 			///\
 
 			auto canvasPrefab = AssetView::Prefab(new GameObject("Canvas", nullptr, new UITransform()));
-			auto canvas = canvasPrefab->AddComponent(new Canvas());
+			auto canvas = canvasPrefab->AddComponent(new Canvas(canvasPrefab, RenderSpace::ScreenSpace, AssetView::currentScene->GetCurrentDisplay()));
 
 			auto topBar = AssetView::Prefab(new GameObject("Top Bar", canvasPrefab, new UITransform()));
 			//auto topBarUISr = topBar->AddComponent(new UIElementRenderer());
@@ -129,8 +129,15 @@ namespace alpha
 
 		AssetView::~AssetView()
 		{
+			// Delete Prefabs
 			for (auto& pg : prefabs)
 				delete pg;
+
+			// Delete Prefabs Children
+			for (auto& pcL : prefabsChildren) {
+				for (auto& pch : pcL.second)
+					delete pch;
+			}
 		}
 
 		GameObject* AssetView::Prefab(GameObject* _gameObject)
@@ -141,13 +148,33 @@ namespace alpha
 
 		void AssetView::AddAsset(GameObject* _gameObject)
 		{
+			// Add
 			prefabs.push_back(_gameObject);
+
+			// Add Children
+			// V2
+			prefabsChildren.insert({ _gameObject, vector<GameObject*>() });
+			for (auto& ch : *_gameObject->GetChildren()) {
+				prefabsChildren[_gameObject].push_back(ch);
+			}
 		}
 
 		void AssetView::DeleteAsset(string _gameObjectName)
 		{
+			// Find the Asset with Name
 			for (int i = 0; i < prefabs.size(); i++) {
-				if (prefabs[i]->name == _gameObjectName) {
+				if (prefabs[i]->name == _gameObjectName)
+				{
+					// Delete its Children
+					// V2
+					auto& pchList = prefabsChildren[prefabs[i]];
+					for (int i = 0; i < pchList.size(); i++)
+					{
+						delete pchList[i];
+						pchList.erase(pchList.begin() + i);
+					}
+
+					// Delete the Asset
 					delete prefabs[i];
 					prefabs.erase(prefabs.begin() + i);
 				}

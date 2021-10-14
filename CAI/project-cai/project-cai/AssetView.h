@@ -38,6 +38,10 @@ namespace alpha
 			static map<string, Texture> textures;
 
 			static SceneView* currentScene;
+
+		private:
+
+			static map<GameObject*, vector<GameObject*>> prefabsChildren;
 		};
 	}
 }

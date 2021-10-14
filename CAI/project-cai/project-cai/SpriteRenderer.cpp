@@ -74,5 +74,46 @@ namespace alpha
 
 		void SpriteRenderer::SetSprite(string _spritePath) { spriteObject->SetSprite(_spritePath); }
 		Sprite* SpriteRenderer::GetSprite() { return &spriteObject->sprite; }
+
+		/// Sprite Renderer T
+
+		_SpriteRenderer::_SpriteRenderer()
+		{
+		}
+		_SpriteRenderer::_SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath, int _ppu, __Layer _layer)
+			: Renderer<SpriteObject>(_gameObject, _display, _ppu, _layer)
+		{
+			spriteObject = dynamic_cast<SpriteObject*>(renderObject);
+			SetSprite(_spritePath);
+		}
+		_SpriteRenderer::_SpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, int _ppu, __Layer _layer)
+			: Renderer<SpriteObject>(_gameObject, _display, _ppu, _layer)
+		{
+			spriteObject = dynamic_cast<SpriteObject*>(renderObject);
+			SetSprite(_texture);
+		}
+		_SpriteRenderer::_SpriteRenderer(const _SpriteRenderer& that, GameObject* _gameObject)
+			: Renderer<SpriteObject>(that, _gameObject)
+		{
+			spriteObject = dynamic_cast<SpriteObject*>(renderObject);
+		}
+
+		_SpriteRenderer::~_SpriteRenderer()
+		{
+		}
+
+		_SpriteRenderer* _SpriteRenderer::Clone(GameObject* _gameObject)
+		{
+			return new _SpriteRenderer(*this, _gameObject);
+		}
+
+		Vector2f _SpriteRenderer::GetSize() { return spriteObject->GetSize(); }
+
+		string _SpriteRenderer::GetSpritePath() { return spriteObject->spritePath; }
+
+		void _SpriteRenderer::SetSprite(string _spritePath) { spriteObject->SetSprite(_spritePath); }
+		void _SpriteRenderer::SetSprite(Texture _texture) { spriteObject->SetSprite(_texture); }
+
+		Sprite* _SpriteRenderer::GetSprite() { return &spriteObject->sprite; }
 	}
 }

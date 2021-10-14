@@ -10,6 +10,10 @@ namespace alpha
 		}
 
 #pragma region Text Object
+		TextObject::TextObject(int _ppu)
+			: RenderObject(_ppu)
+		{
+		}
 		TextObject::TextObject(int _ppu, std::string _string, Color _color)
 			: RenderObject(_ppu), string(_string), color(_color)
 		{
@@ -30,15 +34,21 @@ namespace alpha
 #pragma endregion
 
 #pragma region Sprite Object
+		SpriteObject::SpriteObject(int _ppu)
+			: RenderObject(_ppu)
+		{
+		}
 		SpriteObject::SpriteObject(int _ppu, string _spritePath)
 			: RenderObject(_ppu), spritePath(_spritePath)
 		{
 			SetSprite(_spritePath);
+
+			drawables.push_back(&sprite);
 		}
 		SpriteObject::SpriteObject(int _ppu, Texture _texture)
 			: RenderObject(_ppu), texture(_texture)
 		{
-			sprite.setTexture(texture);
+			SetSprite(_texture);
 
 			drawables.push_back(&sprite);
 		}
@@ -53,9 +63,11 @@ namespace alpha
 				spritePath = _spritePath;
 				texture.loadFromFile(_spritePath);
 				sprite.setTexture(texture);
-
-				drawables.push_back(&sprite);
 			}
+		}
+		void SpriteObject::SetSprite(Texture _texture)
+		{
+			sprite.setTexture(texture);
 		}
 		Vector2f SpriteObject::GetSize()
 		{

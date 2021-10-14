@@ -34,6 +34,7 @@ namespace alpha
 		{
 		public:
 
+			TextObject(int _ppu);
 			TextObject(int _ppu, string _string, Color _color);
 			TextObject(const TextObject& that);
 
@@ -52,6 +53,7 @@ namespace alpha
 		{
 		public:
 
+			SpriteObject(int _ppu);
 			SpriteObject(int _ppu, string _spritePath);
 			SpriteObject(int _ppu, Texture _texture);
 			SpriteObject(const SpriteObject& that);
@@ -68,6 +70,7 @@ namespace alpha
 			Sprite sprite;
 
 			void SetSprite(string _spritePath);
+			void SetSprite(Texture _texture);
 			Vector2f GetSize();
 		};
 
