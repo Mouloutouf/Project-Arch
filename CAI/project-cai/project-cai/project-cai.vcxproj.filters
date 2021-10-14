@@ -183,7 +183,7 @@
     <ClCompile Include="Canvas.cpp">
       <Filter>Fichiers sources\Core\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="UIElementRenderer.cpp">
+    <ClCompile Include="UISpriteRenderer.cpp">
       <Filter>Fichiers sources\Core\Elements\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -311,7 +311,7 @@
     <ClInclude Include="Canvas.h">
       <Filter>Fichiers d%27en-tête\Core\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="UIElementRenderer.h">
+    <ClInclude Include="UISpriteRenderer.h">
       <Filter>Fichiers d%27en-tête\Core\Elements\Components</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
