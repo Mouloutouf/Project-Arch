@@ -4,9 +4,11 @@ namespace alpha
 {
 	namespace core
 	{
-		map<string, Texture> AssetView::textures;
+		map<string, Texture> AssetManager::textures;
 
 		vector<GameObject*> AssetView::prefabs;
+		map<GameObject*, vector<GameObject*>> AssetView::prefabsChildren;
+
 		SceneView* AssetView::currentScene;
 
 		Display* AssetManager::currentSceneDisplay;
@@ -193,7 +195,7 @@ namespace alpha
 		{
 			auto t = Texture();
 			t.loadFromFile(ASSETS_FOLDER + _spriteName + ".png");
-			textures.insert({ _spriteName, t });
+			AssetManager::textures.insert({ _spriteName, t });
 		}
 	}
 }

@@ -73,6 +73,7 @@ namespace alpha
 		string SpriteRenderer::GetSpritePath() { return spriteObject->spritePath; }
 
 		void SpriteRenderer::SetSprite(string _spritePath) { spriteObject->SetSprite(_spritePath); }
+		void SpriteRenderer::SetSprite(Texture _texture) { spriteObject->SetSprite(_texture); }
 		Sprite* SpriteRenderer::GetSprite() { return &spriteObject->sprite; }
 
 		/// Sprite Renderer T

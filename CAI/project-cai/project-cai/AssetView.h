@@ -35,8 +35,6 @@ namespace alpha
 
 			static void AddTexture(string _spriteName);
 
-			static map<string, Texture> textures;
-
 			static SceneView* currentScene;
 
 		private:

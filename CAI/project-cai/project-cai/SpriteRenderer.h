@@ -39,6 +39,7 @@ namespace alpha
 
 			Sprite* GetSprite();
 			void SetSprite(string _spritePath);
+			void SetSprite(Texture _texture);
 
 			Vector2f GetSize();
 			string GetSpritePath();
@@ -58,6 +59,8 @@ namespace alpha
 
 		class _SpriteRenderer : public Renderer<SpriteObject>
 		{
+		public:
+
 			// Sprite Renderer uses GameObject in its constructor as it needs to know wether the object is a prefab or not in order to add itself to the render
 			_SpriteRenderer();
 			_SpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath, int _ppu = 1, __Layer _layer = Layers::DEFAULT_LAYER);

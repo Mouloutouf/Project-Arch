@@ -50,6 +50,7 @@ namespace alpha
 			string biomeSprite = Utility::GetRandomElementFromContainer(biome->sprites);
 			string biomeSpritePath = Utility::spritePath(biomeSprite);
 			biomeDisplay->SetSprite(biomeSpritePath);
+			//biomeDisplay->SetSprite(AssetManager::textures[biomeSprite]);
 
 			string indexName = " (" + to_string(x) + "," + to_string(y) + ")";
 			gameObject->name = biomeSprite + indexName;

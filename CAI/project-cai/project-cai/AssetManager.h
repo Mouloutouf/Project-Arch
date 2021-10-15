@@ -23,6 +23,8 @@ namespace alpha
 			static GameObject* InstantiateAsset(const GameObject& _gameObject, GameObject* _parent = nullptr, Vector2f _position = Vector2f(0, 0), float _rotation = 0);
 
 			static Display* currentSceneDisplay;
+
+			static map<string, Texture> textures;
 		};
 	}
 }
