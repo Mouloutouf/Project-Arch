@@ -46,7 +46,7 @@ namespace alpha
 			buildingPreview = AssetManager::InstantiateAsset(GameObject("Preview Building"));
 			auto previewSr = buildingPreview->AddComponent(new SpriteRenderer(buildingPreview, AssetManager::currentSceneDisplay, 
 				Utility::spritePath(archBuildings[selected].second.sprite), 16));
-			previewSr->SetLayer(Layers::DETAILS_LAYER);
+			previewSr->SetLayer(Layers::ELEMENTS_LAYER);
 			Color transparent = Color(255, 255, 255, 204);
 			previewSr->GetSprite()->setColor(transparent);
 
@@ -59,7 +59,7 @@ namespace alpha
 			buildingIcon = AssetManager::InstantiateAsset(GameObject("Icon Building"));
 			auto iconSr = buildingIcon->AddComponent(new SpriteRenderer(buildingIcon, AssetManager::currentSceneDisplay, 
 				Utility::spritePath(archBuildings[selected].second.sprite), 16));
-			iconSr->SetLayer(Layers::UI_LAYER);
+			iconSr->SetLayer(Layers::DETAILS_LAYER);
 			buildingIcon->transform->localScale /= 2.0f;
 		}
 		void ConstructionInput::Update(float _elapsedTime)

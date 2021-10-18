@@ -45,13 +45,13 @@ namespace alpha
 			auto areaSquare = AssetView::Prefab(new GameObject("Area Square", tileDisplay));
 			auto areaSr = areaSquare->AddComponent(new SpriteRenderer(areaSquare, AssetView::currentScene->GetCurrentDisplay(), 
 				ASSETS_FOLDER + "Area Square" + ".png", 570));
-			areaSr->SetLayer(Layers::UI_LAYER);
+			areaSr->SetLayer(Layers::DETAILS_LAYER);
 			areaSr->SetActive(false);
 
 			auto excavationIcon = AssetView::Prefab(new GameObject("Excavation Icon", tileDisplay));
 			auto excavationSr = excavationIcon->AddComponent(new SpriteRenderer(excavationIcon, AssetView::currentScene->GetCurrentDisplay(), 
 				ASSETS_FOLDER + "Excavation Icon" + ".png", 400));
-			excavationSr->SetLayer(Layers::UI_LAYER);
+			excavationSr->SetLayer(Layers::DETAILS_LAYER);
 			excavationIcon->transform->localScale = Vector2f(0.4f, 0.4f);
 			excavationIcon->transform->localPosition = Vector2f(-0.25f, 0.25f);
 			excavationSr->SetActive(false);
@@ -63,7 +63,7 @@ namespace alpha
 			auto invalidTile = AssetView::Prefab(new GameObject("Invalid Tile"));
 			auto invalidSr = invalidTile->AddComponent(new SpriteRenderer(invalidTile, AssetView::currentScene->GetCurrentDisplay(),
 				ASSETS_FOLDER + "Invalid Tile" + ".png", 570));
-			invalidSr->SetLayer(Layers::UI_LAYER);
+			invalidSr->SetLayer(Layers::DETAILS_LAYER);
 			invalidSr->SetActive(false);
 
 			AssetView::AddAsset(invalidTile);
@@ -73,7 +73,7 @@ namespace alpha
 			auto resourceIcon = AssetView::Prefab(new GameObject("Resource Icon"));
 			auto resourceSr = resourceIcon->AddComponent(new SpriteRenderer(resourceIcon, AssetView::currentScene->GetCurrentDisplay(),
 				ASSETS_FOLDER + "Water Resource Icon" + ".png", 190));
-			resourceSr->SetLayer(Layers::UI_LAYER);
+			resourceSr->SetLayer(Layers::DETAILS_LAYER);
 			resourceIcon->transform->localScale = Vector2f(0.3f, 0.3f);
 			resourceIcon->transform->localPosition = Vector2f(0.3f, 0.3f);
 			resourceSr->SetActive(false);
@@ -85,7 +85,7 @@ namespace alpha
 			auto hoveredSquare = AssetView::Prefab(new GameObject("Hovered Square"));
 			auto hoveredSr = hoveredSquare->AddComponent(new SpriteRenderer(hoveredSquare, AssetView::currentScene->GetCurrentDisplay(), 
 				ASSETS_FOLDER + "Hovered Square" + ".png", 570));
-			hoveredSr->SetLayer(Layers::UI_LAYER);
+			hoveredSr->SetLayer(Layers::DETAILS_LAYER);
 
 			AssetView::AddAsset(hoveredSquare);
 
@@ -94,7 +94,7 @@ namespace alpha
 			auto selectedSquare = AssetView::Prefab(new GameObject("Selected Square"));
 			auto selectedSr = selectedSquare->AddComponent(new SpriteRenderer(selectedSquare, AssetView::currentScene->GetCurrentDisplay(), 
 				ASSETS_FOLDER + "Selected Square" + ".png", 570));
-			selectedSr->SetLayer(Layers::UI_LAYER);
+			selectedSr->SetLayer(Layers::DETAILS_LAYER);
 
 			AssetView::AddAsset(selectedSquare);
 
@@ -104,7 +104,12 @@ namespace alpha
 			auto canvas = canvasPrefab->AddComponent(new Canvas(canvasPrefab, RenderSpace::ScreenSpace, AssetView::currentScene->GetCurrentDisplay()));
 
 			auto topBar = AssetView::Prefab(new GameObject("Top Bar", canvasPrefab, new UITransform()));
-			//auto topBarUISr = topBar->AddComponent(new UIElementRenderer());
+			auto topBarUI = dynamic_cast<UITransform*>(topBar->transform);
+			auto topBarUISr = topBar->AddComponent(new UISpriteRenderer(topBar, AssetView::currentScene->GetCurrentDisplay()));
+			topBarUISr->SetLayer(Layers::UI_LAYER);
+			topBarUI->SetAnchor(0, 1, true, true);
+			topBarUI->SetSize(0.0f, 780, 0.0f, 0.0f);
+			topBarUISr->SetColor(Color::Blue);
 		}
 
 		GameObject* AssetManager::InstantiateAsset(const GameObject& _gameObject, GameObject* _parent, Vector2f _position, float _rotation)

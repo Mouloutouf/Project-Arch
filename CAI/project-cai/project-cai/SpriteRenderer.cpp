@@ -67,7 +67,13 @@ namespace alpha
 		}
 		__Layer SpriteRenderer::GetLayer() { return spriteObject->layer; }
 
-		void SpriteRenderer::SetOrderInLayer(int _order) { spriteObject->orderInLayer = clamp(_order, 0, 9999); }
+		void SpriteRenderer::SetOrderInLayer(int _order)
+		{
+			spriteObject->orderInLayer = clamp(_order, 0, 9999);
+
+			display->RemoveObjectToRender(spriteObject);
+			AddToRender();
+		}
 		int SpriteRenderer::GetOrderInLayer() { return spriteObject->orderInLayer; }
 
 		string SpriteRenderer::GetSpritePath() { return spriteObject->spritePath; }

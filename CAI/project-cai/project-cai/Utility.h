@@ -40,6 +40,8 @@ namespace alpha
 
 #pragma endregion
 
+		const string DEFAULT_SPRITE = ASSETS_FOLDER + "Default/" + "Default Sprite" + ".png";
+
 		class Utility
 		{
 		public:

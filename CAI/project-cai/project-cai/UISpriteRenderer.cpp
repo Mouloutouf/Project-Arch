@@ -7,7 +7,7 @@ namespace alpha
 		UISpriteRenderer::UISpriteRenderer()
 		{
 		}
-		UISpriteRenderer::UISpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath, int _ppu, __Layer _layer)
+		UISpriteRenderer::UISpriteRenderer(GameObject* _gameObject, Display* _display, __Layer _layer, string _spritePath, int _ppu)
 		{
 			gameObject = _gameObject;
 
@@ -20,7 +20,7 @@ namespace alpha
 
 			AddToRender();
 		}
-		UISpriteRenderer::UISpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, int _ppu, __Layer _layer)
+		UISpriteRenderer::UISpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, __Layer _layer, int _ppu)
 		{
 			gameObject = _gameObject;
 
@@ -56,7 +56,8 @@ namespace alpha
 		}
 
 		void UISpriteRenderer::SetOutline(float _thickness, Color _color) { uiSpriteObject->SetOutline(_thickness, _color); }
-
 		bool UISpriteRenderer::HasOutline() { return uiSpriteObject->HasOutline(); }
+
+		void UISpriteRenderer::SetColor(Color _color) { uiSpriteObject->SetColor(_color); }
 	}
 }

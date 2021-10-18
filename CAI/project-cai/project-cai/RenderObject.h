@@ -20,6 +20,8 @@ namespace alpha
 
 			RenderObject(int _ppu);
 
+			virtual void Create(int _ppu) = 0;
+
 			int ppu = 100; // ppu
 
 			vector<Drawable*> drawables;
@@ -44,6 +46,9 @@ namespace alpha
 
 			Text text;
 
+			void Create(int _ppu) override;
+			void Create(int _ppu, std::string _string, Color _color);
+
 			void SetString(std::string _string);
 			void SetCharacterSize(int _size);
 			void SetColor(Color _color);
@@ -58,11 +63,9 @@ namespace alpha
 			SpriteObject(int _ppu, Texture _texture);
 			SpriteObject(const SpriteObject& that);
 
-			virtual void Create(int _ppu, string _spritePath) {
-				ppu = _ppu;
-				spritePath = _spritePath;
-				SetSprite(_spritePath);
-			}
+			void Create(int _ppu) override;
+			void Create(int _ppu, string _spritePath);
+			void Create(int _ppu, Texture _texture);
 
 			string spritePath;
 
@@ -89,6 +92,8 @@ namespace alpha
 
 			void SetOutline(float _thickness, Color _color);
 			bool HasOutline();
+
+			void SetColor(Color _color);
 		};
 	}
 }

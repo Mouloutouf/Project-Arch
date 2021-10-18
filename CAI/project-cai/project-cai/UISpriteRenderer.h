@@ -25,8 +25,8 @@ namespace alpha
 
 			// UI Sprite Renderer uses GameObject in its constructor as it needs to know wether the object is a prefab or not in order to add itself to the render
 			UISpriteRenderer();
-			UISpriteRenderer(GameObject* _gameObject, Display* _display, string _spritePath = nullptr, int _ppu = 1, __Layer _layer = Layers::DEFAULT_LAYER);
-			UISpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, int _ppu = 1, __Layer _layer = Layers::DEFAULT_LAYER);
+			UISpriteRenderer(GameObject* _gameObject, Display* _display, __Layer _layer = Layers::DEFAULT_LAYER, string _spritePath = nullptr, int _ppu = 1);
+			UISpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, __Layer _layer = Layers::DEFAULT_LAYER, int _ppu = 1);
 			UISpriteRenderer(const UISpriteRenderer& that, GameObject* _gameObject);
 
 			~UISpriteRenderer();
@@ -35,6 +35,8 @@ namespace alpha
 
 			void SetOutline(float _thickness, Color _color);
 			bool HasOutline();
+
+			void SetColor(Color _color);
 
 		private:
 

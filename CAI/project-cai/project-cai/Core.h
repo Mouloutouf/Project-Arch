@@ -9,6 +9,7 @@
 #include "Component.h"
 
 #include "SpriteRenderer.h"
+#include "UISpriteRenderer.h"
 #include "TextRenderer.h"
 #include "Collider.h"
 #include "Camera.h"

@@ -13,19 +13,29 @@ namespace alpha
 		TextObject::TextObject(int _ppu)
 			: RenderObject(_ppu)
 		{
+			Create(_ppu);
 		}
 		TextObject::TextObject(int _ppu, std::string _string, Color _color)
 			: RenderObject(_ppu), string(_string), color(_color)
+		{
+			Create(_ppu, _string, _color);
+		}
+		TextObject::TextObject(const TextObject& that)
+			: RenderObject(that), string(that.string), color(that.color), font(that.font), text(that.text)
+		{
+			drawables.clear();
+			drawables.push_back(&text);
+		}
+		void TextObject::Create(int _ppu)
+		{
+			Create(_ppu, "New Text", Color::White);
+		}
+		void TextObject::Create(int _ppu, std::string _string, Color _color)
 		{
 			font.loadFromFile(TEXT_FONT);
 			text = Text(_string, font, _ppu);
 			text.setFillColor(_color);
 
-			drawables.push_back(&text);
-		}
-		TextObject::TextObject(const TextObject& that)
-			: RenderObject(that), string(that.string), color(that.color), font(that.font), text(that.text)
-		{
 			drawables.push_back(&text);
 		}
 		void TextObject::SetString(std::string _string) { string = _string; text.setString(_string); }
@@ -55,6 +65,7 @@ namespace alpha
 		SpriteObject::SpriteObject(const SpriteObject& that)
 			: RenderObject(that), spritePath(that.spritePath), texture(that.texture), sprite(that.sprite)
 		{
+			drawables.clear();
 			drawables.push_back(&sprite);
 		}
 		void SpriteObject::SetSprite(string _spritePath)
@@ -72,6 +83,22 @@ namespace alpha
 		Vector2f SpriteObject::GetSize()
 		{
 			return Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y);
+		}
+		void SpriteObject::Create(int _ppu)
+		{
+			Create(_ppu, DEFAULT_SPRITE);
+		}
+		void SpriteObject::Create(int _ppu, string _spritePath)
+		{
+			SetSprite(_spritePath);
+
+			drawables.push_back(&sprite);
+		}
+		void SpriteObject::Create(int _ppu, Texture _texture)
+		{
+			SetSprite(_texture);
+
+			drawables.push_back(&sprite);
 		}
 #pragma endregion
 
@@ -108,6 +135,13 @@ namespace alpha
 			shape.setOutlineColor(_color);
 		}
 		bool UISpriteObject::HasOutline() { return outlineThickness > 0; }
+		void UISpriteObject::SetColor(Color _color)
+		{
+			if (!spritePath.empty())
+				sprite.setColor(_color);
+			else
+				shape.setFillColor(_color);
+		}
 #pragma endregion
 
 	}

@@ -120,7 +120,13 @@ namespace alpha
 		__Layer Renderer<T>::GetLayer() { return renderObject->layer; }
 
 		template<typename T>
-		void Renderer<T>::SetOrderInLayer(int _order) { renderObject->orderInLayer = clamp(_order, 0, 9999); }
+		void Renderer<T>::SetOrderInLayer(int _order)
+		{
+			renderObject->orderInLayer = clamp(_order, 0, 9999);
+
+			display->RemoveObjectToRender(spriteObject);
+			AddToRender();
+		}
 		template<typename T>
 		int Renderer<T>::GetOrderInLayer() { return renderObject->orderInLayer; }
 	}
