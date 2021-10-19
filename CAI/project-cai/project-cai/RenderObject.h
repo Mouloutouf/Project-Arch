@@ -64,8 +64,8 @@ namespace alpha
 			SpriteObject(const SpriteObject& that);
 
 			void Create(int _ppu) override;
-			void Create(int _ppu, string _spritePath);
-			void Create(int _ppu, Texture _texture);
+			virtual void Create(int _ppu, string _spritePath);
+			virtual void Create(int _ppu, Texture _texture);
 
 			string spritePath;
 
@@ -84,6 +84,9 @@ namespace alpha
 			UISpriteObject(int _ppu, string _spritePath);
 			UISpriteObject(int _ppu, Texture _texture);
 			UISpriteObject(const UISpriteObject& that);
+
+			void Create(int _ppu, string _spritePath) override;
+			void Create(int _ppu, Texture _texture) override;
 
 			RectangleShape shape;
 

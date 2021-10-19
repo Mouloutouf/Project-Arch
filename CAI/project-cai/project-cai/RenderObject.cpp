@@ -26,6 +26,7 @@ namespace alpha
 			drawables.clear();
 			drawables.push_back(&text);
 		}
+
 		void TextObject::Create(int _ppu)
 		{
 			Create(_ppu, "New Text", Color::White);
@@ -38,6 +39,7 @@ namespace alpha
 
 			drawables.push_back(&text);
 		}
+
 		void TextObject::SetString(std::string _string) { string = _string; text.setString(_string); }
 		void TextObject::SetCharacterSize(int _size) { ppu = _size; text.setCharacterSize(_size); }
 		void TextObject::SetColor(Color _color) { color = _color; text.setFillColor(_color); }
@@ -68,22 +70,7 @@ namespace alpha
 			drawables.clear();
 			drawables.push_back(&sprite);
 		}
-		void SpriteObject::SetSprite(string _spritePath)
-		{
-			if (!_spritePath.empty()) {
-				spritePath = _spritePath;
-				texture.loadFromFile(_spritePath);
-				sprite.setTexture(texture);
-			}
-		}
-		void SpriteObject::SetSprite(Texture _texture)
-		{
-			sprite.setTexture(texture);
-		}
-		Vector2f SpriteObject::GetSize()
-		{
-			return Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y);
-		}
+
 		void SpriteObject::Create(int _ppu)
 		{
 			Create(_ppu, DEFAULT_SPRITE);
@@ -99,6 +86,24 @@ namespace alpha
 			SetSprite(_texture);
 
 			drawables.push_back(&sprite);
+		}
+
+		void SpriteObject::SetSprite(string _spritePath)
+		{
+			if (!_spritePath.empty()) {
+				spritePath = _spritePath;
+				texture.loadFromFile(_spritePath);
+				sprite.setTexture(texture);
+			}
+		}
+		void SpriteObject::SetSprite(Texture _texture)
+		{
+			sprite.setTexture(texture);
+		}
+
+		Vector2f SpriteObject::GetSize()
+		{
+			return Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y);
 		}
 #pragma endregion
 
@@ -124,6 +129,14 @@ namespace alpha
 			if (spritePath.empty() || HasOutline())
 				drawables.push_back(&shape);
 		}
+
+		void UISpriteObject::Create(int _ppu, string _spritePath)
+		{
+		}
+		void UISpriteObject::Create(int _ppu, Texture _texture)
+		{
+		}
+
 		void UISpriteObject::SetOutline(float _thickness, Color _color)
 		{
 			if (!Utility::Contains(drawables, (Drawable*)&shape)) {
@@ -135,6 +148,7 @@ namespace alpha
 			shape.setOutlineColor(_color);
 		}
 		bool UISpriteObject::HasOutline() { return outlineThickness > 0; }
+
 		void UISpriteObject::SetColor(Color _color)
 		{
 			if (!spritePath.empty())
