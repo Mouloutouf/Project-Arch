@@ -111,10 +111,6 @@ namespace alpha
 		UISpriteObject::UISpriteObject(int _ppu, string _spritePath)
 			: SpriteObject(_ppu, _spritePath)
 		{
-			if (spritePath.empty()) {
-				shape = RectangleShape(Vector2f(ppu, ppu));
-				drawables.push_back(&shape);
-			}
 		}
 		UISpriteObject::UISpriteObject(int _ppu, Texture _texture)
 			: SpriteObject(_ppu, _texture)
@@ -132,9 +128,16 @@ namespace alpha
 
 		void UISpriteObject::Create(int _ppu, string _spritePath)
 		{
+			SpriteObject::Create(_ppu, _spritePath);
+
+			if (spritePath.empty()) {
+				shape = RectangleShape(Vector2f(ppu, ppu));
+				drawables.push_back(&shape);
+			}
 		}
 		void UISpriteObject::Create(int _ppu, Texture _texture)
 		{
+			SpriteObject::Create(_ppu, _texture);
 		}
 
 		void UISpriteObject::SetOutline(float _thickness, Color _color)

@@ -16,6 +16,22 @@ namespace alpha
 					break;
 				}
 			}
+
+			// What's the difference between the two ?
+			// Which of them works, if not both ?
+			// Has polymorphism made it work ?
+			// Is the overriden Create method, called through the parent object in the constructor, indeed overriden or is it the base method called ?
+			// How can you make it polymorphic, without too much overhead ?
+			// How can you reduce the amount of constructors safely and make a quicker and more straightforward architecture ?
+			// How does typeid actually works ?
+			// Why can't you implicitly call the parent's parent constructor from a constructor, nor set the parent's or parent's parent's parameters ?
+
+			if (typeid(*_renderObject) == typeid(SpriteObject)) {
+
+			}
+			if (typeid(_renderObject) == typeid(SpriteObject*)) {
+
+			}
 		}
 
 		DisplayedObject::~DisplayedObject()
