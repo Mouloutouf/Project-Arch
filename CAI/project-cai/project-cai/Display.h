@@ -14,6 +14,8 @@
 
 #include "RenderObject.h"
 
+#include "UITransform.h"
+
 namespace alpha
 {
 	namespace core
@@ -30,6 +32,7 @@ namespace alpha
 			GameObject* gameObjectToRender;
 
 			RenderObject* objectToRender = nullptr;
+			bool isUI;
 			bool isText;
 
 			int ppu;

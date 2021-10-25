@@ -186,6 +186,9 @@
     <ClCompile Include="UISpriteRenderer.cpp">
       <Filter>Fichiers sources\Core\Elements\Components</Filter>
     </ClCompile>
+    <ClCompile Include="UITransform.cpp">
+      <Filter>Fichiers sources\Core\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Fichiers d%27en-tête\Core\Elements\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UITransform.h">
+      <Filter>Fichiers d%27en-tête\Core\Elements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

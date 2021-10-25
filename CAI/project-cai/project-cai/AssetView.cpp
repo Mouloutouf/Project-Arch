@@ -100,11 +100,11 @@ namespace alpha
 
 			///\
 
-			auto canvasPrefab = AssetView::Prefab(new GameObject("Canvas", nullptr, new UITransform()));
+			auto canvasPrefab = AssetView::Prefab(new GameObject("Canvas", nullptr, new UITransform((UITransform*)nullptr)));
 			auto canvas = canvasPrefab->AddComponent(new Canvas(canvasPrefab, RenderSpace::ScreenSpace, AssetView::currentScene->GetCurrentDisplay()));
 
-			auto topBar = AssetView::Prefab(new GameObject("Top Bar", canvasPrefab, new UITransform()));
-			auto topBarUI = dynamic_cast<UITransform*>(topBar->transform);
+			auto topBar = AssetView::Prefab(new GameObject("Top Bar", canvasPrefab, new UITransform(canvasPrefab)));
+			auto topBarUI = static_cast<UITransform*>(topBar->transform);
 			auto topBarUISr = topBar->AddComponent(new UISpriteRenderer(topBar, AssetView::currentScene->GetCurrentDisplay()));
 			topBarUISr->SetLayer(Layers::UI_LAYER);
 			topBarUI->SetAnchor(0, 1, true, true);

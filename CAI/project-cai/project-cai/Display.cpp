@@ -10,11 +10,21 @@ namespace alpha
 		DisplayedObject::DisplayedObject(GameObject* _gameObject, RenderObject* _renderObject, Camera* _cam, Vector2f _origin)
 			: gameObjectToRender(_gameObject), objectToRender(_renderObject), ppu(_renderObject->ppu), cam(_cam), origin(_origin)
 		{
-			for (auto& d : _renderObject->drawables) {
+			/*for (auto& d : _renderObject->drawables) {
 				if (typeid(*d) == typeid(Text)) {
 					isText = true;
 					break;
 				}
+			}*/
+
+			if (typeid(*_renderObject) == typeid(TextObject)) {
+				isText = true;
+			}
+
+			auto tr = dynamic_cast<UITransform*>(_gameObject->transform);
+			if (tr) {
+				if (tr->renderMode == RenderSpace::ScreenSpace)
+					isUI = true;
 			}
 
 			// What's the difference between the two ?
@@ -26,12 +36,12 @@ namespace alpha
 			// How does typeid actually works ?
 			// Why can't you implicitly call the parent's parent constructor from a constructor, nor set the parent's or parent's parent's parameters ?
 
-			if (typeid(*_renderObject) == typeid(SpriteObject)) {
+			/*if (typeid(*_renderObject) == typeid(SpriteObject)) {
 
 			}
 			if (typeid(_renderObject) == typeid(SpriteObject*)) {
 
-			}
+			}*/
 		}
 
 		DisplayedObject::~DisplayedObject()
@@ -163,8 +173,11 @@ namespace alpha
 			for (int i = 0; i < entries.size(); i++) {
 				for (auto& d : displayedObjects[entries[i]])
 				{
-					if (d->objectToRender->render == false) continue;
-					d->CalculateDraw();
+					if (d->objectToRender->render == false)
+						continue;
+
+					if (!d->isUI)
+						d->CalculateDraw();
 					for (auto& dw : d->objectToRender->drawables)
 						Draw(dw, d);
 				}

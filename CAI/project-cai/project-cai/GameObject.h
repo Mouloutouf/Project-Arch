@@ -25,7 +25,7 @@ namespace alpha
 			Transform2D();
 			Transform2D(GameObject* _gameObject, Vector2f _pos = Vector2f(0, 0), float _rot = 0.0f, Vector2f _scale = Vector2f(1, 1));
 			Transform2D(const Transform2D& that);
-			~Transform2D();
+			virtual ~Transform2D();
 
 			GameObject* gameObject = nullptr;
 
