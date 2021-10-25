@@ -29,7 +29,7 @@ namespace alpha
 			SpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, int _ppu = 1, __Layer _layer = Layers::DEFAULT_LAYER);
 			SpriteRenderer(const SpriteRenderer& that, GameObject* _gameObject);
 
-			~SpriteRenderer();
+			virtual ~SpriteRenderer();
 
 			SpriteRenderer* Clone(GameObject* _gameObject) override;
 

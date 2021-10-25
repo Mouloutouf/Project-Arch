@@ -16,7 +16,7 @@ namespace alpha
 			spriteObject = new UISpriteObject(_ppu, _spritePath);
 			spriteObject->layer = _layer;
 
-			uiSpriteObject = dynamic_cast<UISpriteObject*>(spriteObject);
+			uiSpriteObject = static_cast<UISpriteObject*>(spriteObject);
 
 			AddToRender();
 		}
@@ -29,7 +29,7 @@ namespace alpha
 			spriteObject = new UISpriteObject(_ppu, _texture);
 			spriteObject->layer = _layer;
 
-			uiSpriteObject = dynamic_cast<UISpriteObject*>(spriteObject);
+			uiSpriteObject = static_cast<UISpriteObject*>(spriteObject);
 
 			AddToRender();
 		}
@@ -39,9 +39,9 @@ namespace alpha
 
 			display = that.display;
 
-			spriteObject = new UISpriteObject(*dynamic_cast<UISpriteObject*>(that.spriteObject));
+			spriteObject = new UISpriteObject(*static_cast<UISpriteObject*>(that.spriteObject));
 
-			uiSpriteObject = dynamic_cast<UISpriteObject*>(spriteObject);
+			uiSpriteObject = static_cast<UISpriteObject*>(spriteObject);
 
 			AddToRender();
 		}

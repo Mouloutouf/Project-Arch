@@ -49,20 +49,17 @@ namespace alpha
 		SpriteObject::SpriteObject(int _ppu)
 			: RenderObject(_ppu)
 		{
+			Create(_ppu);
 		}
 		SpriteObject::SpriteObject(int _ppu, string _spritePath)
 			: RenderObject(_ppu), spritePath(_spritePath)
 		{
-			SetSprite(_spritePath);
-
-			drawables.push_back(&sprite);
+			Create(_ppu, _spritePath);
 		}
 		SpriteObject::SpriteObject(int _ppu, Texture _texture)
 			: RenderObject(_ppu), texture(_texture)
 		{
-			SetSprite(_texture);
-
-			drawables.push_back(&sprite);
+			Create(_ppu, _texture);
 		}
 		SpriteObject::SpriteObject(const SpriteObject& that)
 			: RenderObject(that), spritePath(that.spritePath), texture(that.texture), sprite(that.sprite)

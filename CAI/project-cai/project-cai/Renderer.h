@@ -124,7 +124,7 @@ namespace alpha
 		{
 			renderObject->orderInLayer = clamp(_order, 0, 9999);
 
-			display->RemoveObjectToRender(spriteObject);
+			display->RemoveObjectToRender(renderObject);
 			AddToRender();
 		}
 		template<typename T>

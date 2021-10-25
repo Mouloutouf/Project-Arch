@@ -7,6 +7,9 @@ namespace alpha
 		UITransform::UITransform(GameObject* _parentGameObject)
 		{
 			parent = static_cast<UITransform*>(_parentGameObject->transform);
+
+			if (parent != nullptr)
+				renderMode = parent->renderMode;
 		}
 		UITransform::UITransform(UITransform* _parent)
 			: parent(_parent)

@@ -105,10 +105,16 @@ namespace alpha
 
 			auto topBar = AssetView::Prefab(new GameObject("Top Bar", canvasPrefab, new UITransform(canvasPrefab)));
 			auto topBarUI = static_cast<UITransform*>(topBar->transform);
-			auto topBarUISr = topBar->AddComponent(new UISpriteRenderer(topBar, AssetView::currentScene->GetCurrentDisplay()));
-			topBarUISr->SetLayer(Layers::UI_LAYER);
 			topBarUI->SetAnchor(0, 1, true, true);
 			topBarUI->SetSize(0.0f, 780, 0.0f, 0.0f);
+			auto tb = topBar->AddComponent(new UISpriteRenderer(topBar, AssetView::currentScene->GetCurrentDisplay()));
+			auto topBarUISr = 
+				topBar->AddComponent(
+				new UISpriteRenderer(topBar, 
+					AssetView::currentScene->GetCurrentDisplay()
+				)
+			);
+			topBarUISr->SetLayer(Layers::UI_LAYER);
 			topBarUISr->SetColor(Color::Blue);
 		}
 

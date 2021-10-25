@@ -56,9 +56,9 @@ namespace alpha
 
 			Anchor anchor;
 
-			float x, y;
-			float width, height;
-			float top, bottom, right, left;
+			float x = 0, y = 0;
+			float width = 0, height = 0;
+			float top = 0, bottom = 0, right = 0, left = 0;
 		};
 	}
 }
