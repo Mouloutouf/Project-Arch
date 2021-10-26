@@ -94,6 +94,17 @@ namespace alpha
 
             GameObject* constructionInputObject = CreateGameObject("Construction Input");
             constructionInputObject->AddComponent(new ConstructionInput(currentDisplay, gridObject->GetComponent<Grid>()));
+
+            auto canvasPrefab = CreateGameObject("Canvas", nullptr, new UITransform((UITransform*)nullptr));
+            auto canvas = canvasPrefab->AddComponent(new Canvas(canvasPrefab, RenderSpace::ScreenSpace, &currentDisplay));
+
+            auto topBar = CreateGameObject("Top Bar", canvasPrefab, new UITransform(canvasPrefab));
+            auto topBarUI = static_cast<UITransform*>(topBar->transform);
+            topBarUI->SetAnchor(0, 1, true, true);
+            topBarUI->SetSize(0.0f, 780.0f, 0.0f, 0.0f);
+            auto topBarUISr = topBar->AddComponent(new UISpriteRenderer(topBar, &currentDisplay));
+            topBarUISr->SetLayer(Layers::UI_LAYER);
+            topBarUISr->SetColor(Color::Blue);
         }
 
         void SceneView::Play()

@@ -4,21 +4,24 @@ namespace alpha
 {
 	namespace core
 	{
+		RenderObject::RenderObject()
+			: ppu(100)
+		{
+		}
 		RenderObject::RenderObject(int _ppu)
 			: ppu(_ppu)
 		{
 		}
 
-#pragma region Text Object
-		TextObject::TextObject(int _ppu)
-			: RenderObject(_ppu)
+		RenderObject::~RenderObject()
 		{
-			Create(_ppu);
 		}
+
+#pragma region Text Object
 		TextObject::TextObject(int _ppu, std::string _string, Color _color)
 			: RenderObject(_ppu), string(_string), color(_color)
 		{
-			Create(_ppu, _string, _color);
+			Create(_string, _color);
 		}
 		TextObject::TextObject(const TextObject& that)
 			: RenderObject(that), string(that.string), color(that.color), font(that.font), text(that.text)
@@ -27,14 +30,14 @@ namespace alpha
 			drawables.push_back(&text);
 		}
 
-		void TextObject::Create(int _ppu)
+		TextObject::~TextObject()
 		{
-			Create(_ppu, "New Text", Color::White);
 		}
-		void TextObject::Create(int _ppu, std::string _string, Color _color)
+
+		void TextObject::Create(std::string _string, Color _color)
 		{
 			font.loadFromFile(TEXT_FONT);
-			text = Text(_string, font, _ppu);
+			text = Text(_string, font, ppu);
 			text.setFillColor(_color);
 
 			drawables.push_back(&text);
@@ -46,20 +49,19 @@ namespace alpha
 #pragma endregion
 
 #pragma region Sprite Object
-		SpriteObject::SpriteObject(int _ppu)
-			: RenderObject(_ppu)
+		SpriteObject::SpriteObject()
+			: RenderObject()
 		{
-			Create(_ppu);
 		}
 		SpriteObject::SpriteObject(int _ppu, string _spritePath)
 			: RenderObject(_ppu), spritePath(_spritePath)
 		{
-			Create(_ppu, _spritePath);
+			Create(_spritePath);
 		}
 		SpriteObject::SpriteObject(int _ppu, Texture _texture)
 			: RenderObject(_ppu), texture(_texture)
 		{
-			Create(_ppu, _texture);
+			Create(_texture);
 		}
 		SpriteObject::SpriteObject(const SpriteObject& that)
 			: RenderObject(that), spritePath(that.spritePath), texture(that.texture), sprite(that.sprite)
@@ -68,21 +70,19 @@ namespace alpha
 			drawables.push_back(&sprite);
 		}
 
-		void SpriteObject::Create(int _ppu)
-		{
-			Create(_ppu, DEFAULT_SPRITE);
-		}
-		void SpriteObject::Create(int _ppu, string _spritePath)
+		void SpriteObject::Create(string _spritePath)
 		{
 			SetSprite(_spritePath);
-
 			drawables.push_back(&sprite);
 		}
-		void SpriteObject::Create(int _ppu, Texture _texture)
+		void SpriteObject::Create(Texture _texture)
 		{
 			SetSprite(_texture);
-
 			drawables.push_back(&sprite);
+		}
+
+		SpriteObject::~SpriteObject()
+		{
 		}
 
 		void SpriteObject::SetSprite(string _spritePath)
@@ -106,12 +106,12 @@ namespace alpha
 
 #pragma region UI Sprite Object
 		UISpriteObject::UISpriteObject(int _ppu, string _spritePath)
-			: SpriteObject(_ppu, _spritePath)
 		{
+			Create(_spritePath);
 		}
 		UISpriteObject::UISpriteObject(int _ppu, Texture _texture)
-			: SpriteObject(_ppu, _texture)
 		{
+			Create(_texture);
 		}
 		UISpriteObject::UISpriteObject(const UISpriteObject& that)
 			: SpriteObject(that), outlineColor(that.outlineColor), outlineThickness(that.outlineThickness), shape(that.shape)
@@ -123,18 +123,22 @@ namespace alpha
 				drawables.push_back(&shape);
 		}
 
-		void UISpriteObject::Create(int _ppu, string _spritePath)
+		UISpriteObject::~UISpriteObject()
 		{
-			SpriteObject::Create(_ppu, _spritePath);
+		}
+
+		void UISpriteObject::Create(string _spritePath)
+		{
+			SpriteObject::Create(_spritePath);
 
 			if (spritePath.empty()) {
 				shape = RectangleShape(Vector2f(ppu, ppu));
 				drawables.push_back(&shape);
 			}
 		}
-		void UISpriteObject::Create(int _ppu, Texture _texture)
+		void UISpriteObject::Create(Texture _texture)
 		{
-			SpriteObject::Create(_ppu, _texture);
+			SpriteObject::Create(_texture);
 		}
 
 		void UISpriteObject::SetOutline(float _thickness, Color _color)

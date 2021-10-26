@@ -23,9 +23,9 @@ namespace alpha
 		{
 		public:
 
-			// UI Sprite Renderer uses GameObject in its constructor as it needs to know wether the object is a prefab or not in order to add itself to the render
+			// UI Sprite Renderer uses GameObject in its constructor as it needs to know whether the object is a prefab or not in order to add itself to the render
 			UISpriteRenderer();
-			UISpriteRenderer(GameObject* _gameObject, Display* _display, __Layer _layer = Layers::DEFAULT_LAYER, string _spritePath = nullptr, int _ppu = 1);
+			UISpriteRenderer(GameObject* _gameObject, Display* _display, __Layer _layer = Layers::DEFAULT_LAYER, string _spritePath = string(), int _ppu = 1);
 			UISpriteRenderer(GameObject* _gameObject, Display* _display, Texture _texture, __Layer _layer = Layers::DEFAULT_LAYER, int _ppu = 1);
 			UISpriteRenderer(const UISpriteRenderer& that, GameObject* _gameObject);
 

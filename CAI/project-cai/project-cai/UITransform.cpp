@@ -41,8 +41,8 @@ namespace alpha
 
 		void UITransform::SetSize(float _width, float _height)
 		{
-			width = _width;
-			height = _height;
+			localScale.x = width = _width;
+			localScale.y = height = _height;
 		}
 		void UITransform::SetSize(float _right, float _left, float _height)
 		{
@@ -51,7 +51,7 @@ namespace alpha
 				left = _left;
 				localPosition.x = (_left / 2) - (_right / 2);
 			}
-			height = _height;
+			localScale.y = height = _height;
 		}
 		void UITransform::SetSize(float _top, float _bottom, float _width, bool second)
 		{
@@ -60,7 +60,7 @@ namespace alpha
 				bottom = _bottom;
 				localPosition.y = (_bottom / 2) - (_top / 2);
 			}
-			width = _width;
+			localScale.x = width = _width;
 		}
 		void UITransform::SetSize(float _top, float _bottom, float _right, float _left)
 		{
@@ -82,7 +82,9 @@ namespace alpha
 			if (anchor.stretch.x > 0) anchorX = 0;
 			if (anchor.stretch.y > 0) anchorY = 0;
 
-			return Vector2f((parent->localScale.x / 2) * anchorX, (parent->localScale.y / 2) * anchorY);
+			float width = parent != nullptr ? parent->localScale.x / 2 : localScale.x / 2;
+			float height = parent != nullptr ? parent->localScale.y / 2 : localScale.y / 2;
+			return Vector2f(width * anchorX, height * anchorY);
 		}
 
 		UITransform* UITransform::Clone()

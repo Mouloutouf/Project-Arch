@@ -90,6 +90,22 @@ namespace alpha
 				//textToRender->SetCharacterSize(ppu * scale.x * 0.2f);
 			}
 		}
+		void DisplayedObject::CalculateUIDraw()
+		{
+			auto uiSpriteToRender = (UISpriteObject*)objectToRender;
+
+			Vector2f pos;
+			pos = gameObjectToRender->transform->position();
+			pos = Vector2f(origin.x + pos.x, origin.y - pos.y);
+
+			Vector2f scale;
+			scale = gameObjectToRender->transform->scale();
+
+			pos -= Vector2f(uiSpriteToRender->shape.getLocalBounds().width * scale.x, uiSpriteToRender->shape.getLocalBounds().height * scale.y) / 2.0f;
+
+			uiSpriteToRender->shape.setPosition(pos);
+			uiSpriteToRender->shape.setScale(scale);
+		}
 #pragma endregion
 		///
 
@@ -176,12 +192,20 @@ namespace alpha
 					if (d->objectToRender->render == false)
 						continue;
 
-					if (!d->isUI)
+					if (d->isUI)
+						d->CalculateUIDraw();
+					else
 						d->CalculateDraw();
+
 					for (auto& dw : d->objectToRender->drawables)
 						Draw(dw, d);
 				}
 			}
+
+			/*RectangleShape rect = RectangleShape(Vector2f(100, 100));
+			rect.setFillColor(Color::Blue);
+			rect.setScale(Vector2f(4, 1));
+			gameWindow->window->draw(rect);*/
 		}
 
 		void Display::Draw(Drawable* _drawable, DisplayedObject* _d)

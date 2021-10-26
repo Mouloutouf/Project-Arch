@@ -18,36 +18,35 @@ namespace alpha
 		{
 		public:
 
+			RenderObject();
 			RenderObject(int _ppu);
+			virtual ~RenderObject();
 
-			virtual void Create(int _ppu) = 0;
-
-			int ppu = 100; // ppu
-
-			vector<Drawable*> drawables;
+			int ppu = 100;
 
 			__Layer layer = Layers::DEFAULT_LAYER;
 			int orderInLayer = 0;
 
 			bool render = true;
+
+			vector<Drawable*> drawables;
 		};
 
 		class TextObject : public RenderObject
 		{
 		public:
 
-			TextObject(int _ppu);
-			TextObject(int _ppu, string _string, Color _color);
+			TextObject(int _ppu, string _string = "New Text", Color _color = Color::White);
 			TextObject(const TextObject& that);
+			virtual ~TextObject();
+
+			void Create(string _string, Color _color);
 
 			Color color;
 			string string;
 			Font font;
 
 			Text text;
-
-			void Create(int _ppu) override;
-			void Create(int _ppu, std::string _string, Color _color);
 
 			void SetString(std::string _string);
 			void SetCharacterSize(int _size);
@@ -58,14 +57,14 @@ namespace alpha
 		{
 		public:
 
-			SpriteObject(int _ppu);
-			SpriteObject(int _ppu, string _spritePath);
+			SpriteObject();
+			SpriteObject(int _ppu, string _spritePath = DEFAULT_SPRITE);
 			SpriteObject(int _ppu, Texture _texture);
 			SpriteObject(const SpriteObject& that);
+			virtual ~SpriteObject();
 
-			void Create(int _ppu) override;
-			virtual void Create(int _ppu, string _spritePath);
-			virtual void Create(int _ppu, Texture _texture);
+			void Create(string _spritePath);
+			void Create(Texture _texture);
 
 			string spritePath;
 
@@ -81,12 +80,13 @@ namespace alpha
 		{
 		public:
 
-			UISpriteObject(int _ppu, string _spritePath);
+			UISpriteObject(int _ppu, string _spritePath = string());
 			UISpriteObject(int _ppu, Texture _texture);
 			UISpriteObject(const UISpriteObject& that);
+			virtual ~UISpriteObject();
 
-			void Create(int _ppu, string _spritePath) override;
-			void Create(int _ppu, Texture _texture) override;
+			void Create(string _spritePath);
+			void Create(Texture _texture);
 
 			RectangleShape shape;
 

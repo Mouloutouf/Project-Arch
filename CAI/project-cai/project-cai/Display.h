@@ -28,6 +28,7 @@ namespace alpha
 			~DisplayedObject();
 
 			void CalculateDraw();
+			void CalculateUIDraw();
 
 			GameObject* gameObjectToRender;
 
