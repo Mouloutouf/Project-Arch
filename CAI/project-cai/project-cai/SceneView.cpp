@@ -107,6 +107,7 @@ namespace alpha
             auto topBarUISr = topBar->AddComponent(new UISpriteRenderer(topBar, &currentDisplay));
             topBarUISr->SetLayer(Layers::UI_LAYER);
             topBarUISr->SetColor(Color::Blue);
+            //topBarUISr->SetOutline(1.0f, Color::White);
         }
 
         void SceneView::Play()

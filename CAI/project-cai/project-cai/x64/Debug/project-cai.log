@@ -1,2 +1,3 @@
-﻿  SceneView.cpp
-  project-cai.vcxproj -> D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\x64\Debug\project-cai.exe
+﻿  Display.cpp
+D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Display.cpp(162): warning C4715: 'alpha::core::Display::FindKeyPosition' : les chemins de contrôle ne retournent pas tous une valeur
+  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe

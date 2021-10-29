@@ -103,8 +103,11 @@ namespace alpha
 
 			pos -= Vector2f(uiSpriteToRender->shape.getLocalBounds().width * scale.x, uiSpriteToRender->shape.getLocalBounds().height * scale.y) / 2.0f;
 
-			uiSpriteToRender->shape.setPosition(pos);
 			uiSpriteToRender->shape.setScale(scale);
+			uiSpriteToRender->shape.setPosition(pos);
+			// For some reason, using setSize instead of setScale is impossible, even though we get consistent results using a same fixed position.
+			// Likely, pos gets corrupted after change of size. Not that this makes any sense at all.
+			// What the actual fuck ?
 		}
 #pragma endregion
 		///
@@ -202,10 +205,11 @@ namespace alpha
 				}
 			}
 
-			/*RectangleShape rect = RectangleShape(Vector2f(100, 100));
+			RectangleShape rect = RectangleShape(Vector2f(1, 1));
 			rect.setFillColor(Color::Blue);
-			rect.setScale(Vector2f(4, 1));
-			gameWindow->window->draw(rect);*/
+			//rect.setScale(Vector2f(400, 100));
+			rect.setSize(Vector2f(400, 100));
+			gameWindow->window->draw(rect);
 		}
 
 		void Display::Draw(Drawable* _drawable, DisplayedObject* _d)
