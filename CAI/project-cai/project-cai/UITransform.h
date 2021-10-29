@@ -37,7 +37,7 @@ namespace alpha
 
 			void SetSize(float _width, float _height);
 			void SetSize(float _right, float _left, float _height);
-			void SetSize(float _top, float _bottom, float _width, bool second = true);
+			void SetSize(float _top, float _bottom, float _width, bool second);
 			void SetSize(float _top, float _bottom, float _right, float _left);
 
 			Vector2f Pivot();

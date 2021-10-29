@@ -100,8 +100,10 @@ namespace alpha
 
             auto topBar = CreateGameObject("Top Bar", canvasPrefab, new UITransform(canvasPrefab));
             auto topBarUI = static_cast<UITransform*>(topBar->transform);
-            topBarUI->SetAnchor(0, 1, true, true);
-            topBarUI->SetSize(0.0f, 780.0f, 40.0f, 40.0f);
+            topBarUI->SetAnchor(0, 1, true, false);
+            //topBarUI->SetSize(0.0f, 1030.0f, 0.0f, 0.0f);
+            topBarUI->SetSize(0.0f, 0.0f, 50.0f);
+            //topBarUI->SetSize(100.0f, 100.0f, 0.0f, 1780.0f);
             auto topBarUISr = topBar->AddComponent(new UISpriteRenderer(topBar, &currentDisplay));
             topBarUISr->SetLayer(Layers::UI_LAYER);
             topBarUISr->SetColor(Color::Blue);
