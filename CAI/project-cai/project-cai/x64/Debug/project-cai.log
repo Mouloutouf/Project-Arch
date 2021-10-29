@@ -1,5 +1,2 @@
-﻿  Display.cpp
-  Grid.cpp
-  Génération de code en cours...
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Display.cpp(159): warning C4715: 'alpha::core::Display::FindKeyPosition' : les chemins de contrôle ne retournent pas tous une valeur
+﻿  SceneView.cpp
   project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe

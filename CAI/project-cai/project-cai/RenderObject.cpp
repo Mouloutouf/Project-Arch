@@ -107,10 +107,12 @@ namespace alpha
 #pragma region UI Sprite Object
 		UISpriteObject::UISpriteObject(int _ppu, string _spritePath)
 		{
+			ppu = _ppu;
 			Create(_spritePath);
 		}
 		UISpriteObject::UISpriteObject(int _ppu, Texture _texture)
 		{
+			ppu = _ppu;
 			Create(_texture);
 		}
 		UISpriteObject::UISpriteObject(const UISpriteObject& that)
