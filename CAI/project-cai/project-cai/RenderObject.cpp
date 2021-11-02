@@ -150,7 +150,7 @@ namespace alpha
 				shape.setFillColor(Color::Transparent);
 				drawables.push_back(&shape);
 			}
-			shape.setOutlineThickness(_thickness);
+			shape.setOutlineThickness(-_thickness);
 			shape.setOutlineColor(_color);
 		}
 		bool UISpriteObject::HasOutline() { return outlineThickness > 0; }

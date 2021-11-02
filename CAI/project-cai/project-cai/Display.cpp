@@ -101,13 +101,14 @@ namespace alpha
 			Vector2f scale;
 			scale = gameObjectToRender->transform->scale();
 
-			pos -= Vector2f(uiSpriteToRender->shape.getLocalBounds().width * scale.x, uiSpriteToRender->shape.getLocalBounds().height * scale.y) / 2.0f;
+			pos -= Vector2f(scale.x, scale.y) / 2.0f;
 
-			uiSpriteToRender->shape.setScale(scale);
+			uiSpriteToRender->shape.setSize(scale);
 			uiSpriteToRender->shape.setPosition(pos);
 			// For some reason, using setSize instead of setScale is impossible, even though we get consistent results using a same fixed position.
 			// Likely, pos gets corrupted after change of size. Not that this makes any sense at all.
-			// What the actual fuck ?
+			// Well yes pos gets "corrupted", since the size is changed, and it is the size that was used, multiplied with the scale that changed the pos.
+			// So at first, with a size of 1, it works fine, and then on the next frame, size is equal to scale, and then scale squared, etc.
 		}
 #pragma endregion
 		///
@@ -205,11 +206,11 @@ namespace alpha
 				}
 			}
 
-			RectangleShape rect = RectangleShape(Vector2f(1, 1));
-			rect.setFillColor(Color::Blue);
-			//rect.setScale(Vector2f(400, 100));
-			rect.setSize(Vector2f(400, 100));
-			gameWindow->window->draw(rect);
+			//RectangleShape rect = RectangleShape(Vector2f(1, 1));
+			//rect.setFillColor(Color::Blue);
+			//rect.setSize(Vector2f(400, 100));
+			//rect.setOutlineThickness(-1.0f);
+			//gameWindow->window->draw(rect);
 		}
 
 		void Display::Draw(Drawable* _drawable, DisplayedObject* _d)
