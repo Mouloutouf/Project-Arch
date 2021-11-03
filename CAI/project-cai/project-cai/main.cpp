@@ -28,6 +28,10 @@ int main()
 		{
 			if (event.type == Event::Closed)
 				window->close();
+			if (event.type == Event::KeyPressed) {
+				if (event.key.alt == Keyboard::F4)
+					window->close();
+			}
 
 			gameEngine.EventRun(event, elapsedTime);
 		}

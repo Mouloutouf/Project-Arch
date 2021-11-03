@@ -1,3 +1,3 @@
-﻿  Display.cpp
-D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\project-cai\Display.cpp(163): warning C4715: 'alpha::core::Display::FindKeyPosition' : les chemins de contrôle ne retournent pas tous une valeur
-  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe
+﻿  main.cpp
+D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\main.cpp(32,36): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'sf::Keyboard::Key' can equal the given constant
+  project-cai.vcxproj -> D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\x64\Debug\project-cai.exe
