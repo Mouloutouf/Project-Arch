@@ -1,3 +1,2 @@
-﻿  main.cpp
-D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\main.cpp(32,36): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'sf::Keyboard::Key' can equal the given constant
+﻿  SceneView.cpp
   project-cai.vcxproj -> D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\x64\Debug\project-cai.exe

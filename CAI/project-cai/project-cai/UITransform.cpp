@@ -52,7 +52,7 @@ namespace alpha
 				localPosition.x = (_left / 2) - (_right / 2);
 			}
 			localScale.y = height = _height;
-			localPosition.y -= _height / 2;
+			localPosition.y -= (_height / 2) * anchor.position.y;
 		}
 		void UITransform::SetSize(float _top, float _bottom, float _width, bool second)
 		{
@@ -62,7 +62,7 @@ namespace alpha
 				localPosition.y = (_bottom / 2) - (_top / 2);
 			}
 			localScale.x = width = _width;
-			localPosition.x -= _width / 2;
+			localPosition.x -= _width / 2 * anchor.position.x;
 		}
 		void UITransform::SetSize(float _top, float _bottom, float _right, float _left)
 		{

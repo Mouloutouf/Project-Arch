@@ -105,10 +105,6 @@ namespace alpha
 
 			uiSpriteToRender->shape.setSize(scale);
 			uiSpriteToRender->shape.setPosition(pos);
-			// For some reason, using setSize instead of setScale is impossible, even though we get consistent results using a same fixed position.
-			// Likely, pos gets corrupted after change of size. Not that this makes any sense at all.
-			// Well yes pos gets "corrupted", since the size is changed, and it is the size that was used, multiplied with the scale that changed the pos.
-			// So at first, with a size of 1, it works fine, and then on the next frame, size is equal to scale, and then scale squared, etc.
 		}
 #pragma endregion
 		///

@@ -31,6 +31,14 @@ namespace alpha
 
 #pragma region COLORS
 
+		const Color DARK_BLACK = Color(0, 4, 5);
+		const Color BACKGROUND_BLACK = Color(1, 9, 12);
+		const Color DARK_GREY_BLUE = Color(4, 21, 28);
+		const Color DARK_TEAL_BLUE = Color(6, 40, 53);
+		const Color GREY_BLUE = Color(56, 95, 127);
+		const Color DETAIL_GREY_BLUE = Color(111, 149, 178);
+		const Color WHITE_BLUE = Color(179, 212, 229);
+
 		const Color BACKGROUND_COLOR = Color(43, 46, 59);
 		const Color DETAIL_COLOR = Color(67, 82, 104);
 
