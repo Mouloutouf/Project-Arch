@@ -41,8 +41,14 @@ namespace alpha
 
 		void UITransform::SetSize(float _width, float _height)
 		{
-			localScale.x = width = _width;
-			localScale.y = height = _height;
+			// Change the localPosition edit to a custom anchor postion for correction
+			// Then apply that correction in the position() method
+			// And let localPosition only be edited by the user, or when using stretching (which automatically determines the position)
+
+			width = _width;
+			origin.x = -(_width / 2) * anchor.position.x;
+			height = _height;
+			origin.y = -(_height / 2) * anchor.position.y;
 		}
 		void UITransform::SetSize(float _right, float _left, float _height)
 		{
@@ -51,8 +57,8 @@ namespace alpha
 				left = _left;
 				localPosition.x = (_left / 2) - (_right / 2);
 			}
-			localScale.y = height = _height;
-			localPosition.y -= (_height / 2) * anchor.position.y;
+			height = _height;
+			origin.y = -(_height / 2) * anchor.position.y;
 		}
 		void UITransform::SetSize(float _top, float _bottom, float _width, bool second)
 		{
@@ -61,8 +67,8 @@ namespace alpha
 				bottom = _bottom;
 				localPosition.y = (_bottom / 2) - (_top / 2);
 			}
-			localScale.x = width = _width;
-			localPosition.x -= _width / 2 * anchor.position.x;
+			width = _width;
+			origin.x = -(_width / 2) * anchor.position.x;
 		}
 		void UITransform::SetSize(float _top, float _bottom, float _right, float _left)
 		{
@@ -84,9 +90,9 @@ namespace alpha
 			if (anchor.stretch.x > 0) anchorX = 0;
 			if (anchor.stretch.y > 0) anchorY = 0;
 
-			float width = parent != nullptr ? parent->localScale.x / 2 : localScale.x / 2;
-			float height = parent != nullptr ? parent->localScale.y / 2 : localScale.y / 2;
-			return Vector2f(width * anchorX, height * anchorY);
+			float offsetX = parent != nullptr ? parent->scale().x / 2 : 0.0f;
+			float offsetY = parent != nullptr ? parent->scale().y / 2 : 0.0f;
+			return Vector2f(offsetX * anchorX, offsetY * anchorY);
 		}
 
 		UITransform* UITransform::Clone()
@@ -99,15 +105,15 @@ namespace alpha
 			Vector2f parentPosition = Vector2f(0, 0);
 			if (gameObject->GetParent() != nullptr) parentPosition = gameObject->GetParent()->transform->position();
 			Vector2f _pivot = Pivot();
-			Vector2f _position = localPosition + _pivot;
+			Vector2f _position = localPosition + _pivot + origin;
 			return _position + parentPosition;
 		}
 		float UITransform::rotation() { return 0.0f; }
 		Vector2f UITransform::scale()
 		{
 			Vector2f scale;
-			scale.x = anchor.stretch.x > 0 ? parent->localScale.x - right - left : width;
-			scale.y = anchor.stretch.y > 0 ? parent->localScale.y - top - bottom : height;
+			scale.x = anchor.stretch.x > 0 ? parent->scale().x - right - left : width;
+			scale.y = anchor.stretch.y > 0 ? parent->scale().y - top - bottom : height;
 			return scale;
 		}
 	}

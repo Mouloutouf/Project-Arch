@@ -47,7 +47,7 @@ namespace alpha
 
 		void Grid::Start()
 		{
-			GenerateMap();
+			//GenerateMap();
 		}
 
 		void Grid::Update(float _elapsedTime)

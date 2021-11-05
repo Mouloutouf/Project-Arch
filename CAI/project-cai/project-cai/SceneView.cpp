@@ -109,8 +109,9 @@ namespace alpha
 
             auto testSquare = CreateGameObject("Test Square", topBar, new UITransform(topBar));
             auto testSquareUI = static_cast<UITransform*>(testSquare->transform);
-            testSquareUI->SetAnchor(-1, 1, false, false);
-            testSquareUI->SetSize(200.0f, 200.0f);
+            testSquareUI->localPosition = Vector2f(0, -10.0f);
+            testSquareUI->SetAnchor(0, 1, true, false);
+            testSquareUI->SetSize(10.0f, 10.0f, 100.0f);
             auto testSquareUISr = testSquare->AddComponent(new UISpriteRenderer(testSquare, &currentDisplay));
             testSquareUISr->SetLayer(Layers::UI_LAYER);
             testSquareUISr->SetColor(DARK_TEAL_BLUE);

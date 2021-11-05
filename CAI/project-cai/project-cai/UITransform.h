@@ -12,14 +12,15 @@ namespace alpha
 {
 	namespace core
 	{
+		/// Not used as of now
 		enum class AnchorX { Center, Right, Left };
 		enum class AnchorY { Center, Top, Bottom };
 		enum class AnchorStretch { None, Width, Height, Stretch };
 
 		struct Anchor
 		{
-			Vector2i position;
-			Vector2i stretch;
+			Vector2i position = Vector2i(0, 0);
+			Vector2i stretch = Vector2i(false, false);
 		};
 
 		enum class RenderSpace { ScreenSpace, WorldSpace };
@@ -56,7 +57,7 @@ namespace alpha
 
 			Anchor anchor;
 
-			float x = 0, y = 0;
+			Vector2f origin = Vector2f(0, 0);
 			float width = 0, height = 0;
 			float top = 0, bottom = 0, right = 0, left = 0;
 		};
