@@ -24,7 +24,7 @@ namespace alpha
 			// Text Renderer uses GameObject in its constructor as it needs to know wether the object is a prefab or not in order to add itself to the render
 			TextRenderer();
 			TextRenderer(GameObject* _gameObject, Display* _display, string _string = "", Color _color = Color::White, 
-				int _characterSize = 1, __Layer _layer = Layers::DEFAULT_LAYER);
+				int _characterSize = 10, __Layer _layer = Layers::DEFAULT_LAYER);
 			TextRenderer(const TextRenderer& that, GameObject* _gameObject);
 			~TextRenderer();
 
@@ -35,6 +35,8 @@ namespace alpha
 			void AddToRender();
 
 			void SetString(string _string);
+			void SetCharacterSize(int _value);
+			void SetColor(Color _color);
 
 			void SetLayer(__Layer _layer);
 			__Layer GetLayer();

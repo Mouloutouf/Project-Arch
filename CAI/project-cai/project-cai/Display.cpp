@@ -66,33 +66,42 @@ namespace alpha
 
 			/// Apply
 			if (!isText) {
-				auto spriteToRender = (SpriteObject*)objectToRender;
+				auto spriteElement = (SpriteObject*)objectToRender;
 
 				// Calculate the final position relative to the center of the sprite
-				pos -= Vector2f(spriteToRender->sprite.getTextureRect().width * scale.x, spriteToRender->sprite.getTextureRect().height * scale.y) / 2.0f;
+				pos -= Vector2f(spriteElement->sprite.getTextureRect().width * scale.x, spriteElement->sprite.getTextureRect().height * scale.y) / 2.0f;
 
 				cachedDrawPos = pos;
 
-				spriteToRender->sprite.setPosition(pos);
-				spriteToRender->sprite.setScale(scale);
+				spriteElement->sprite.setPosition(pos);
+				spriteElement->sprite.setScale(scale);
 			}
 			if (isText) {
-				auto textToRender = (TextObject*)objectToRender;
+				auto textElement = (TextObject*)objectToRender;
 
-				// Calculate the final position relative to the center of the text
-				//pos -= Vector2f(textToRender->text.getLocalBounds().width * scale.x, textToRender->text.getLocalBounds().height * scale.y) / 2.0f; 
+				auto renderText = RenderTexture();
+				auto width = textElement->text.getLocalBounds().width, height = textElement->text.getLocalBounds().height;
+				renderText.create(textElement->text.getLocalBounds().width, textElement->text.getLocalBounds().height);
+				renderText.clear(Color::Transparent);
+				renderText.draw(textElement->text);
+				renderText.display();
+				//renderText.setSmooth(1);
 
-				pos -= Vector2f(textToRender->text.getLocalBounds().width, textToRender->text.getLocalBounds().height);
-				pos += Vector2f(textToRender->text.getLocalBounds().width / 2.0f, 0.0f);
+				auto& textureText = renderText.getTexture();
+				textElement->spriteText = Sprite(textureText);
+
+				// Calculate the final position relative to the center of the sprite
+				pos -= Vector2f(textElement->spriteText.getTextureRect().width * scale.x, textElement->spriteText.getTextureRect().height * scale.y) / 2.0f;
+
 				cachedDrawPos = pos;
 
-				textToRender->text.setPosition(pos);
-				//textToRender->SetCharacterSize(ppu * scale.x * 0.2f);
+				textElement->spriteText.setPosition(pos);
+				textElement->spriteText.setScale(scale);
 			}
 		}
 		void DisplayedObject::CalculateUIDraw()
 		{
-			auto uiSpriteToRender = (UISpriteObject*)objectToRender;
+			auto uiElement = (UISpriteObject*)objectToRender;
 
 			Vector2f pos;
 			pos = gameObjectToRender->transform->position();
@@ -103,8 +112,14 @@ namespace alpha
 
 			pos -= Vector2f(scale.x, scale.y) / 2.0f;
 
-			uiSpriteToRender->shape.setSize(scale);
-			uiSpriteToRender->shape.setPosition(pos);
+			if (uiElement->hasShape) {
+				uiElement->shape.setSize(scale);
+				uiElement->shape.setPosition(pos);
+			}
+			if (uiElement->hasSprite) {
+				uiElement->sprite.setScale(scale);
+				uiElement->sprite.setPosition(pos);
+			}
 		}
 #pragma endregion
 		///
@@ -207,6 +222,21 @@ namespace alpha
 			//rect.setSize(Vector2f(400, 100));
 			//rect.setOutlineThickness(-1.0f);
 			//gameWindow->window->draw(rect);
+
+			auto f = Font();
+			f.loadFromFile(TEXT_FONT);
+			auto txt = Text("D", f, 64U);
+
+			auto rt = RenderTexture();
+			rt.create(500, 500);
+			rt.clear(Color::Transparent);
+			rt.draw(txt);
+			rt.display();
+
+			auto tx = rt.getTexture();
+			auto s = Sprite(tx);
+			s.setPosition(displayOrigin());
+			gameWindow->window->draw(s);
 		}
 
 		void Display::Draw(Drawable* _drawable, DisplayedObject* _d)

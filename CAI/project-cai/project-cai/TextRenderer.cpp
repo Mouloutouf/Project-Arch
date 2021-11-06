@@ -39,8 +39,13 @@ namespace alpha
 
 		void TextRenderer::SetString(string _string)
 		{
-			textObject->string = _string; textObject->text.setString(textObject->string);
+			textObject->string = _string;
+			textObject->text.setString(textObject->string);
 		}
+
+		void TextRenderer::SetCharacterSize(int _value) { textObject->SetCharacterSize(_value); }
+
+		void TextRenderer::SetColor(Color _color) { textObject->SetColor(_color); }
 
 		TextRenderer* TextRenderer::Clone(GameObject* _gameObject)
 		{

@@ -98,7 +98,7 @@ namespace alpha
             auto canvasPrefab = CreateGameObject("Canvas", nullptr, new UITransform((UITransform*)nullptr));
             auto canvas = canvasPrefab->AddComponent(new Canvas(canvasPrefab, RenderSpace::ScreenSpace, &currentDisplay));
 
-            auto topBar = CreateGameObject("Top Bar", canvasPrefab, new UITransform(canvasPrefab));
+            /*auto topBar = CreateGameObject("Top Bar", canvasPrefab, new UITransform(canvasPrefab));
             auto topBarUI = static_cast<UITransform*>(topBar->transform);
             topBarUI->SetAnchor(0, 0, true, true);
             topBarUI->SetSize(100.0f, 100.0f, 100.0f, 100.0f);
@@ -115,7 +115,12 @@ namespace alpha
             auto testSquareUISr = testSquare->AddComponent(new UISpriteRenderer(testSquare, &currentDisplay));
             testSquareUISr->SetLayer(Layers::UI_LAYER);
             testSquareUISr->SetColor(DARK_TEAL_BLUE);
-            testSquareUISr->SetOutline(1.0f, WHITE_BLUE);
+            testSquareUISr->SetOutline(1.0f, WHITE_BLUE);*/
+
+            auto randomText = CreateGameObject("Random Text");
+            auto testText = randomText->AddComponent(new TextRenderer(randomText, &currentDisplay, "A"));
+            testText->SetCharacterSize(128);
+            testText->SetLayer(Layers::UI_LAYER);
         }
 
         void SceneView::Play()

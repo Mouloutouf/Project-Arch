@@ -27,7 +27,7 @@ namespace alpha
 			: RenderObject(that), string(that.string), color(that.color), font(that.font), text(that.text)
 		{
 			drawables.clear();
-			drawables.push_back(&text);
+			drawables.push_back(&spriteText);
 		}
 
 		TextObject::~TextObject()
@@ -40,7 +40,7 @@ namespace alpha
 			text = Text(_string, font, ppu);
 			text.setFillColor(_color);
 
-			drawables.push_back(&text);
+			drawables.push_back(&spriteText);
 		}
 
 		void TextObject::SetString(std::string _string) { string = _string; text.setString(_string); }
@@ -116,12 +116,12 @@ namespace alpha
 			Create(_texture);
 		}
 		UISpriteObject::UISpriteObject(const UISpriteObject& that)
-			: SpriteObject(that), outlineColor(that.outlineColor), outlineThickness(that.outlineThickness), shape(that.shape)
+			: SpriteObject(that), outlineColor(that.outlineColor), outlineThickness(that.outlineThickness), shape(that.shape), hasSprite(that.hasSprite), hasShape(that.hasShape)
 		{
 			drawables.clear();
-			if (!spritePath.empty())
+			if (hasSprite)
 				drawables.push_back(&sprite);
-			if (spritePath.empty() || HasOutline())
+			if (hasShape)
 				drawables.push_back(&shape);
 		}
 
@@ -131,24 +131,31 @@ namespace alpha
 
 		void UISpriteObject::Create(string _spritePath)
 		{
-			SpriteObject::Create(_spritePath);
+			SetSprite(_spritePath);
 
 			if (spritePath.empty()) {
 				shape = RectangleShape(Vector2f(ppu, ppu));
 				drawables.push_back(&shape);
+				hasShape = true;
+			}
+			else {
+				drawables.push_back(&sprite);
+				hasSprite = true;
 			}
 		}
 		void UISpriteObject::Create(Texture _texture)
 		{
 			SpriteObject::Create(_texture);
+			hasSprite = true;
 		}
 
 		void UISpriteObject::SetOutline(float _thickness, Color _color)
 		{
-			if (!Utility::Contains(drawables, (Drawable*)&shape)) {
+			if (!hasShape) {
 				shape = RectangleShape(Vector2f(ppu, ppu));
 				shape.setFillColor(Color::Transparent);
 				drawables.push_back(&shape);
+				hasShape = true;
 			}
 			shape.setOutlineThickness(-_thickness);
 			shape.setOutlineColor(_color);
@@ -157,7 +164,7 @@ namespace alpha
 
 		void UISpriteObject::SetColor(Color _color)
 		{
-			if (!spritePath.empty())
+			if (hasSprite)
 				sprite.setColor(_color);
 			else
 				shape.setFillColor(_color);

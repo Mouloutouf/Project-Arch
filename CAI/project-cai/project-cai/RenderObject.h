@@ -47,6 +47,7 @@ namespace alpha
 			Font font;
 
 			Text text;
+			Sprite spriteText;
 
 			void SetString(std::string _string);
 			void SetCharacterSize(int _size);
@@ -89,6 +90,7 @@ namespace alpha
 			void Create(Texture _texture);
 
 			RectangleShape shape;
+			bool hasSprite, hasShape;
 
 			float outlineThickness = 0.0f;
 			Color outlineColor = Color::White;

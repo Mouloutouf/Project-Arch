@@ -1,2 +1,13 @@
-﻿  SceneView.cpp
-  project-cai.vcxproj -> D:\Documents\__PROG\_C++\Project-Arch\CAI\project-cai\x64\Debug\project-cai.exe
+﻿  Display.cpp
+D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\Display.cpp(84,99): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\Display.cpp(84,57): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\Display.cpp(174): warning C4715: 'alpha::core::Display::FindKeyPosition': not all control paths return a value
+  project-cai.vcxproj -> D:\Documents\_PROJETS DEV\C++\Project Arch\Project CAI\Project-Arch\CAI\project-cai\project-cai\x64\Debug\project-cai.exe
