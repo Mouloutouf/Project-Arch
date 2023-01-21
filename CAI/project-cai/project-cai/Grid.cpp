@@ -29,8 +29,8 @@ namespace alpha
 			randomTerritoryPercent = 70; // Amount of Sea (Territory)
 			randomIslandPercent = 70; // Amount of Land (Island)
 
-			biomesFillValues.insert({ BiomeType::Desert, 2.5f });
-			biomesFillValues.insert({ BiomeType::Field, 2.5f });
+			biomesFillValues.insert({ BiomeType::Desert, 3.0f });
+			biomesFillValues.insert({ BiomeType::Field, 3.0f });
 			biomesFillValues.insert({ BiomeType::Forest, 4.0f });
 			biomesFillValues.insert({ BiomeType::Mountain, 2.0f });
 			biomesFillValues.insert({ BiomeType::Lake, 2.0f });

@@ -30,7 +30,7 @@ namespace alpha
 			// What's the difference between the two ?
 			// Which of them works, if not both ?
 			// Has polymorphism made it work ?
-			// Is the overriden Create method, called through the parent object in the constructor, indeed overriden or is it the base method called ?
+			// Is the overriden Create method, called through the parent object in the constructor, is indeed overriden or is it the base method called ?
 			// How can you make it polymorphic, without too much overhead ?
 			// How can you reduce the amount of constructors safely and make a quicker and more straightforward architecture ?
 			// How does typeid actually works ?
